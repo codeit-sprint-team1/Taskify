@@ -1,5 +1,11 @@
 import type { Config } from 'tailwindcss';
 
+const WIDTH_VALUES = {
+  '620': '38.75rem',
+  '544': '34rem',
+  '284': '17.75rem',
+};
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,6 +14,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      width: {
+        ...WIDTH_VALUES,
+      },
+      maxWidth: {
+        ...WIDTH_VALUES,
+      },
+      minWidth: {
+        ...WIDTH_VALUES,
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
