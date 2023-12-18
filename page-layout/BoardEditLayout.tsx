@@ -5,7 +5,7 @@ interface BoardEditLayoutProps {
 }
 
 function BoardEditLayout({ nameEditForm }: BoardEditLayoutProps) {
-  return <div className="flex-center">{nameEditForm}</div>;
+  return <div>{nameEditForm}</div>;
 }
 
 export default BoardEditLayout;
