@@ -16,7 +16,7 @@ function NameEditForm() {
         </label>
         <input
           name="boardName"
-          className="rounded-md border border-gray30 w-full h-12 mb-6"
+          className="rounded-md border border-gray30 w-full h-12 mb-6 focus:outline-none indent-3"
         />
         <Button className="self-end w-24 px-[1.8125rem] py-[0.4375rem] bg-violet text-sm font-medium border rounded text-white">
           변경

@@ -22,10 +22,6 @@ function ColorChips({ setColor }: ColorChipsProps) {
     { key: '4', value: '#E876EA', checked: false },
   ]);
 
-  const checked = {
-    checked: '',
-  };
-
   const onChangeCheck =
     (element: PaletteType) => (event: ChangeEvent<HTMLInputElement>) => {
       const selectedInput = isSelect.map((element, index) => {
