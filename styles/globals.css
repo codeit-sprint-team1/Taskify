@@ -11,6 +11,12 @@
   }
 }
 
+@layer components {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+}
+
 @font-face {
   font-family: 'Pretendard';
   font-weight: 900;
