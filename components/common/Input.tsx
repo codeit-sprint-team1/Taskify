@@ -35,9 +35,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div>
         <div>
-          <label className="text-lg text-gray70 font-medium">{label}</label>
+          <label className="tablet:text-lg mobile:text-base text-gray70 font-medium ">
+            {label}
+          </label>
           {required && (
-            <span className="text-lg text-violet font-medium"> *</span>
+            <span className="tablet:text-lg mobile:text-base text-violet font-medium">
+              *
+            </span>
           )}
         </div>
         <div className="mt-2.5">
@@ -50,7 +54,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             onBlur={onBlur}
             className={`block w-full rounded-md border border-solid ${
               hasError ? 'border-red' : 'border-gray30'
-            } px-4 py-3.5 text-base text-gray70 placeholder:text-gray40 focus:border-violet outline-0`}
+            } px-4 py-3.5 tablet:text-base mobile:text-sm text-gray70 placeholder:text-gray40 focus:border-violet outline-0`}
           />
         </div>
         {hasError && <p className="text-sm text-red mt-2">{helperText}</p>}
