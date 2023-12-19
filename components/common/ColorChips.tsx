@@ -31,7 +31,7 @@ function ColorChips({ onSelect }: ColorChipsProps) {
       onSelect(element.value);
     };
   return (
-    <div className="flex space-x-2.5">
+    <div className="flex space-x-10pxr">
       {isSelect.map((element, index) => (
         <label htmlFor={element.key} key={element.key}>
           <input
@@ -44,7 +44,7 @@ function ColorChips({ onSelect }: ColorChipsProps) {
             className="hidden"
           />
           <motion.div
-            className="w-7 h-7 rounded-full cursor-pointer flex-center"
+            className="w-30pxr h-30pxr rounded-full cursor-pointer flex-center"
             style={{ backgroundColor: element.value }}
             whileTap={{ scale: 0.7 }}
           >
