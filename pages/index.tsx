@@ -47,57 +47,89 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="bg-red">
-        <div>
-          <Image src={topImg} alt="topImg" />
-          <div className="text-[4.75rem] font-bold">
-            새로운 일정 관리 <span className="text-violet">Taskify</span>
+      <div className="py-24 flex-col-center gap-24">
+        <div className="pb-[5.5rem]">
+          <div className="flex-col-center gap-12">
+            <Image src={topImg} alt="topImg" />
+            <div className="text-[4.75rem] font-bold">
+              새로운 일정 관리 <span className="text-violet">Taskify</span>
+            </div>
+            <button className="bg-violet py-4 w-[17.5rem] rounded-lg text-white">
+              <span className="text-lg font-medium	">로그인하기</span>
+            </button>
           </div>
-          <button className="bg-violet py-4 w-[17.5rem]">로그인하기</button>
         </div>
-      </div>
-      <div className="flex-center bg-pink">
-        <div>
-          <div>Point 1</div>
-          <div>일의 우선순위를 관리하세요</div>
-        </div>
-        <Image src={point1Img} alt="point1Img" />
-      </div>
-      <div className="flex-center bg-orange">
-        <Image src={point2Img} alt="point1Img" />
-        <div>
-          <div>Point 2</div>
-          <div>해야 할 일을 등록하세요</div>
-        </div>
-      </div>
-      <div className="bg-blue">
-        생산성을 높이는 다양한 설정 ⚡
-        <div className="flex-center gap-8">
-          <div>
-            <div className="bg-gray60">
-              <Image src={card1Img} alt="card1Img" />
-            </div>
-            <div className="bg-gray10">
-              <div>대시보드 설정</div>
-              <div>대시보드 사진과 이름을 변경할 수 있어요.</div>
-            </div>
+        <div className="flex bg-gray30 pt-24 pl-[3.75rem] w-[75rem] justify-between rounded-lg">
+          <div className="flex flex-col gap-24">
+            <span className="text-[1.375rem] font-medium text-gray60">
+              Point 1
+            </span>
+            <span className="text-5xl font-bold">
+              일의 우선순위를
+              <br /> 관리하세요
+            </span>
           </div>
-          <div>
-            <div className="bg-gray60">
-              <Image src={card1Img} alt="card1Img" />
-            </div>
-            <div className="bg-gray10">
-              <div>초대</div>
-              <div>새로운 팀원을 초대할 수 있어요.</div>
-            </div>
+          <div className="w-[37.125rem]">
+            <Image src={point1Img} alt="point1Img" />
           </div>
-          <div>
-            <div className="bg-gray60">
-              <Image src={card1Img} alt="card1Img" />
+        </div>
+        <div className="flex bg-gray30 pt-24 pl-28 w-[75rem] gap-[6.25rem] rounded-lg">
+          <div className="w-[27.25rem]">
+            <Image src={point2Img} alt="point1Img" />
+          </div>
+          <div className="flex flex-col gap-24">
+            <span className="text-[1.375rem] font-medium text-gray60">
+              Point 2
+            </span>
+            <span className="text-5xl font-bold">
+              해야 할 일을
+              <br /> 등록하세요
+            </span>
+          </div>
+        </div>
+        <div className="pb-16 flex flex-col gap-9">
+          <span className="text-[1.75rem] font-bold">
+            생산성을 높이는 다양한 설정 ⚡
+          </span>
+          <div className="flex-center gap-8">
+            <div>
+              <div className="bg-gray60 flex-center w-[23.625rem] py-16 rounded-t-lg">
+                <Image src={card1Img} alt="card1Img" />
+              </div>
+              <div className="bg-gray30 pl-8 py-8 rounded-b-lg">
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold">대시보드 설정</span>
+                  <span className="font-medium">
+                    대시보드 사진과 이름을 변경할 수 있어요.
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray10">
-              <div>구성원</div>
-              <div>구성원을 초대하고 내보낼 수 있어요.</div>
+            <div>
+              <div className="bg-gray60 flex-center w-[23.625rem] py-[2.6rem] rounded-t-lg">
+                <Image src={card2Img} alt="card2Img" />
+              </div>
+              <div className="bg-gray30 pl-8 py-8 rounded-b-lg">
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold">초대</span>
+                  <span className="font-medium">
+                    새로운 팀원을 초대할 수 있어요.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="bg-gray60 flex-center w-[23.625rem] py-[1.5rem] rounded-t-lg">
+                <Image src={card3Img} alt="card3Img" />
+              </div>
+              <div className="bg-gray30 pl-8 py-8 rounded-b-lg">
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold">구성원</span>
+                  <span className="font-medium">
+                    대시보드 사진과 이름을 변경할 수 있어요.
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
