@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Button from '../common/Button';
 import ColorChips from '../common/ColorChips';
 
 function NameEditForm() {
@@ -18,9 +17,6 @@ function NameEditForm() {
           name="boardName"
           className="rounded-md border border-gray30 w-full h-12 mb-6 focus:outline-none indent-3"
         />
-        <Button className="self-end w-24 px-[1.8125rem] py-[0.4375rem] bg-violet text-sm font-medium border rounded text-white">
-          변경
-        </Button>
       </form>
     </div>
   );
