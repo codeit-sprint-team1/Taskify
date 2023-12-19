@@ -6,13 +6,17 @@ import {
   VALID_PASSWORD_REG,
 } from '../constants';
 import { Input } from '../input/Input';
-import { useCheckEmailDuplicate } from '../useCheckEmailDuplicate';
-import { useSignUp } from '../useSignup';
-// import { useTokenRedirect } from "../util-use-token-redirect";
-
+import { useCheckEmailDuplicate, useSignUp, useTokenRedirect } from '../data';
+import { PasswordInput } from '../input/PasswordInput';
+import { axiosInstance } from '@/utils';
 export const SignUpForm = () => {
   const { control, handleSubmit, watch } = useForm({
-    defaultValues: { email: '', password: '', confirmedPassword: '' },
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmedPassword: '',
+      nickname: '',
+    },
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   });
@@ -22,10 +26,10 @@ export const SignUpForm = () => {
   const { execute: signUp, data } = useSignUp({
     email: watch('email'),
     password: watch('password'),
+    nickname: watch('nickname'),
   });
 
   // useTokenRedirect(data?.data.accessToken);
-
   return (
     <form onSubmit={handleSubmit(signUp)}>
       <div>
@@ -42,7 +46,7 @@ export const SignUpForm = () => {
             validate: {
               alreadyExist: async () => {
                 const response = await checkEmailDuplicate();
-                if (!response?.data?.data.isUsableNickname) {
+                if (!response?.data?.data.isUsableEmail) {
                   return ERROR_MESSAGE.emailAlreadyExist;
                 }
                 return true;
@@ -59,8 +63,35 @@ export const SignUpForm = () => {
           )}
         />
       </div>
-      {/* <div className={cx('input-box')}>
-        <label className={cx('label')}>비밀번호</label>
+      <div>
+        <label>닉네임</label>
+        <Controller
+          control={control}
+          name="nickname"
+          rules={{
+            required: ERROR_MESSAGE.nicknameRequired,
+            validate: {
+              maxLength: (value) => {
+                if (value.length > 10) {
+                  return ERROR_MESSAGE.nicknameLimit;
+                }
+                return true;
+              },
+            },
+          }}
+          render={({ field, fieldState }) => (
+            <Input
+              {...field}
+              placeholder={PLACEHOLDER.email}
+              hasError={Boolean(fieldState.error)}
+              helperText={fieldState.error?.message}
+              maxLength={10}
+            />
+          )}
+        />
+      </div>
+      <div>
+        <label>비밀번호</label>
         <Controller
           control={control}
           name="password"
@@ -82,8 +113,8 @@ export const SignUpForm = () => {
           )}
         />
       </div>
-      <div className={cx('input-box')}>
-        <label className={cx('label')}>비밀번호 확인</label>
+      <div>
+        <label>비밀번호 확인</label>
         <Controller
           control={control}
           name="confirmedPassword"
@@ -107,7 +138,7 @@ export const SignUpForm = () => {
             />
           )}
         />
-      </div> */}
+      </div>
       <button type="submit">가입하기</button>
     </form>
   );

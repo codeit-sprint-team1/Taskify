@@ -11,7 +11,8 @@ export const ERROR_MESSAGE = {
   emailAlreadyExist: '이미 사용 중인 이메일입니다.',
   passwordInvalid: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
   confirmedPasswordNotMatch: '비밀번호가 일치하지 않습니다.',
-  nicknameInvalid: '10자 이하로 작성해주세요.',
+  nicknameRequired: '닉네임에는 특수문자를 사용하실 수 없습니다.',
+  nicknameLimit: '닉네임은 10자를 초과할 수 없습니다.',
 };
 
 export const SUCCESS_JOIN_MESSAGE = '회원가입이 완료되었습니다.';

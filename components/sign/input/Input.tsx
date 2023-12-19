@@ -13,6 +13,7 @@ export type InputProps = {
   helperText?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
+  maxLength?: number;
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
