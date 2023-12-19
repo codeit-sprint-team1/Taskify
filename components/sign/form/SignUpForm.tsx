@@ -20,15 +20,14 @@ export const SignUpForm = () => {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   });
-  const { execute: checkEmailDuplicate } = useCheckEmailDuplicate(
-    watch('email')
-  );
+
   const { execute: signUp, data } = useSignUp({
     email: watch('email'),
     password: watch('password'),
     nickname: watch('nickname'),
   });
 
+  console.log(data);
   // useTokenRedirect(data?.data.accessToken);
   return (
     <form onSubmit={handleSubmit(signUp)}>
@@ -42,15 +41,6 @@ export const SignUpForm = () => {
             pattern: {
               value: VALID_EMAIL_REG,
               message: ERROR_MESSAGE.emailInvalid,
-            },
-            validate: {
-              alreadyExist: async () => {
-                const response = await checkEmailDuplicate();
-                if (!response?.data?.data.isUsableEmail) {
-                  return ERROR_MESSAGE.emailAlreadyExist;
-                }
-                return true;
-              },
             },
           }}
           render={({ field, fieldState }) => (
