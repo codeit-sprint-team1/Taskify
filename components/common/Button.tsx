@@ -1,11 +1,18 @@
 import React, { ReactNode } from 'react';
 
 type Variant = 'primary' | 'secondary' | 'modal' | 'inactive';
-type Size = 'desktop' | 'tablet' | 'mobile' | 'large' | 'small' | 'sign';
+type Size =
+  | 'desktop'
+  | 'tablet'
+  | 'mobile'
+  | 'xsmall'
+  | 'small'
+  | 'sign'
+  | 'responsive';
 
 interface ButtonProps {
   variant: Variant;
-  type?: 'submit' | undefined;
+  type?: 'submit' | 'button' | undefined;
   size: Size;
   className?: String;
   onClick?: () => void;
@@ -14,7 +21,7 @@ interface ButtonProps {
 
 function Button({
   variant,
-  type,
+  type = 'button',
   size,
   className,
   onClick,
@@ -46,27 +53,32 @@ function Button({
 
   switch (size) {
     case 'desktop': {
-      combinedClassName += ' py-[0.4375rem] px-[1.8125rem] text-sm ';
+      combinedClassName +=
+        ' desktop:py-7pxr desktop:px-29pxr desktop:text-14pxr ';
       break;
     }
     case 'tablet': {
-      combinedClassName += ' py-[0.375rem] px-[1.4375rem] text-sm ';
+      combinedClassName += ' tablet:py-6pxr tablet:px-23pxr tablet:text-14pxr ';
       break;
     }
     case 'mobile': {
-      combinedClassName += ' py-[0.4375rem] px-[2.3125rem] text-xs ';
+      combinedClassName += ' mobile:py-7pxr mobile:x-37pxr mobile:text-12pxr ';
       break;
     }
-    case 'large': {
-      combinedClassName += ' py-[0.4375rem] px-[1.8125rem] text-sm';
-      break;
+    case 'responsive': {
+      combinedClassName +=
+        ' desktop:py-7pxr desktop:px-29pxr desktop:text-14pxr tablet:py-6pxr tablet:px-23pxr tablet:text-14pxr mobile:py-7pxr mobile:px-37pxr mobile:text-12pxr';
     }
     case 'small': {
-      combinedClassName += ' py-[0.4375rem] px-[0.5625rem] text-xs w-[3.25rem]';
+      combinedClassName += ' py-7pxr px-29pxr text-14pxr';
+      break;
+    }
+    case 'xsmall': {
+      combinedClassName += ' py-7pxr px-29pxr text-12pxr w-52pxr';
       break;
     }
     case 'sign': {
-      combinedClassName += ' py-[0.875rem] px-[14.75rem] text-lg ';
+      combinedClassName += ' py-14pxr px-236pxr w-full text-18pxr ';
       break;
     }
   }
@@ -74,7 +86,7 @@ function Button({
   return (
     <button
       className={`${combinedClassName} ${className}`}
-      type={type ? type : 'button'}
+      type={type}
       onClick={onClick}
     >
       {children}
