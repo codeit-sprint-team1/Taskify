@@ -4,7 +4,7 @@ import checkIcon from '@/public/icons/checkIcon.svg';
 import Image from 'next/image';
 
 interface ColorChipsProps {
-  setColor: React.Dispatch<React.SetStateAction<string>>;
+  onSelect: (color: string) => void;
 }
 
 interface PaletteType {
@@ -13,7 +13,7 @@ interface PaletteType {
   checked: boolean;
 }
 
-function ColorChips({ setColor }: ColorChipsProps) {
+function ColorChips({ onSelect }: ColorChipsProps) {
   const [isSelect, setIsSelect] = useState([
     { key: '0', value: '#7AC555', checked: false },
     { key: '1', value: '#760DDE', checked: false },
@@ -28,7 +28,7 @@ function ColorChips({ setColor }: ColorChipsProps) {
         return { ...element, checked: index === Number(event?.target.id) };
       });
       setIsSelect(selectedInput);
-      setColor(element.value);
+      onSelect(element.value);
     };
   return (
     <div className="flex space-x-2.5">
