@@ -1,5 +1,17 @@
 import type { Config } from 'tailwindcss';
 
+type AccType = Record<string, string>;
+
+const range = (start: number, end: number): number[] => {
+  let array = [];
+  for (let i = start; i <= end; ++i) {
+    array.push(i);
+  }
+  return array;
+};
+
+const pxToRem = (px: number, base = 16) => `${px / base}rem`;
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,6 +19,18 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    spacing: {
+      ...range(1, 2000).reduce((acc: AccType, px: number) => {
+        acc[`${px}pxr`] = pxToRem(px);
+        return acc;
+      }, {}),
+    },
+    fontSize: {
+      ...range(1, 2000).reduce((acc: AccType, px: number) => {
+        acc[`${px}pxr`] = pxToRem(px);
+        return acc;
+      }, {}),
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
