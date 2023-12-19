@@ -2,33 +2,66 @@ import { Controller, useForm } from 'react-hook-form';
 import {
   ERROR_MESSAGE,
   PLACEHOLDER,
+  SUCCESS_JOIN_MESSAGE,
+  TERMS_OF_USE_MESSAGE,
   VALID_EMAIL_REG,
   VALID_PASSWORD_REG,
 } from '../constants';
 import { Input } from '../input/Input';
-import { useCheckEmailDuplicate, useSignUp, useTokenRedirect } from '../data';
+import { useSignUp } from '../data';
 import { PasswordInput } from '../input/PasswordInput';
-import { axiosInstance } from '@/utils';
-export const SignUpForm = () => {
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
+export default function SignUpForm() {
+  const router = useRouter();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       email: '',
       password: '',
       confirmedPassword: '',
       nickname: '',
+      termsOfUse: false,
     },
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   });
 
-  const { execute: signUp, data } = useSignUp({
+  const watchedFields = watch([
+    'email',
+    'password',
+    'confirmedPassword',
+    'nickname',
+    'termsOfUse',
+  ]);
+
+  const {
+    execute: signUp,
+    error,
+    data,
+  } = useSignUp({
     email: watch('email'),
     password: watch('password'),
     nickname: watch('nickname'),
   });
 
-  console.log(data);
-  // useTokenRedirect(data?.data.accessToken);
+  const isEmailAlreadyExist = error?.response?.status === 409;
+
+  useEffect(() => {
+    if (data) {
+      alert(SUCCESS_JOIN_MESSAGE);
+      router.replace('login');
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const areFieldsFilled = watchedFields.every((field) => field);
+    const isCheckboxChecked = watchedFields[watchedFields.length - 1];
+    setIsButtonDisabled(!(areFieldsFilled && isCheckboxChecked));
+  }, [watchedFields]);
+
   return (
     <form onSubmit={handleSubmit(signUp)}>
       <div>
@@ -48,7 +81,11 @@ export const SignUpForm = () => {
               {...field}
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error)}
-              helperText={fieldState.error?.message}
+              helperText={
+                isEmailAlreadyExist
+                  ? ERROR_MESSAGE.emailAlreadyExist
+                  : fieldState.error?.message
+              }
             />
           )}
         />
@@ -129,7 +166,25 @@ export const SignUpForm = () => {
           )}
         />
       </div>
-      <button type="submit">가입하기</button>
+      <Controller
+        control={control}
+        name="termsOfUse"
+        render={({ field: { onChange, onBlur, value, ref } }) => (
+          <div>
+            <input
+              type="checkbox"
+              onChange={onChange}
+              onBlur={onBlur}
+              checked={value}
+              ref={ref}
+            />
+            {TERMS_OF_USE_MESSAGE}
+          </div>
+        )}
+      />
+      <button type="submit" disabled={isButtonDisabled}>
+        가입하기
+      </button>
     </form>
   );
-};
+}

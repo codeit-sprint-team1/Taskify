@@ -15,7 +15,12 @@ export const ERROR_MESSAGE = {
   nicknameLimit: '닉네임은 10자를 초과할 수 없습니다.',
 };
 
+export const TERMS_OF_USE_MESSAGE = '이용약관에 동의합니다.';
 export const SUCCESS_JOIN_MESSAGE = '회원가입이 완료되었습니다.';
+export const WELLCOME_MESSAGE = {
+  signup: '첫 방문을 환영합니다!',
+  login: '오늘도 만나서 반가워요!',
+};
 
 export const VALID_PASSWORD_REG = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
 export const VALID_EMAIL_REG =

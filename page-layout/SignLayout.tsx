@@ -3,17 +3,15 @@ import { ReactNode } from 'react';
 type SignInLayoutProps = {
   header: ReactNode;
   form: ReactNode;
-  oauth: ReactNode;
 };
 
-export const SignLayout = ({ header, form, oauth }: SignInLayoutProps) => {
+export default function SignLayout({ header, form }: SignInLayoutProps) {
   return (
     <div>
       <div>
         {header}
         {form}
-        {oauth}
       </div>
     </div>
   );
-};
+}

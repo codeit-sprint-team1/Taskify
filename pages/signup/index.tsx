@@ -1,10 +1,11 @@
-import { SignUpForm } from '@/components/sign/form/SignUpForm';
-import { SignLayout } from '@/page-layout/SignLayout';
+import SignUpForm from '@/components/sign/form/SignUpForm';
+import SignHeader from '@/components/sign/header/SignHeader';
+import SignLayout from '@/page-layout/SignLayout';
 
-export default function JoinPage() {
+export default function SignUpPage() {
   return (
-    <div>
-      <SignUpForm />
-    </div>
+    <>
+      <SignLayout header={<SignHeader />} form={<SignUpForm />}></SignLayout>
+    </>
   );
 }

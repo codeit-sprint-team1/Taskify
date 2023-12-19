@@ -6,7 +6,7 @@ export const useTokenRedirect = (tokenResponse?: string) => {
 
   useEffect(() => {
     const routeToFolderPage = () => {
-      router.replace('/login');
+      router.replace('login');
     };
     const accessTokenInLocalStorage = localStorage.getItem('accessToken');
 
