@@ -67,10 +67,14 @@ export default function Home() {
               <br /> 관리하세요
             </span>
           </div>
-          <Image src={point1Img} alt="point1Img" />
+          <div className="desktop:w-auto tablet:w-520pxr">
+            <Image src={point1Img} alt="point1Img" />
+          </div>
         </div>
-        <div className="flex bg-violet8 pt-100pxr pl-108pxr w-1200pxr h-600pxr gap-100pxr rounded-lg">
-          <Image src={point2Img} alt="point1Img" />
+        <div className="flex bg-violet8 pt-100pxr pl-108pxr gap-100pxr rounded-lg desktop:w-1200pxr desktop:h-600pxr desktop:flex-row tablet:flex-col">
+          <div className="desktop:w-auto tablet:w-360pxr">
+            <Image src={point2Img} alt="point1Img" />
+          </div>
           <div className="flex flex-col gap-100pxr">
             <span className="text-22pxr font-medium text-gray60">Point 2</span>
             <span className="text-48pxr font-bold">
@@ -83,9 +87,9 @@ export default function Home() {
           <span className="text-28pxr font-bold">
             생산성을 높이는 다양한 설정 ⚡
           </span>
-          <div className="flex-center gap-33pxr">
+          <div className="gap-33pxr desktop:flex-center tablet:flex-col-center">
             <div>
-              <div className="bg-gray30 flex-center w-380pxr h-260pxr rounded-t-lg">
+              <div className="bg-gray70 flex-center w-380pxr h-260pxr rounded-t-lg">
                 <Image src={card1Img} alt="card1Img" />
               </div>
               <div className="bg-violet8 w-380pxr py-33pxr pl-32pxr rounded-b-lg">
@@ -98,7 +102,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <div className="bg-gray30 flex-center w-380pxr h-260pxr rounded-t-lg">
+              <div className="bg-gray70  flex-center w-380pxr h-260pxr rounded-t-lg">
                 <Image src={card2Img} alt="card2Img" />
               </div>
               <div className="bg-violet8 w-380pxr py-33pxr pl-32pxr rounded-b-lg">
@@ -111,7 +115,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <div className="bg-gray30 flex-center w-380pxr h-260pxr rounded-t-lg">
+              <div className="bg-gray70 flex-center w-380pxr h-260pxr rounded-t-lg">
                 <Image src={card3Img} alt="card3Img" />
               </div>
               <div className="bg-violet8 w-380pxr py-33pxr pl-32pxr rounded-b-lg">
