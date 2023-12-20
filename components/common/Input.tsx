@@ -15,6 +15,7 @@ export interface InputProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   required?: boolean;
+  maxLength?: number;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
