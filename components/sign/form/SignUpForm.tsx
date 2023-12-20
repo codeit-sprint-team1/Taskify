@@ -15,13 +15,12 @@ import { useSignUp, useTokenRedirect } from '../data';
 
 export default function SignUpForm() {
   const router = useRouter();
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       email: '',
@@ -62,14 +61,6 @@ export default function SignUpForm() {
       router.replace('login');
     }
   }, [data]);
-
-  useEffect(() => {
-    const areFieldsFilled = watchedFields.every((field) => field);
-    const isCheckboxChecked = watchedFields[watchedFields.length - 1];
-    const hasNoErrors = Object?.keys(errors).length === 0;
-
-    setIsButtonDisabled(!(areFieldsFilled && isCheckboxChecked && hasNoErrors));
-  }, [watchedFields, errors]);
 
   return (
     <form onSubmit={handleSubmit(signUp)}>
@@ -177,6 +168,9 @@ export default function SignUpForm() {
       <Controller
         control={control}
         name="termsOfUse"
+        rules={{
+          required: true,
+        }}
         render={({ field: { onChange, onBlur, value, ref } }) => (
           <div>
             <input
@@ -192,9 +186,9 @@ export default function SignUpForm() {
       />
       <Button
         type="submit"
-        disabled={isButtonDisabled}
+        disabled={!isValid}
         size="sign"
-        variant={isButtonDisabled ? 'inactive' : 'primary'}
+        variant={isValid ? 'primary' : 'inactive'}
       >
         {BUTTON_TEXT.signUp}
       </Button>
