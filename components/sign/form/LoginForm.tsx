@@ -12,7 +12,13 @@ import { useLogin, useTokenRedirect } from '../data';
 
 export const LoginForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const { control, handleSubmit, watch, setError } = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm({
     defaultValues: { email: '', password: '' },
     mode: 'onBlur',
   });
@@ -24,6 +30,7 @@ export const LoginForm = () => {
     email: watch('email'),
     password: watch('password'),
   });
+
   const watchedFields = watch(['email', 'password']);
 
   useTokenRedirect(data?.accessToken);
@@ -40,8 +47,10 @@ export const LoginForm = () => {
 
   useEffect(() => {
     const areFieldsFilled = watchedFields.every((field) => field);
-    setIsButtonDisabled(!areFieldsFilled);
-  }, [watchedFields]);
+    const hasNoErrors = Object?.keys(errors).length === 0;
+
+    setIsButtonDisabled(!(areFieldsFilled && hasNoErrors));
+  }, [watchedFields, errors]);
 
   return (
     <form onSubmit={handleSubmit(login)}>

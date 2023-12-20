@@ -15,9 +15,14 @@ import { useSignUp, useTokenRedirect } from '../data';
 
 export default function SignUpForm() {
   const router = useRouter();
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const { control, handleSubmit, watch } = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -61,8 +66,10 @@ export default function SignUpForm() {
   useEffect(() => {
     const areFieldsFilled = watchedFields.every((field) => field);
     const isCheckboxChecked = watchedFields[watchedFields.length - 1];
-    setIsButtonDisabled(!(areFieldsFilled && isCheckboxChecked));
-  }, [watchedFields]);
+    const hasNoErrors = Object?.keys(errors).length === 0;
+
+    setIsButtonDisabled(!(areFieldsFilled && isCheckboxChecked && hasNoErrors));
+  }, [watchedFields, errors]);
 
   return (
     <form onSubmit={handleSubmit(signUp)}>
