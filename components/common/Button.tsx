@@ -81,7 +81,7 @@ function Button({
       break;
     }
     case 'xsmall': {
-      combinedClassName += ' py-7pxr px-29pxr text-12pxr w-52pxr';
+      combinedClassName += ' py-7pxr px-29pxr text-12pxr';
       break;
     }
     case 'sign': {

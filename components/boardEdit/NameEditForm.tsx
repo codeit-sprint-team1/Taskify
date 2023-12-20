@@ -14,7 +14,7 @@ function NameEditForm() {
   };
 
   return (
-    <div className="w-620pxr h-256pxr p-30pxr space-y-24pxr ">
+    <div className="space-y-24pxr ">
       <div className="flex justify-between">
         <h1 className="text-20pxr font-bold">비브리지</h1>
         <ColorChips onSelect={onSelect} />
