@@ -74,7 +74,6 @@ export default function SignUpForm() {
   return (
     <form onSubmit={handleSubmit(signUp)}>
       <div>
-        <label>이메일</label>
         <Controller
           control={control}
           name="email"
@@ -88,6 +87,7 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              label="이메일"
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error) || isEmailAlreadyExist}
               helperText={
@@ -100,7 +100,6 @@ export default function SignUpForm() {
         />
       </div>
       <div>
-        <label>닉네임</label>
         <Controller
           control={control}
           name="nickname"
@@ -118,16 +117,15 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              label="닉네임"
               placeholder={PLACEHOLDER.nickname}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
-              maxLength={10}
             />
           )}
         />
       </div>
       <div>
-        <label>비밀번호</label>
         <Controller
           control={control}
           name="password"
@@ -141,6 +139,7 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
+              label="비밀번호"
               hasEyeIcon
               placeholder={PLACEHOLDER.password}
               hasError={Boolean(fieldState.error)}
@@ -150,7 +149,6 @@ export default function SignUpForm() {
         />
       </div>
       <div>
-        <label>비밀번호 확인</label>
         <Controller
           control={control}
           name="confirmedPassword"
@@ -167,6 +165,7 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
+              label="비밀번호 확인"
               hasEyeIcon
               placeholder={PLACEHOLDER.confirmedPassword}
               hasError={Boolean(fieldState.error)}

@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin, useTokenRedirect } from '../data';
 
-export const LoginForm = () => {
+export default function LoginForm() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const {
     control,
@@ -109,4 +109,4 @@ export const LoginForm = () => {
       </Button>
     </form>
   );
-};
+}

@@ -11,6 +11,7 @@ type PasswordInputProps = {
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (
     {
+      label,
       hasEyeIcon = false,
       value,
       placeholder,
@@ -46,6 +47,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       <div>
         <Input
           ref={ref}
+          label={label}
           value={value}
           placeholder={placeholder}
           type={inputType}

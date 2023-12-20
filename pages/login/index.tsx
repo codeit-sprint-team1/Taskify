@@ -1,4 +1,4 @@
-import { LoginForm, SignFooter, SignHeader } from '@/components/sign';
+import { LoginForm, SignFooter, SignHeader } from '@/components/index';
 import SignLayout from '@/page-layout/SignLayout';
 
 export default function LoginPage() {
