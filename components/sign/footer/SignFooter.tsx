@@ -3,7 +3,7 @@ import { BUTTON_TEXT, LINK_TEXT } from '../constants';
 import { useRouter } from 'next/router';
 import { ROUTE } from '@/constants/constants';
 
-export function SignFooter() {
+export default function SignFooter() {
   const router = useRouter();
   const isLoginPage = router.pathname === '/login';
 

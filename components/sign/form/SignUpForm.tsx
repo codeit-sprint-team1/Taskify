@@ -15,13 +15,12 @@ import { useSignUp, useTokenRedirect } from '../data';
 
 export default function SignUpForm() {
   const router = useRouter();
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       email: '',
@@ -63,18 +62,9 @@ export default function SignUpForm() {
     }
   }, [data]);
 
-  useEffect(() => {
-    const areFieldsFilled = watchedFields.every((field) => field);
-    const isCheckboxChecked = watchedFields[watchedFields.length - 1];
-    const hasNoErrors = Object?.keys(errors).length === 0;
-
-    setIsButtonDisabled(!(areFieldsFilled && isCheckboxChecked && hasNoErrors));
-  }, [watchedFields, errors]);
-
   return (
     <form onSubmit={handleSubmit(signUp)}>
       <div>
-        <label>이메일</label>
         <Controller
           control={control}
           name="email"
@@ -88,6 +78,7 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              label="이메일"
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error) || isEmailAlreadyExist}
               helperText={
@@ -100,7 +91,6 @@ export default function SignUpForm() {
         />
       </div>
       <div>
-        <label>닉네임</label>
         <Controller
           control={control}
           name="nickname"
@@ -118,16 +108,15 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              label="닉네임"
               placeholder={PLACEHOLDER.nickname}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
-              maxLength={10}
             />
           )}
         />
       </div>
       <div>
-        <label>비밀번호</label>
         <Controller
           control={control}
           name="password"
@@ -141,6 +130,7 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
+              label="비밀번호"
               hasEyeIcon
               placeholder={PLACEHOLDER.password}
               hasError={Boolean(fieldState.error)}
@@ -150,7 +140,6 @@ export default function SignUpForm() {
         />
       </div>
       <div>
-        <label>비밀번호 확인</label>
         <Controller
           control={control}
           name="confirmedPassword"
@@ -167,6 +156,7 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
+              label="비밀번호 확인"
               hasEyeIcon
               placeholder={PLACEHOLDER.confirmedPassword}
               hasError={Boolean(fieldState.error)}
@@ -178,6 +168,9 @@ export default function SignUpForm() {
       <Controller
         control={control}
         name="termsOfUse"
+        rules={{
+          required: true,
+        }}
         render={({ field: { onChange, onBlur, value, ref } }) => (
           <div>
             <input
@@ -193,9 +186,9 @@ export default function SignUpForm() {
       />
       <Button
         type="submit"
-        disabled={isButtonDisabled}
+        disabled={!isValid}
         size="sign"
-        variant={isButtonDisabled ? 'inactive' : 'primary'}
+        variant={isValid ? 'primary' : 'inactive'}
       >
         {BUTTON_TEXT.signUp}
       </Button>

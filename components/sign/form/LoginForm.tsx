@@ -10,14 +10,13 @@ import { useEffect, useState } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin, useTokenRedirect } from '../data';
 
-export const LoginForm = () => {
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+export default function LoginForm() {
   const {
     control,
     handleSubmit,
     watch,
     setError,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: { email: '', password: '' },
     mode: 'onBlur',
@@ -44,13 +43,6 @@ export const LoginForm = () => {
       });
     }
   }, [error, setError]);
-
-  useEffect(() => {
-    const areFieldsFilled = watchedFields.every((field) => field);
-    const hasNoErrors = Object?.keys(errors).length === 0;
-
-    setIsButtonDisabled(!(areFieldsFilled && hasNoErrors));
-  }, [watchedFields, errors]);
 
   return (
     <form onSubmit={handleSubmit(login)}>
@@ -101,12 +93,12 @@ export const LoginForm = () => {
       </div>
       <Button
         type="submit"
-        disabled={isButtonDisabled}
+        disabled={!isValid}
         size="sign"
-        variant={isButtonDisabled ? 'inactive' : 'primary'}
+        variant={isValid ? 'primary' : 'inactive'}
       >
         {BUTTON_TEXT.login}
       </Button>
     </form>
   );
-};
+}

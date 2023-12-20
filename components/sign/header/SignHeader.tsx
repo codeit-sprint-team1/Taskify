@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { WELLCOME_MESSAGE } from '../constants';
 import Link from 'next/link';
 
-export function SignHeader() {
+export default function SignHeader() {
   const router = useRouter();
   const isLoginPage = router.pathname === '/login';
 
