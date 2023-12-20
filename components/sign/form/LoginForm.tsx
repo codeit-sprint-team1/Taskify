@@ -12,6 +12,7 @@ import { useLogin, useTokenRedirect } from '../data';
 import { useUserInfo } from '@/store/memos';
 
 export default function LoginForm() {
+  const { setUserInfo } = useUserInfo();
   const {
     control,
     handleSubmit,
@@ -30,8 +31,6 @@ export default function LoginForm() {
     email: watch('email'),
     password: watch('password'),
   });
-
-  const { setUserInfo } = useUserInfo();
 
   useTokenRedirect(data?.accessToken);
 
