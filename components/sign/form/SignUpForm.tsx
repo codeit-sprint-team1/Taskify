@@ -1,5 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 import {
+  BUTTON_TEXT,
   ERROR_MESSAGE,
   PLACEHOLDER,
   SUCCESS_JOIN_MESSAGE,
@@ -7,11 +8,11 @@ import {
   VALID_EMAIL_REG,
   VALID_PASSWORD_REG,
 } from '../constants';
-import { Input } from '../input/Input';
-import { useSignUp } from '../data';
-import { PasswordInput } from '../input/PasswordInput';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useSignUp } from '..';
+import Input from '@/components/common/Input';
+import { PasswordInput } from '@/components/common';
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -80,7 +81,7 @@ export default function SignUpForm() {
             <Input
               {...field}
               placeholder={PLACEHOLDER.email}
-              hasError={Boolean(fieldState.error)}
+              hasError={Boolean(fieldState.error) || isEmailAlreadyExist}
               helperText={
                 isEmailAlreadyExist
                   ? ERROR_MESSAGE.emailAlreadyExist
@@ -111,7 +112,11 @@ export default function SignUpForm() {
               {...field}
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error)}
-              helperText={fieldState.error?.message}
+              helperText={
+                isEmailAlreadyExist
+                  ? ERROR_MESSAGE.emailAlreadyExist
+                  : fieldState.error?.message
+              }
               maxLength={10}
             />
           )}
@@ -183,7 +188,7 @@ export default function SignUpForm() {
         )}
       />
       <button type="submit" disabled={isButtonDisabled}>
-        가입하기
+        {BUTTON_TEXT.signUp}
       </button>
     </form>
   );
