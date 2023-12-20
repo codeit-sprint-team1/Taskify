@@ -9,9 +9,11 @@ import {
 import { useEffect, useState } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin, useTokenRedirect } from '../data';
+import useUserInfo from '@/store/memos/useUserInfo';
 
 export const LoginForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const { setUserInfo } = useUserInfo();
   const {
     control,
     handleSubmit,
@@ -33,7 +35,13 @@ export const LoginForm = () => {
 
   const watchedFields = watch(['email', 'password']);
 
-  useTokenRedirect(data?.accessToken);
+  // useTokenRedirect(data?.accessToken);
+
+  useEffect(() => {
+    if (data) {
+      setUserInfo(data);
+    }
+  }, [data, setUserInfo]);
 
   useEffect(() => {
     if (error) {
