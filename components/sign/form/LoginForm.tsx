@@ -6,20 +6,18 @@ import {
   VALID_EMAIL_REG,
   VALID_PASSWORD_REG,
 } from '../constants';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin, useTokenRedirect } from '../data';
-import useUserInfo from '@/store/memos/useUserInfo';
+import { useUserInfo } from '@/store/memos';
 
-export const LoginForm = () => {
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const { setUserInfo } = useUserInfo();
+export default function LoginForm() {
   const {
     control,
     handleSubmit,
     watch,
     setError,
-    formState: { errors },
+    formState: { isValid },
   } = useForm({
     defaultValues: { email: '', password: '' },
     mode: 'onBlur',
@@ -33,9 +31,9 @@ export const LoginForm = () => {
     password: watch('password'),
   });
 
-  const watchedFields = watch(['email', 'password']);
+  const { setUserInfo } = useUserInfo();
 
-  // useTokenRedirect(data?.accessToken);
+  useTokenRedirect(data?.accessToken);
 
   useEffect(() => {
     if (data) {
@@ -52,13 +50,6 @@ export const LoginForm = () => {
       });
     }
   }, [error, setError]);
-
-  useEffect(() => {
-    const areFieldsFilled = watchedFields.every((field) => field);
-    const hasNoErrors = Object?.keys(errors).length === 0;
-
-    setIsButtonDisabled(!(areFieldsFilled && hasNoErrors));
-  }, [watchedFields, errors]);
 
   return (
     <form onSubmit={handleSubmit(login)}>
@@ -109,12 +100,12 @@ export const LoginForm = () => {
       </div>
       <Button
         type="submit"
-        disabled={isButtonDisabled}
+        disabled={!isValid}
         size="sign"
-        variant={isButtonDisabled ? 'inactive' : 'primary'}
+        variant={isValid ? 'primary' : 'inactive'}
       >
         {BUTTON_TEXT.login}
       </Button>
     </form>
   );
-};
+}

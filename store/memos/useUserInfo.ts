@@ -41,7 +41,6 @@ const useUserInfo = create<UserInfoState & UserInfoActions>((set) => ({
         user: newUserInfo.user,
       },
     });
-    console.log(newUserInfo);
   },
 }));
 
