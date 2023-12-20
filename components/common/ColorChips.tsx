@@ -4,7 +4,7 @@ import checkIcon from '@/public/icons/checkIcon.svg';
 import Image from 'next/image';
 
 interface ColorChipsProps {
-  setColor: React.Dispatch<React.SetStateAction<string>>;
+  onSelect: (color: string) => void;
 }
 
 interface PaletteType {
@@ -13,13 +13,13 @@ interface PaletteType {
   checked: boolean;
 }
 
-function ColorChips({ setColor }: ColorChipsProps) {
+function ColorChips({ onSelect }: ColorChipsProps) {
   const [isSelect, setIsSelect] = useState([
-    { key: '0', value: '#7AC555', checked: false },
-    { key: '1', value: '#760DDE', checked: false },
-    { key: '2', value: '#FFA500', checked: false },
-    { key: '3', value: '#76A5EA', checked: false },
-    { key: '4', value: '#E876EA', checked: false },
+    { key: '0', value: 'bg-green', checked: false },
+    { key: '1', value: 'bg-violet', checked: false },
+    { key: '2', value: 'bg-orange', checked: false },
+    { key: '3', value: 'bg-blue', checked: false },
+    { key: '4', value: 'bg-pink', checked: false },
   ]);
 
   const onChangeCheck =
@@ -28,10 +28,10 @@ function ColorChips({ setColor }: ColorChipsProps) {
         return { ...element, checked: index === Number(event?.target.id) };
       });
       setIsSelect(selectedInput);
-      setColor(element.value);
+      onSelect(element.value);
     };
   return (
-    <div className="flex space-x-2.5">
+    <div className="flex space-x-10pxr">
       {isSelect.map((element, index) => (
         <label htmlFor={element.key} key={element.key}>
           <input
@@ -44,8 +44,7 @@ function ColorChips({ setColor }: ColorChipsProps) {
             className="hidden"
           />
           <motion.div
-            className="w-7 h-7 rounded-full cursor-pointer flex-center"
-            style={{ backgroundColor: element.value }}
+            className={`w-30pxr h-30pxr rounded-full cursor-pointer flex-center ${element.value}`}
             whileTap={{ scale: 0.7 }}
           >
             {element.checked && (

@@ -1,10 +1,16 @@
 import type { Config } from 'tailwindcss';
 
-const WIDTH_VALUES = {
-  '620': '38.75rem',
-  '544': '34rem',
-  '284': '17.75rem',
+type AccType = Record<string, string>;
+
+const range = (start: number, end: number): number[] => {
+  let array = [];
+  for (let i = start; i <= end; ++i) {
+    array.push(i);
+  }
+  return array;
 };
+
+const pxToRem = (px: number, base = 16) => `${px / base}rem`;
 
 const config: Config = {
   content: [
@@ -13,16 +19,19 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    spacing: {
+      ...range(0, 2000).reduce((acc: AccType, px: number) => {
+        acc[`${px}pxr`] = pxToRem(px);
+        return acc;
+      }, {}),
+    },
+    fontSize: {
+      ...range(0, 2000).reduce((acc: AccType, px: number) => {
+        acc[`${px}pxr`] = pxToRem(px);
+        return acc;
+      }, {}),
+    },
     extend: {
-      width: {
-        ...WIDTH_VALUES,
-      },
-      maxWidth: {
-        ...WIDTH_VALUES,
-      },
-      minWidth: {
-        ...WIDTH_VALUES,
-      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -49,8 +58,8 @@ const config: Config = {
       },
     },
     screens: {
-      mobile: '375px',
-      tablet: '744px',
+      mobile: { min: '375px', max: '743px' },
+      tablet: { min: '744px', max: '1023px' },
       desktop: '1024px',
     },
   },
