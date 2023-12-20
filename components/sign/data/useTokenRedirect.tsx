@@ -1,22 +1,24 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-export const useTokenRedirect = (tokenResponse?: string) => {
+function useTokenRedirect(tokenResponse?: string) {
   const router = useRouter();
 
   useEffect(() => {
-    const routeToFolderPage = () => {
-      router.replace('login');
+    const routeToDashboardPage = () => {
+      router.replace('board');
     };
     const accessTokenInLocalStorage = localStorage.getItem('accessToken');
 
     if (tokenResponse) {
-      routeToFolderPage();
+      routeToDashboardPage();
       return;
     }
 
     if (accessTokenInLocalStorage) {
-      routeToFolderPage();
+      routeToDashboardPage();
     }
   }, [tokenResponse, router]);
-};
+}
+
+export default useTokenRedirect;

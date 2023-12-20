@@ -1,16 +1,22 @@
-import { Token } from '@/types';
 import { axiosInstance, useAsync } from '@/utils';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
-type UseSignUpParams = { email: string; nickname: string; password: string };
+interface UseSignUpParams {
+  email: string;
+  nickname: string;
+  password: string;
+}
 
-export const useSignUp = ({ email, nickname, password }: UseSignUpParams) => {
-  const signUp = () =>
-    axiosInstance.post('users', {
-      email,
-      nickname,
-      password,
-    });
+function useSignUp({ email, nickname, password }: UseSignUpParams) {
+  const signUp = useCallback(
+    () =>
+      axiosInstance.post('users', {
+        email,
+        nickname,
+        password,
+      }),
+    [email, nickname, password]
+  );
   const { execute, loading, error, data } = useAsync(signUp, true);
 
   return {
@@ -19,4 +25,6 @@ export const useSignUp = ({ email, nickname, password }: UseSignUpParams) => {
     error,
     data,
   };
-};
+}
+
+export default useSignUp;

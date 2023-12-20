@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
-type SignInLayoutProps = {
+interface SignInLayoutProps {
   header: ReactNode;
   form: ReactNode;
   footer: ReactNode;
-};
+}
 
 export default function SignLayout({
   header,

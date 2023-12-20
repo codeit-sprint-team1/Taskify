@@ -1,13 +1,15 @@
 import { axiosInstance, useAsync } from '@/utils';
-import { Token } from '@/types';
 import { useCallback, useEffect } from 'react';
 
-type UseLoginParams = { email: string; password: string };
+interface UseLoginParams {
+  email: string;
+  password: string;
+}
 
-export const useLogin = ({ email, password }: UseLoginParams) => {
+function useLogin({ email, password }: UseLoginParams) {
   const Login = useCallback(
     () =>
-      axiosInstance.post<{ data: Token }>('auth/login', {
+      axiosInstance.post('auth/login', {
         email,
         password,
       }),
@@ -16,10 +18,10 @@ export const useLogin = ({ email, password }: UseLoginParams) => {
   const { execute, loading, error, data } = useAsync(Login, true);
 
   useEffect(() => {
-    if (data?.data?.accessToken) {
-      localStorage.setItem('accessToken', data.data?.accessToken);
+    if (data?.accessToken) {
+      localStorage.setItem('accessToken', data.accessToken);
     }
-  }, [data?.data?.accessToken]);
+  }, [data?.accessToken]);
 
   return {
     execute,
@@ -27,4 +29,6 @@ export const useLogin = ({ email, password }: UseLoginParams) => {
     error,
     data,
   };
-};
+}
+
+export default useLogin;

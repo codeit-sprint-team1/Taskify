@@ -1,14 +1,16 @@
 import { Controller, useForm } from 'react-hook-form';
-import { BUTTON_TEXT, ERROR_MESSAGE, PLACEHOLDER } from '../constants';
+import {
+  BUTTON_TEXT,
+  ERROR_MESSAGE,
+  PLACEHOLDER,
+  VALID_EMAIL_REG,
+  VALID_PASSWORD_REG,
+} from '../constants';
 import { useEffect, useState } from 'react';
-import { useLogin } from '../data/useLogin';
-import Input from '@/components/common/Input';
-import { PasswordInput } from '@/components/common';
-import { useTokenRedirect } from '..';
-import { useRouter } from 'next/router';
+import { Button, PasswordInput, Input } from '@/components';
+import { useLogin, useTokenRedirect } from '../data';
 
 export const LoginForm = () => {
-  const router = useRouter();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { control, handleSubmit, watch, setError } = useForm({
     defaultValues: { email: '', password: '' },
@@ -24,7 +26,7 @@ export const LoginForm = () => {
   });
   const watchedFields = watch(['email', 'password']);
 
-  // useTokenRedirect(data?.data?.accessToken);
+  useTokenRedirect(data?.accessToken);
 
   useEffect(() => {
     if (error) {
@@ -41,12 +43,6 @@ export const LoginForm = () => {
     setIsButtonDisabled(!areFieldsFilled);
   }, [watchedFields]);
 
-  useEffect(() => {
-    if (data?.data?.accessToken) {
-      router.replace('/boards');
-    }
-  }, [data?.data?.accessToken]);
-
   return (
     <form onSubmit={handleSubmit(login)}>
       <div>
@@ -57,7 +53,7 @@ export const LoginForm = () => {
           rules={{
             required: ERROR_MESSAGE.emailRequired,
             pattern: {
-              value: /\S+@\S+\.\S+/,
+              value: VALID_EMAIL_REG,
               message: ERROR_MESSAGE.emailInvalid,
             },
           }}
@@ -76,7 +72,13 @@ export const LoginForm = () => {
         <Controller
           control={control}
           name="password"
-          rules={{ required: ERROR_MESSAGE.passwordRequired }}
+          rules={{
+            required: ERROR_MESSAGE.passwordRequired,
+            pattern: {
+              value: VALID_PASSWORD_REG,
+              message: ERROR_MESSAGE.passwordInvalid,
+            },
+          }}
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
@@ -88,9 +90,14 @@ export const LoginForm = () => {
           )}
         />
       </div>
-      <button type="submit" disabled={isButtonDisabled}>
+      <Button
+        type="submit"
+        disabled={isButtonDisabled}
+        size="sign"
+        variant={isButtonDisabled ? 'inactive' : 'primary'}
+      >
         {BUTTON_TEXT.login}
-      </button>
+      </Button>
     </form>
   );
 };

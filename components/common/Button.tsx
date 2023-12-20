@@ -17,6 +17,7 @@ interface ButtonProps {
   className?: String;
   onClick?: () => void;
   children: ReactNode;
+  disabled?: boolean;
 }
 
 function Button({
@@ -26,6 +27,7 @@ function Button({
   className,
   onClick,
   children,
+  disabled,
 }: ButtonProps) {
   let combinedClassName = '';
   switch (variant) {
@@ -88,6 +90,7 @@ function Button({
       className={`${combinedClassName} ${className}`}
       type={type}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

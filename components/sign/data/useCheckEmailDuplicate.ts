@@ -1,8 +1,7 @@
 import { axiosInstance, useAsync } from '@/utils';
-
 import { useCallback } from 'react';
 
-export const useCheckEmailDuplicate = (email: string) => {
+function useCheckEmailDuplicate(email: string) {
   const checkEmailDuplicate = useCallback(
     () =>
       axiosInstance.post('users', {
@@ -18,4 +17,6 @@ export const useCheckEmailDuplicate = (email: string) => {
     error,
     data,
   };
-};
+}
+
+export default useCheckEmailDuplicate;

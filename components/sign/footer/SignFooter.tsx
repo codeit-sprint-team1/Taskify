@@ -11,7 +11,7 @@ export function SignFooter() {
     <div>
       <span>{isLoginPage ? LINK_TEXT.isNotMember : LINK_TEXT.isMember}</span>
       <Link href={isLoginPage ? ROUTE.signUp : ROUTE.login}>
-        {BUTTON_TEXT.goToLogin}
+        {isLoginPage ? BUTTON_TEXT.goToSignUp : BUTTON_TEXT.goToLogin}
       </Link>
     </div>
   );

@@ -10,9 +10,8 @@ import {
 } from '../constants';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useSignUp } from '..';
-import Input from '@/components/common/Input';
-import { PasswordInput } from '@/components/common';
+import { Button, PasswordInput, Input } from '@/components';
+import { useSignUp, useTokenRedirect } from '../data';
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -49,6 +48,8 @@ export default function SignUpForm() {
   });
 
   const isEmailAlreadyExist = error?.response?.status === 409;
+
+  useTokenRedirect(data?.accessToken);
 
   useEffect(() => {
     if (data) {
@@ -187,9 +188,14 @@ export default function SignUpForm() {
           </div>
         )}
       />
-      <button type="submit" disabled={isButtonDisabled}>
+      <Button
+        type="submit"
+        disabled={isButtonDisabled}
+        size="sign"
+        variant={isButtonDisabled ? 'inactive' : 'primary'}
+      >
         {BUTTON_TEXT.signUp}
-      </button>
+      </Button>
     </form>
   );
 }

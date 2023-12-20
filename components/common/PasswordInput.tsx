@@ -8,7 +8,7 @@ type PasswordInputProps = {
   hasEyeIcon?: boolean;
 } & Omit<InputProps, 'type'>;
 
-export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
+const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (
     {
       hasEyeIcon = false,
@@ -59,3 +59,5 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     );
   }
 );
+
+export default PasswordInput;
