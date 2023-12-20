@@ -118,13 +118,9 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
-              placeholder={PLACEHOLDER.email}
+              placeholder={PLACEHOLDER.nickname}
               hasError={Boolean(fieldState.error)}
-              helperText={
-                isEmailAlreadyExist
-                  ? ERROR_MESSAGE.emailAlreadyExist
-                  : fieldState.error?.message
-              }
+              helperText={fieldState.error?.message}
               maxLength={10}
             />
           )}
