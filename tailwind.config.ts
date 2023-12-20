@@ -58,8 +58,8 @@ const config: Config = {
       },
     },
     screens: {
-      mobile: '375px',
-      tablet: '744px',
+      mobile: { min: '375px', max: '743px' },
+      tablet: { min: '744px', max: '1023px' },
       desktop: '1024px',
     },
   },
