@@ -1,4 +1,5 @@
-import { axiosInstance, useAsync } from '@/utils';
+import { useAsync } from '@/hooks/useAsync';
+import { axiosInstance } from '@/utils';
 import { useCallback } from 'react';
 
 function useCheckEmailDuplicate(email: string) {

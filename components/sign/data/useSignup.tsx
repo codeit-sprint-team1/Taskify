@@ -1,4 +1,5 @@
-import { axiosInstance, useAsync } from '@/utils';
+import { axiosInstance } from '@/utils';
+import { useAsync } from '@/hooks/useAsync';
 import { useCallback } from 'react';
 
 interface UseSignUpParams {
