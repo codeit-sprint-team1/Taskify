@@ -3,16 +3,19 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostDashboard from './data/usePostDashboard';
 
-interface InputModalProps {
+interface CreateDashboardModalProps {
   isOpen: boolean;
   onCancle: () => void;
 }
 
-export interface InputModalForm {
+export interface CreateDashboardModalForm {
   title: string;
 }
 
-export default function InputModal({ isOpen, onCancle }: InputModalProps) {
+export default function InputModal({
+  isOpen,
+  onCancle,
+}: CreateDashboardModalProps) {
   const [color, setColor] = useState<string>('');
 
   const {
@@ -21,7 +24,7 @@ export default function InputModal({ isOpen, onCancle }: InputModalProps) {
     watch,
     reset,
     formState: { isValid, isSubmitSuccessful },
-  } = useForm<InputModalForm>();
+  } = useForm<CreateDashboardModalForm>();
 
   const watchInput = watch('title');
 
@@ -29,7 +32,7 @@ export default function InputModal({ isOpen, onCancle }: InputModalProps) {
     setColor(value);
   };
 
-  const { execute: postDashboard, data } = usePostDashboard({
+  const { execute: postDashboard } = usePostDashboard({
     title: watch('title'),
     color: color,
   });

@@ -10,4 +10,4 @@ export { default as ModalButton } from './modal/ModalButton';
 export { default as ModalTitle } from './modal/ModalTitle';
 export { default as Portal } from './modal/Portal';
 export { default as Modal } from './modal/Modal';
-export { default as InputModal } from './modal/InputModal';
+export { default as CreateDashboardModal } from './modal/CreateDashboardModal';
