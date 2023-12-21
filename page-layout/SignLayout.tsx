@@ -12,7 +12,7 @@ export default function SignLayout({
   footer,
 }: SignInLayoutProps) {
   return (
-    <main className="bg-gray10 h-full overflow-y-scroll flex-center py-150pxr">
+    <main className="bg-gray10 overflow-y-scroll flex-center h-full py-150pxr ">
       <section className="flex-center flex-col ">
         {header}
         {form}
