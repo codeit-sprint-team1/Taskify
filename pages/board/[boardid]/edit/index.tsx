@@ -9,7 +9,7 @@ import React from 'react';
 
 function BoardEditPage() {
   return (
-    <div className="m-20pxr ">
+    <div className="m-20pxr">
       <BoardEditLayout
         nameEditForm={<NameEditForm />}
         membersTable={<MembersTable />}

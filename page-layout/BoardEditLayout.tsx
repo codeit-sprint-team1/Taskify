@@ -14,7 +14,7 @@ function BoardEditLayout({
 }: BoardEditLayoutProps) {
   return (
     <div
-      // className="flex flex-col max-w-620pxr p-30pxr gap-y-40pxr"
+      // className="flex flex-col max-w-620pxr gap-y-40pxr"
       style={{
         maxWidth: '620px',
         gap: '40px',
