@@ -6,17 +6,19 @@ import {
   VALID_EMAIL_REG,
   VALID_PASSWORD_REG,
 } from '../constants';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin, useTokenRedirect } from '../data';
+import { useUserInfo } from '@/store/memos';
 
 export default function LoginForm() {
+  const { setUserInfo } = useUserInfo();
   const {
     control,
     handleSubmit,
     watch,
     setError,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm({
     defaultValues: { email: '', password: '' },
     mode: 'onBlur',
@@ -30,9 +32,13 @@ export default function LoginForm() {
     password: watch('password'),
   });
 
-  const watchedFields = watch(['email', 'password']);
-
   useTokenRedirect(data?.accessToken);
+
+  useEffect(() => {
+    if (data?.user) {
+      setUserInfo(data?.user);
+    }
+  }, [data?.user, setUserInfo]);
 
   useEffect(() => {
     if (error) {
