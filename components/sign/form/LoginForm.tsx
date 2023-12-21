@@ -35,10 +35,10 @@ export default function LoginForm() {
   useTokenRedirect(data?.accessToken);
 
   useEffect(() => {
-    if (data) {
-      setUserInfo(data);
+    if (data?.user) {
+      setUserInfo(data?.user);
     }
-  }, [data, setUserInfo]);
+  }, [data?.user, setUserInfo]);
 
   useEffect(() => {
     if (error) {

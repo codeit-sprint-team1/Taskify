@@ -1,7 +1,7 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface userInfoType {
-  accessToken?: string;
   user: {
     id: number | null;
     email: string;
@@ -21,7 +21,6 @@ interface UserInfoActions {
 }
 
 const defaultState = {
-  accessToken: '',
   user: {
     id: null,
     email: '',
@@ -32,16 +31,20 @@ const defaultState = {
   },
 };
 
-const useUserInfo = create<UserInfoState & UserInfoActions>((set) => ({
-  userInfo: defaultState,
-  setUserInfo: (newUserInfo) => {
-    set({
-      userInfo: {
-        accessToken: newUserInfo.accessToken,
-        user: newUserInfo.user,
+const useUserInfo = create(
+  persist<UserInfoState & UserInfoActions>(
+    (set) => ({
+      userInfo: defaultState,
+      setUserInfo: (newUserInfo: userInfoType) => {
+        set({
+          userInfo: newUserInfo,
+        });
       },
-    });
-  },
-}));
+    }),
+    {
+      name: 'user-info',
+    }
+  )
+);
 
 export default useUserInfo;
