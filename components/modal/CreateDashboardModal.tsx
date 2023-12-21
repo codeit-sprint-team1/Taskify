@@ -5,7 +5,7 @@ import usePostDashboard from './data/usePostDashboard';
 
 interface CreateDashboardModalProps {
   isOpen: boolean;
-  onCancle: () => void;
+  onCancel: () => void;
 }
 
 export interface CreateDashboardModalForm {
@@ -14,7 +14,7 @@ export interface CreateDashboardModalForm {
 
 export default function CreateDashboardModal({
   isOpen,
-  onCancle,
+  onCancel: onCancel,
 }: CreateDashboardModalProps) {
   const [color, setColor] = useState<string>('');
 
@@ -37,16 +37,16 @@ export default function CreateDashboardModal({
     color: color,
   });
 
-  const handleCancle = () => {
+  const handleCancel = () => {
     reset();
     setColor('');
-    onCancle();
+    onCancel();
   };
 
   const onSubmit = () => {
     postDashboard();
     if (isSubmitSuccessful) {
-      handleCancle();
+      handleCancel();
     }
   };
 
@@ -74,7 +74,7 @@ export default function CreateDashboardModal({
         <Modal.ColorChips onSelect={onSelect} />
         <Modal.Button
           disabled={!isValid || color === ''}
-          onCancle={handleCancle}
+          onCancel={handleCancel}
         >
           생성
         </Modal.Button>

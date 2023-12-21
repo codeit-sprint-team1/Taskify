@@ -4,17 +4,17 @@ import { Button } from '@/components/index';
 interface ModalButtonProps {
   children: ReactNode;
   disabled: boolean;
-  onCancle: () => void;
+  onCancel: () => void;
 }
 
 export default function ModalButton({
   children,
-  onCancle,
+  onCancel,
   disabled,
 }: ModalButtonProps) {
   return (
     <div className="flex justify-end w-full gap-12pxr">
-      <Button variant="modal" size="modal" onClick={onCancle}>
+      <Button variant="modal" size="modal" onClick={onCancel}>
         취소
       </Button>
       <Button
