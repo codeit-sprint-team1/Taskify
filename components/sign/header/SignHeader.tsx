@@ -10,13 +10,21 @@ export default function SignHeader() {
   const isLoginPage = router.pathname === '/login';
 
   return (
-    <div>
-      <Link href="/">
-        <Image src={mainImage} alt="메인 이미지" />
-        <Image src={logo} alt="로고 이미지" />
+    <div className="flex flex-col flex-initial gap-30pxr mb-38pxr">
+      <Link href="/" className="self-end">
+        <Image
+          src={mainImage}
+          alt="메인 이미지"
+          className="w-165pxr h-190pxr mobile:w-115pxr mobile:h-132pxr"
+        />
       </Link>
-      <div>
-        <span>
+      <div className="flex flex-col items-center">
+        <Image
+          src={logo}
+          alt="로고 이미지"
+          className="w-200pxr mobile:w-139pxr"
+        />
+        <span className="text-20pxr font-medium">
           {isLoginPage ? WELLCOME_MESSAGE.login : WELLCOME_MESSAGE.signup}
         </span>
       </div>

@@ -12,12 +12,12 @@ export default function SignLayout({
   footer,
 }: SignInLayoutProps) {
   return (
-    <div>
-      <div>
+    <main className="bg-gray10 h-full overflow-y-scroll flex-center py-150pxr">
+      <section className="flex-center flex-col ">
         {header}
         {form}
         {footer}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
