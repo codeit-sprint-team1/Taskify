@@ -6,3 +6,8 @@ export { default as SignHeader } from './sign/header/SignHeader';
 export { default as SignFooter } from './sign/footer/SignFooter';
 export { default as LoginForm } from './sign/form/LoginForm';
 export { default as SignUpForm } from './sign/form/SignUpForm';
+export { default as ModalButton } from './modal/ModalButton';
+export { default as ModalTitle } from './modal/ModalTitle';
+export { default as Portal } from './modal/Portal';
+export { default as Modal } from './modal/Modal';
+export { default as InputModal } from './modal/InputModal';
