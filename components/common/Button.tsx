@@ -8,7 +8,8 @@ type Size =
   | 'xsmall'
   | 'small'
   | 'sign'
-  | 'responsive';
+  | 'responsive'
+  | 'modal';
 
 interface ButtonProps {
   variant: Variant;
@@ -17,6 +18,7 @@ interface ButtonProps {
   className?: String;
   onClick?: () => void;
   children: ReactNode;
+  disabled?: boolean;
 }
 
 function Button({
@@ -26,6 +28,7 @@ function Button({
   className,
   onClick,
   children,
+  disabled,
 }: ButtonProps) {
   let combinedClassName = '';
   switch (variant) {
@@ -69,6 +72,10 @@ function Button({
       combinedClassName +=
         ' desktop:py-7pxr desktop:px-29pxr desktop:text-14pxr tablet:py-6pxr tablet:px-23pxr tablet:text-14pxr mobile:py-7pxr mobile:px-37pxr mobile:text-12pxr';
     }
+    case 'modal': {
+      combinedClassName +=
+        ' text-16pxr w-120pxr h-48pxr py-14pxr px-14pxr mobile:text-14pxr mobile:w-138pxr mobile:h-42pxr mobile:py-12pxr mobile:px-12pxr';
+    }
     case 'small': {
       combinedClassName += ' py-7pxr px-29pxr text-14pxr';
       break;
@@ -88,6 +95,7 @@ function Button({
       className={`${combinedClassName} ${className}`}
       type={type}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>
