@@ -6,7 +6,7 @@ import {
   VALID_EMAIL_REG,
   VALID_PASSWORD_REG,
 } from '../constants';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin, useTokenRedirect } from '../data';
 
@@ -16,7 +16,7 @@ export default function LoginForm() {
     handleSubmit,
     watch,
     setError,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm({
     defaultValues: { email: '', password: '' },
     mode: 'onBlur',
@@ -29,8 +29,6 @@ export default function LoginForm() {
     email: watch('email'),
     password: watch('password'),
   });
-
-  const watchedFields = watch(['email', 'password']);
 
   useTokenRedirect(data?.accessToken);
 

@@ -20,7 +20,7 @@ export default function SignUpForm() {
     control,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm({
     defaultValues: {
       email: '',
@@ -32,14 +32,6 @@ export default function SignUpForm() {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   });
-
-  const watchedFields = watch([
-    'email',
-    'password',
-    'confirmedPassword',
-    'nickname',
-    'termsOfUse',
-  ]);
 
   const {
     execute: signUp,
