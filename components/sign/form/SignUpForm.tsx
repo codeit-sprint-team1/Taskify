@@ -9,7 +9,7 @@ import {
   VALID_PASSWORD_REG,
 } from '../constants';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useSignUp, useTokenRedirect } from '../data';
 
@@ -20,7 +20,7 @@ export default function SignUpForm() {
     control,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm({
     defaultValues: {
       email: '',
@@ -32,14 +32,6 @@ export default function SignUpForm() {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
   });
-
-  const watchedFields = watch([
-    'email',
-    'password',
-    'confirmedPassword',
-    'nickname',
-    'termsOfUse',
-  ]);
 
   const {
     execute: signUp,
