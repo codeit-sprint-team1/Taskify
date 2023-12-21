@@ -10,16 +10,17 @@ interface ColorChipsProps {
 interface PaletteType {
   key: string;
   value: string;
+  colorName: string;
   checked: boolean;
 }
 
 function ColorChips({ onSelect }: ColorChipsProps) {
   const [isSelect, setIsSelect] = useState([
-    { key: '0', value: 'bg-green', checked: false },
-    { key: '1', value: 'bg-violet', checked: false },
-    { key: '2', value: 'bg-orange', checked: false },
-    { key: '3', value: 'bg-blue', checked: false },
-    { key: '4', value: 'bg-pink', checked: false },
+    { key: '0', value: '#7ac555', colorName: 'bg-green', checked: false },
+    { key: '1', value: '#5534da', colorName: 'bg-violet', checked: false },
+    { key: '2', value: '#ffa500', colorName: 'bg-orange', checked: false },
+    { key: '3', value: '#76a5ea', colorName: 'bg-blue', checked: false },
+    { key: '4', value: '#e876ea', colorName: 'bg-pink', checked: false },
   ]);
 
   const onChangeCheck =
@@ -44,7 +45,7 @@ function ColorChips({ onSelect }: ColorChipsProps) {
             className="hidden"
           />
           <motion.div
-            className={`w-30pxr h-30pxr rounded-full cursor-pointer flex-center ${element.value}`}
+            className={`w-30pxr h-30pxr rounded-full cursor-pointer flex-center ${element.colorName}`}
             whileTap={{ scale: 0.7 }}
           >
             {element.checked && (
