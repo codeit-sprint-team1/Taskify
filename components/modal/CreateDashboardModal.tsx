@@ -12,7 +12,7 @@ export interface CreateDashboardModalForm {
   title: string;
 }
 
-export default function InputModal({
+export default function CreateDashboardModal({
   isOpen,
   onCancle,
 }: CreateDashboardModalProps) {
@@ -71,7 +71,7 @@ export default function InputModal({
             )}
           />
         </div>
-        <ColorChips onSelect={onSelect} />
+        <Modal.ColorChips onSelect={onSelect} />
         <Modal.Button
           disabled={!isValid || color === ''}
           onCancle={handleCancle}

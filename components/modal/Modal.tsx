@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ModalTitle, ModalButton, Input } from '@/components/index';
+import { ModalTitle, ModalButton, Input, ColorChips } from '@/components/index';
 import { Portal } from '@/components';
 
 interface ModalMainProps {
@@ -27,6 +27,7 @@ const Modal = Object.assign(ModalMain, {
   Title: ModalTitle,
   Button: ModalButton,
   Input,
+  ColorChips,
 });
 
 export default Modal;
