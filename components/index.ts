@@ -2,7 +2,6 @@ export { default as Button } from './common/Button';
 export { default as ColorChips } from './common/ColorChips';
 export { default as Input } from './common/Input';
 export { default as PasswordInput } from './common/PasswordInput';
-// export { default as Modal } from './modal/Modal';
 export { default as InviteListTable } from './boardEdit/InviteListTable';
 export { default as MembersTable } from './boardEdit/MembersTable';
 export { default as NameEditForm } from './boardEdit/NameEditForm';

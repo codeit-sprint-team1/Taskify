@@ -1,14 +1,28 @@
 import BoardEditLayout from '@/page-layout/BoardEditLayout';
-import { InviteListTable, MembersTable, NameEditForm } from '@/components';
+import {
+  Button,
+  InviteListTable,
+  MembersTable,
+  NameEditForm,
+} from '@/components';
 import React from 'react';
 
 function BoardEditPage() {
   return (
-    <BoardEditLayout
-      nameEditForm={<NameEditForm />}
-      membersTable={<MembersTable />}
-      inviteListTable={<InviteListTable />}
-    ></BoardEditLayout>
+    <div className="m-20pxr ">
+      <BoardEditLayout
+        nameEditForm={<NameEditForm />}
+        membersTable={<MembersTable />}
+        inviteListTable={<InviteListTable />}
+      ></BoardEditLayout>
+      <Button
+        variant="modal"
+        size="small"
+        className="font-medium text-black w-320pxr h-62pxr mb-56pxr mt-32pxr"
+      >
+        대시보드 삭제하기
+      </Button>
+    </div>
   );
 }
 

@@ -5,7 +5,7 @@ import Image from 'next/image';
 function MembersTable() {
   const testArr = Array.from({ length: 4 }, (v, i) => i);
   return (
-    <div>
+    <div className="p-30pxr">
       <div className="flex justify-between">
         <h1 className="font-bold text-24pxr">구성원</h1>
         <div className="flex items-center space-x-22pxr">

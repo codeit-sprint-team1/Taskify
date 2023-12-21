@@ -65,7 +65,7 @@ function Button({
       break;
     }
     case 'mobile': {
-      combinedClassName += ' py-7pxr x-37pxr text-12pxr ';
+      combinedClassName += ' mobile:py-7pxr mobile:x-37pxr mobile:text-12pxr ';
       break;
     }
     case 'responsive': {

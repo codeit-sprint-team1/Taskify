@@ -1,3 +1,4 @@
+import ArrowBackButton from '@/components/boardEdit/ArrowBackButton';
 import React, { ReactNode } from 'react';
 
 interface BoardEditLayoutProps {
@@ -16,12 +17,12 @@ function BoardEditLayout({
       // className="flex flex-col max-w-620pxr p-30pxr gap-y-40pxr"
       style={{
         maxWidth: '620px',
-        padding: '30px',
         gap: '40px',
         display: 'flex',
         flexDirection: 'column',
       }}
     >
+      <ArrowBackButton />
       {nameEditForm}
       {membersTable}
       {inviteListTable}
