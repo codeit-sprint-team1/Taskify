@@ -16,7 +16,7 @@ function NameEditForm() {
   return (
     <div className="space-y-24pxr ">
       <div className="flex justify-between">
-        <h1 className="text-20pxr font-bold">비브리지</h1>
+        <h1 className="font-bold text-20pxr">비브리지</h1>
         <ColorChips onSelect={onSelect} />
       </div>
       <form className="flex flex-col">
@@ -29,7 +29,7 @@ function NameEditForm() {
         <Button
           variant="primary"
           size="desktop"
-          className="w-84pxr mt-24pxr self-end"
+          className="self-end w-84pxr mt-24pxr"
         >
           변경
         </Button>

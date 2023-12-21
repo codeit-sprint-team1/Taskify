@@ -1,7 +1,5 @@
-import InviteListTable from '@/components/boardEdit/InviteListTable';
-import MembersTable from '@/components/boardEdit/MembersTable';
-import NameEditForm from '@/components/boardEdit/NameEditForm';
 import BoardEditLayout from '@/page-layout/BoardEditLayout';
+import { InviteListTable, MembersTable, NameEditForm } from '@/components';
 import React from 'react';
 
 function BoardEditPage() {

@@ -7,7 +7,7 @@ function MembersTable() {
   return (
     <div>
       <div className="flex justify-between">
-        <h1 className="text-24pxr font-bold">구성원</h1>
+        <h1 className="font-bold text-24pxr">구성원</h1>
         <div className="flex items-center space-x-22pxr">
           <p className="font-14pxr">1 페이지 중 1</p>
           <Button variant="secondary" size="xsmall">
