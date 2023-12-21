@@ -13,15 +13,7 @@ function BoardEditLayout({
   inviteListTable,
 }: BoardEditLayoutProps) {
   return (
-    <div
-      // className="flex flex-col max-w-620pxr gap-y-40pxr"
-      style={{
-        maxWidth: '620px',
-        gap: '40px',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div className="flex flex-col w-620pxr gap-y-40pxr">
       <ArrowBackButton />
       {nameEditForm}
       {membersTable}

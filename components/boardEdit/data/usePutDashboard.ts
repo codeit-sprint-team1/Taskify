@@ -4,12 +4,12 @@ import { axiosAuthInstance } from '@/utils';
 interface UsePutDashboardProps {
   title: string;
   color: string;
-  dashboardId: number;
+  boardid: string | string[] | undefined;
 }
 
-function usePutDashboard({ title, color, dashboardId }: UsePutDashboardProps) {
+function usePutDashboard({ title, color, boardid }: UsePutDashboardProps) {
   const putDashboard = () =>
-    axiosAuthInstance.put(`dashboards/${dashboardId}`, {
+    axiosAuthInstance.put(`dashboards/${boardid}`, {
       title,
       color,
     });

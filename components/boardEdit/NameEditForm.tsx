@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import ColorChips from '../common/ColorChips';
 import { Button, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
+import { useRouter } from 'next/router';
 
 function NameEditForm() {
   const [color, setColor] = useState('');
@@ -9,6 +10,8 @@ function NameEditForm() {
   const onSelect = (color: string) => {
     setColor(color);
   };
+  const router = useRouter();
+  const { boardid } = router.query;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -18,7 +21,7 @@ function NameEditForm() {
     loading,
     error,
     data,
-  } = usePutDashboard({ title, color, dashboardId: 67 });
+  } = usePutDashboard({ title, color, boardid });
   console.log(data);
 
   return (
