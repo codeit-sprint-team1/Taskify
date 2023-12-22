@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '..';
 import Image from 'next/image';
 import useGetMembers from './data/useGetMembers';
-import { useRouter } from 'next/router';
-import { Members } from '@/types/types';
+import useDeleteMember from './data/useDeleteMember';
+import { axiosAuthInstance } from '@/utils';
 
-function MembersTable() {
-  const testArr = Array.from({ length: 4 }, (v, i) => i);
-  const router = useRouter();
-  const boardid = router.query.boardid;
-  const { error, loading, data } = useGetMembers({ boardid });
-  const [members, setMembers] = useState<Members[]>([]);
+interface MembersTableProps {
+  boardid: number;
+}
 
-  useEffect(() => {
-    if (!loading && data && data.members) {
-      setMembers(data?.members);
-    }
-  }, [loading]);
+function MembersTable({ boardid }: MembersTableProps) {
+  const { execute, error, loading, data: members } = useGetMembers({ boardid });
 
-  console.log(members);
+  if (loading) return;
 
   if (loading) {
     return <p>로딩중...</p>;
   }
+
+  const handleDeleteMember = (memberId: number) => {
+    axiosAuthInstance.delete(`members/${memberId}`);
+  };
 
   return (
     <div className="p-30pxr">
@@ -45,12 +43,16 @@ function MembersTable() {
                   width={38}
                   height={38}
                   className="w-38pxr h-38pxr rounded-full object-cover"
-                  src="https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg"
+                  src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
                   alt="구성원 프로필 이미지"
                 />
                 <p>{item.nickname}</p>
               </div>
-              <Button variant="secondary" size="small">
+              <Button
+                onClick={() => handleDeleteMember(item.id)}
+                variant="secondary"
+                size="small"
+              >
                 삭제
               </Button>
             </div>

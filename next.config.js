@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'image.utoimage.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.simplilearn.com',
+      },
     ],
   },
 };

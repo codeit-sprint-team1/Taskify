@@ -5,30 +5,28 @@ import {
   MembersTable,
   NameEditForm,
 } from '@/components';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import useGetDashboard from '@/components/boardEdit/data/useGetDashboard';
 import { useRouter } from 'next/router';
 import useDeleteDashboard from '@/components/boardEdit/data/useDeleteDashboard';
 
 function BoardEditPage() {
-  const [boardInfo, setBoardInfo] = useState<any>();
   const router = useRouter();
-  const { boardid } = router.query;
-  const { loading, data } = useGetDashboard({ boardid });
-  const { execute: deleteDashBoard, error } = useDeleteDashboard({ boardid });
-
-  useEffect(() => {
-    if (loading) return;
-    if (data) {
-      setBoardInfo(data);
-    }
-  }, [loading, data, boardInfo, boardid]);
+  const params = router.query;
+  const boardid = params?.boardid ? Number(params.boardid) : null;
+  if (boardid === null || isNaN(boardid)) return;
+  const { data: dashboard } = useGetDashboard({ boardid });
+  const { execute: deleteDashBoard } = useDeleteDashboard({ boardid });
+  const dashboardTitle = dashboard?.title;
+  console.log('dashboard!!!', dashboard);
 
   return (
     <div className="m-20pxr">
       <BoardEditLayout
-        nameEditForm={<NameEditForm boardInfo={boardInfo} />}
-        membersTable={<MembersTable />}
+        nameEditForm={
+          <NameEditForm boardInfo={dashboard} dashboardTitle={dashboardTitle} />
+        }
+        membersTable={<MembersTable boardid={boardid} />}
         inviteListTable={<InviteListTable />}
       ></BoardEditLayout>
       <Button

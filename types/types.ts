@@ -1,5 +1,5 @@
 export interface Dashboard {
-  id: string | string[] | undefined;
+  id: number;
   title: string;
   color: string;
   createdAt: Date;

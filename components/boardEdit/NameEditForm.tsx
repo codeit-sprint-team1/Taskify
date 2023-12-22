@@ -6,9 +6,10 @@ import { Dashboard } from '@/types/types';
 
 interface NameEditFormProps {
   boardInfo: Dashboard;
+  dashboardTitle: string;
 }
 
-function NameEditForm({ boardInfo }: NameEditFormProps) {
+function NameEditForm({ boardInfo, dashboardTitle }: NameEditFormProps) {
   const [color, setColor] = useState('');
   const [title, setTitle] = useState('');
   const onSelect = (color: string) => {
@@ -29,7 +30,7 @@ function NameEditForm({ boardInfo }: NameEditFormProps) {
   return (
     <div className="space-y-24pxr p-30pxr">
       <div className="flex justify-between">
-        <h1 className="font-bold text-20pxr">{boardInfo?.title}</h1>
+        <h1 className="font-bold text-20pxr">{dashboardTitle}</h1>
         <ColorChips onSelect={onSelect} />
       </div>
       <form className="flex flex-col">

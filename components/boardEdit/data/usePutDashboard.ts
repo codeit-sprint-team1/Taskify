@@ -4,7 +4,7 @@ import { axiosAuthInstance } from '@/utils';
 interface UsePutDashboardProps {
   title: string;
   color: string;
-  boardid: string | string[] | undefined;
+  boardid: number;
 }
 
 function usePutDashboard({ title, color, boardid }: UsePutDashboardProps) {

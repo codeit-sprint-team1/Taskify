@@ -2,7 +2,7 @@ import { useAsync } from '@/hooks/useAsync';
 import { axiosAuthInstance } from '@/utils';
 
 interface UseDeleteDashboardProps {
-  boardid: string | string[] | undefined;
+  boardid: number;
 }
 
 function useDeleteDashboard({ boardid }: UseDeleteDashboardProps) {
