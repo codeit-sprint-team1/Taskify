@@ -1,17 +1,20 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, Suspense, useEffect, useState } from 'react';
 import ColorChips from '../common/ColorChips';
 import { Button, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
-import { useRouter } from 'next/router';
+import { Dashboard } from '@/types/types';
 
-function NameEditForm() {
+interface NameEditFormProps {
+  boardInfo: Dashboard;
+}
+
+function NameEditForm({ boardInfo }: NameEditFormProps) {
   const [color, setColor] = useState('');
   const [title, setTitle] = useState('');
   const onSelect = (color: string) => {
     setColor(color);
   };
-  const router = useRouter();
-  const { boardid } = router.query;
+  const boardid = boardInfo?.id;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -22,12 +25,11 @@ function NameEditForm() {
     error,
     data,
   } = usePutDashboard({ title, color, boardid });
-  console.log(data);
 
   return (
     <div className="space-y-24pxr p-30pxr">
       <div className="flex justify-between">
-        <h1 className="font-bold text-20pxr">비브리지</h1>
+        <h1 className="font-bold text-20pxr">{boardInfo?.title}</h1>
         <ColorChips onSelect={onSelect} />
       </div>
       <form className="flex flex-col">
