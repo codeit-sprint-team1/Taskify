@@ -2,9 +2,27 @@ import React from 'react';
 import { Button } from '..';
 import Image from 'next/image';
 import inviteIcon from '@/public/icons/inviteIcon.svg';
+import useGetInvitaions from './data/useGetInvitaions';
+import { axiosAuthInstance } from '@/utils';
 
-function InviteListTable() {
-  const testArr = Array.from({ length: 5 }, (v, i) => i);
+interface InviteListTableProps {
+  boardid: number;
+}
+
+function InviteListTable({ boardid }: InviteListTableProps) {
+  const { data } = useGetInvitaions({ boardid, page: 1, size: 4 });
+  const invitations = data?.invitations;
+  const handleDeleteInvitation = async (invitationId: number) => {
+    try {
+      const res = await axiosAuthInstance.delete(
+        `dashboards/${boardid}/invitations/${invitationId}`
+      );
+      if (res.status === 204) alert('성공적으로 취소 되었습니다!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="p-30pxr">
       <div className="flex justify-between">
@@ -24,12 +42,16 @@ function InviteListTable() {
       </div>
       <p className="text-16pxr text-gray40 py-24pxr">이메일</p>
       <div className="space-y-32pxr">
-        {testArr.map((item) => {
+        {invitations?.map((invitation) => {
           return (
-            <div key={item} className="flex justify-between">
-              <p>example@codeit.com</p>
-              <Button variant="secondary" size="small">
-                삭제
+            <div key={invitation.id} className="flex justify-between">
+              <p>{invitation.invitee.email}</p>
+              <Button
+                onClick={() => handleDeleteInvitation(invitation.id)}
+                variant="secondary"
+                size="small"
+              >
+                취소
               </Button>
             </div>
           );

@@ -9,6 +9,7 @@ import React from 'react';
 import useGetDashboard from '@/components/boardEdit/data/useGetDashboard';
 import { useRouter } from 'next/router';
 import useDeleteDashboard from '@/components/boardEdit/data/useDeleteDashboard';
+import { axiosAuthInstance } from '@/utils';
 
 function BoardEditPage() {
   const router = useRouter();
@@ -18,7 +19,6 @@ function BoardEditPage() {
   const { data: dashboard } = useGetDashboard({ boardid });
   const { execute: deleteDashBoard } = useDeleteDashboard({ boardid });
   const dashboardTitle = dashboard?.title;
-  console.log('dashboard!!!', dashboard);
 
   return (
     <div className="m-20pxr">
@@ -27,7 +27,7 @@ function BoardEditPage() {
           <NameEditForm boardInfo={dashboard} dashboardTitle={dashboardTitle} />
         }
         membersTable={<MembersTable boardid={boardid} />}
-        inviteListTable={<InviteListTable />}
+        inviteListTable={<InviteListTable boardid={boardid} />}
       ></BoardEditLayout>
       <Button
         variant="modal"

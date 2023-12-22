@@ -18,3 +18,26 @@ export interface Members {
   isOwner: boolean;
   userId: number;
 }
+
+export interface Invitations {
+  id: number;
+  inviterUserId: number;
+  teamId: string;
+  dashboard: {
+    title: string;
+    id: number;
+  };
+  invitee: {
+    nickname: string;
+    email: string;
+    id: number;
+  };
+  inviteAccepted: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface InvitationsRawData {
+  totalCount: number;
+  invitations: Invitations[];
+}
