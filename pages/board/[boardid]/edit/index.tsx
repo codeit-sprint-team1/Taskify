@@ -14,7 +14,6 @@ function BoardEditPage() {
   const [boardInfo, setBoardInfo] = useState<any>();
   const router = useRouter();
   const { boardid } = router.query;
-  console.log(boardid);
   const { loading, data } = useGetDashboard({ boardid });
   const { execute: deleteDashBoard, error } = useDeleteDashboard({ boardid });
 
