@@ -55,8 +55,12 @@ export default function SignUpForm() {
   }, [data]);
 
   return (
-    <form onSubmit={handleSubmit(signUp)}>
+    <form
+      onSubmit={handleSubmit(signUp)}
+      className="w-520pxr flex flex-col gap-16pxr mobile:mx-12pxr mobile:w-350pxr"
+    >
       <div>
+        <label className="font-small mb-8pxr">이메일</label>
         <Controller
           control={control}
           name="email"
@@ -70,7 +74,6 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
-              label="이메일"
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error) || isEmailAlreadyExist}
               helperText={
@@ -83,6 +86,7 @@ export default function SignUpForm() {
         />
       </div>
       <div>
+        <label className="font-small mb-8pxr">닉네임</label>
         <Controller
           control={control}
           name="nickname"
@@ -100,7 +104,6 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
-              label="닉네임"
               placeholder={PLACEHOLDER.nickname}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
@@ -108,7 +111,8 @@ export default function SignUpForm() {
           )}
         />
       </div>
-      <div>
+      <div className="relative">
+        <label className="font-small mb-8pxr">비밀번호</label>
         <Controller
           control={control}
           name="password"
@@ -122,7 +126,6 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
-              label="비밀번호"
               hasEyeIcon
               placeholder={PLACEHOLDER.password}
               hasError={Boolean(fieldState.error)}
@@ -131,7 +134,8 @@ export default function SignUpForm() {
           )}
         />
       </div>
-      <div>
+      <div className="relative">
+        <label className="font-small mb-8pxr">비밀번호 확인</label>
         <Controller
           control={control}
           name="confirmedPassword"
@@ -148,7 +152,6 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
-              label="비밀번호 확인"
               hasEyeIcon
               placeholder={PLACEHOLDER.confirmedPassword}
               hasError={Boolean(fieldState.error)}
@@ -157,25 +160,27 @@ export default function SignUpForm() {
           )}
         />
       </div>
-      <Controller
-        control={control}
-        name="termsOfUse"
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value, ref } }) => (
-          <div>
-            <input
-              type="checkbox"
-              onChange={onChange}
-              onBlur={onBlur}
-              checked={value}
-              ref={ref}
-            />
-            {TERMS_OF_USE_MESSAGE}
-          </div>
-        )}
-      />
+      <div>
+        <Controller
+          control={control}
+          name="termsOfUse"
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value, ref } }) => (
+            <div className="flex gap-5pxr">
+              <input
+                type="checkbox"
+                onChange={onChange}
+                onBlur={onBlur}
+                checked={value}
+                ref={ref}
+              />
+              <p className="mt-8pxr mb-5pxr">{TERMS_OF_USE_MESSAGE}</p>
+            </div>
+          )}
+        />
+      </div>
       <Button
         type="submit"
         disabled={!isValid}
