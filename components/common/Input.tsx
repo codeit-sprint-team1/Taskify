@@ -7,12 +7,12 @@ import {
 
 export interface InputProps {
   label?: string;
-  placeholder: string;
+  placeholder?: string;
   value: string | number;
   type?: HTMLInputTypeAttribute;
   hasError?: boolean;
   helperText?: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   required?: boolean;
 }
