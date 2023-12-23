@@ -15,14 +15,14 @@ export default function SignHeader() {
         <Image
           src={mainImage}
           alt="메인 이미지"
-          className="w-165pxr h-190pxr mobile:w-115pxr mobile:h-132pxr"
+          className="w-115px h-133pxr mobile:w-80pxr mobile:h-92pxr"
         />
       </Link>
       <div className="flex flex-col items-center">
         <Image
           src={logo}
           alt="로고 이미지"
-          className="w-200pxr mobile:w-139pxr"
+          className="w-140pxr mobile:w-97pxr"
         />
         <span className="text-20pxr font-medium">
           {isLoginPage ? WELLCOME_MESSAGE.login : WELLCOME_MESSAGE.signup}
