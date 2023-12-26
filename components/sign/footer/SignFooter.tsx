@@ -8,11 +8,13 @@ export default function SignFooter() {
   const isLoginPage = router.pathname === '/login';
 
   return (
-    <div>
+    <div className="flex-center mt-20pxr gap-10pxr">
       <span>{isLoginPage ? LINK_TEXT.isNotMember : LINK_TEXT.isMember}</span>
-      <Link href={isLoginPage ? ROUTE.signUp : ROUTE.login}>
-        {isLoginPage ? BUTTON_TEXT.goToSignUp : BUTTON_TEXT.goToLogin}
-      </Link>
+      <div className="text-violet underline underline-offset-4 leading-30pxr">
+        <Link href={isLoginPage ? ROUTE.signUp : ROUTE.login}>
+          {isLoginPage ? BUTTON_TEXT.goToSignUp : BUTTON_TEXT.goToLogin}
+        </Link>
+      </div>
     </div>
   );
 }

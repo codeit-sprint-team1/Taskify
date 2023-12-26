@@ -85,7 +85,7 @@ function Button({
       break;
     }
     case 'sign': {
-      combinedClassName += ' py-14pxr px-236pxr w-full text-18pxr ';
+      combinedClassName += ' p-14pxr w-full h-50pxr text-18pxr mt-4pxr';
       break;
     }
   }
