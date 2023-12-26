@@ -9,7 +9,14 @@ interface MembersTableProps {
 }
 
 function MembersTable({ boardid }: MembersTableProps) {
-  const { execute, error, loading, data: members } = useGetMembers({ boardid });
+  const PAGE = 1;
+  const SIZE = 4;
+  const {
+    execute,
+    error,
+    loading,
+    data: members,
+  } = useGetMembers({ boardid, page: PAGE, size: SIZE });
 
   if (loading) return;
 
@@ -20,7 +27,7 @@ function MembersTable({ boardid }: MembersTableProps) {
   const handleDeleteMember = async (memberId: number) => {
     try {
       const res = await axiosAuthInstance.delete(`members/${memberId}`);
-      if (res?.status === 204) alert('성공적으로 삭제 되었습니다.'); // react toastify로 교체
+      if (res?.status === 204) alert('성공적으로 삭제 되었습니다.');
       execute();
     } catch (error) {
       console.error(error);

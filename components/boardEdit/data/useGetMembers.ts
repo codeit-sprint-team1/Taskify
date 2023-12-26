@@ -4,11 +4,11 @@ import { axiosAuthInstance } from '@/utils';
 
 interface useGetMembersProps {
   boardid: number;
-  // page: number;
-  // size: number;
+  page: number;
+  size: number;
 }
 
-function useGetMembers({ boardid }: useGetMembersProps) {
+function useGetMembers({ boardid, page, size }: useGetMembersProps) {
   const mapMembersData = (members?: Members[]): Members[] => {
     if (!members) return [];
 
@@ -38,7 +38,9 @@ function useGetMembers({ boardid }: useGetMembersProps) {
   };
 
   const getMembers = () =>
-    axiosAuthInstance.get(`members?page=${1}&size=${4}&dashboardId=${boardid}`);
+    axiosAuthInstance.get(
+      `members?page=${page}&size=${size}&dashboardId=${boardid}`
+    );
   const { execute, error, loading, data } = useAsync(getMembers);
   const members = mapMembersData(data?.members);
 
