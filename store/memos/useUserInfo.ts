@@ -2,14 +2,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface userInfoType {
-  user: {
-    id: number | null;
-    email: string;
-    nickname: string;
-    profileImageUrl: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
+  id: number | null;
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface UserInfoState {
@@ -21,14 +19,12 @@ interface UserInfoActions {
 }
 
 const defaultState = {
-  user: {
-    id: null,
-    email: '',
-    nickname: '',
-    profileImageUrl: '',
-    createdAt: '',
-    updatedAt: '',
-  },
+  id: null,
+  email: '',
+  nickname: '',
+  profileImageUrl: '',
+  createdAt: '',
+  updatedAt: '',
 };
 
 const useUserInfo = create(
