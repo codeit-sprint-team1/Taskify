@@ -10,14 +10,15 @@ interface InviteListTableProps {
 }
 
 function InviteListTable({ boardid }: InviteListTableProps) {
-  const { data } = useGetInvitaions({ boardid, page: 1, size: 4 });
+  const { execute, data } = useGetInvitaions({ boardid, page: 1, size: 4 });
   const invitations = data?.invitations;
   const handleDeleteInvitation = async (invitationId: number) => {
     try {
       const res = await axiosAuthInstance.delete(
         `dashboards/${boardid}/invitations/${invitationId}`
       );
-      if (res.status === 204) alert('성공적으로 취소 되었습니다!');
+      if (res?.status === 204) alert('성공적으로 취소 되었습니다!'); // toastify로 교체
+      execute();
     } catch (error) {
       console.error(error);
     }

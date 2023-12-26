@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Suspense, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import ColorChips from '../common/ColorChips';
 import { Button, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
@@ -7,9 +7,14 @@ import { Dashboard } from '@/types/types';
 interface NameEditFormProps {
   boardInfo: Dashboard;
   dashboardTitle: string;
+  getDashboard: () => void;
 }
 
-function NameEditForm({ boardInfo, dashboardTitle }: NameEditFormProps) {
+function NameEditForm({
+  boardInfo,
+  dashboardTitle,
+  getDashboard,
+}: NameEditFormProps) {
   const [color, setColor] = useState('');
   const [title, setTitle] = useState('');
   const onSelect = (color: string) => {
@@ -26,6 +31,11 @@ function NameEditForm({ boardInfo, dashboardTitle }: NameEditFormProps) {
     error,
     data,
   } = usePutDashboard({ title, color, boardid });
+
+  const handlePutDashboard = async () => {
+    await putDashboard();
+    getDashboard();
+  };
 
   return (
     <div className="space-y-24pxr p-30pxr">
@@ -44,7 +54,7 @@ function NameEditForm({ boardInfo, dashboardTitle }: NameEditFormProps) {
           variant="primary"
           size="desktop"
           className="self-end w-84pxr mt-24pxr"
-          onClick={putDashboard}
+          onClick={handlePutDashboard}
         >
           변경
         </Button>

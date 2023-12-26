@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from '..';
 import Image from 'next/image';
 import useGetMembers from './data/useGetMembers';
-import useDeleteMember from './data/useDeleteMember';
 import { axiosAuthInstance } from '@/utils';
 
 interface MembersTableProps {
@@ -18,8 +17,14 @@ function MembersTable({ boardid }: MembersTableProps) {
     return <p>로딩중...</p>;
   }
 
-  const handleDeleteMember = (memberId: number) => {
-    axiosAuthInstance.delete(`members/${memberId}`);
+  const handleDeleteMember = async (memberId: number) => {
+    try {
+      const res = await axiosAuthInstance.delete(`members/${memberId}`);
+      if (res?.status === 204) alert('성공적으로 삭제 되었습니다.'); // react toastify로 교체
+      execute();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
