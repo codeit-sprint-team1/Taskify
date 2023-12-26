@@ -3,7 +3,7 @@ import React from 'react';
 import arrowLeftIcon from '@/public/icons/arrowLeftIcon.svg';
 import arrowRightIcon from '@/public/icons/arrowRightIcon.svg';
 
-function PagenationButton() {
+function PaginationButton() {
   return (
     <div className="flex">
       <button
@@ -22,4 +22,4 @@ function PagenationButton() {
   );
 }
 
-export default PagenationButton;
+export default PaginationButton;

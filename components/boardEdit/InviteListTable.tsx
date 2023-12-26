@@ -4,7 +4,7 @@ import Image from 'next/image';
 import inviteIcon from '@/public/icons/inviteIcon.svg';
 import useGetInvitaions from './data/useGetInvitaions';
 import { axiosAuthInstance } from '@/utils';
-import PagenationButton from '../common/PagenationButton';
+import PagenationButton from '../common/PaginationButton';
 
 interface InviteListTableProps {
   boardid: number;

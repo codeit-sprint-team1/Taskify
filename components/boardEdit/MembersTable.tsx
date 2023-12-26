@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ProfileImage } from '..';
 import useGetMembers from './data/useGetMembers';
 import { axiosAuthInstance } from '@/utils';
-import PagenationButton from '../common/PagenationButton';
+import PagenationButton from '../common/PaginationButton';
 
 interface MembersTableProps {
   boardid: number;
