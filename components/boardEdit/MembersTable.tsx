@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, ProfileImage } from '..';
 import useGetMembers from './data/useGetMembers';
 import { axiosAuthInstance } from '@/utils';
@@ -9,13 +9,18 @@ interface MembersTableProps {
 }
 
 function MembersTable({ boardid }: MembersTableProps) {
-  const PAGE = 1;
-  const SIZE = 4;
-  const { execute, data: members } = useGetMembers({
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(4);
+  const {
+    execute,
+    data: members,
+    totalCount,
+  } = useGetMembers({
     boardid,
-    page: PAGE,
-    size: SIZE,
+    page,
+    size,
   });
+  const totalPages = Math.floor(totalCount / size);
 
   const handleDeleteMember = async (memberId: number) => {
     try {
@@ -27,13 +32,28 @@ function MembersTable({ boardid }: MembersTableProps) {
     }
   };
 
+  const handleClickRight = () => {
+    setPage(page + 1);
+  };
+
+  const handleClickLeft = () => {
+    setPage(page - 1);
+  };
+
   return (
     <div className="p-30pxr">
       <div className="flex justify-between">
         <h1 className="font-bold text-24pxr mobile:text-20pxr">구성원</h1>
         <div className="flex items-center space-x-22pxr">
-          <p className="text-14pxr">1 페이지 중 1</p>
-          <PagenationButton />
+          <p className="text-14pxr">
+            {totalPages <= 1 ? totalPages + 1 : totalPages} 페이지 중 {page}
+          </p>
+          <PagenationButton
+            onClickRight={handleClickRight}
+            onClickLeft={handleClickLeft}
+            totalPages={totalPages}
+            page={page}
+          />
         </div>
       </div>
       <p className="text-16pxr text-gray40 py-24pxr">이름</p>

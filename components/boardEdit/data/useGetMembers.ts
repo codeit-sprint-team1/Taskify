@@ -41,14 +41,16 @@ function useGetMembers({ boardid, page, size }: useGetMembersProps) {
     axiosAuthInstance.get(
       `members?page=${page}&size=${size}&dashboardId=${boardid}`
     );
-  const { execute, error, loading, data } = useAsync(getMembers);
+  const { execute, error, loading, data } = useAsync(getMembers, false, page);
   const members = mapMembersData(data?.members);
+  const totalCount = data?.totalCount;
 
   return {
     execute,
     error,
     loading,
     data: members,
+    totalCount,
   };
 }
 

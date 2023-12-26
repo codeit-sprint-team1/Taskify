@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '..';
 import Image from 'next/image';
 import inviteIcon from '@/public/icons/inviteIcon.svg';
@@ -11,7 +11,10 @@ interface InviteListTableProps {
 }
 
 function InviteListTable({ boardid }: InviteListTableProps) {
-  const { execute, data } = useGetInvitaions({ boardid, page: 1, size: 4 });
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(4);
+  const { execute, data } = useGetInvitaions({ boardid, page, size });
+  const totalCount = data?.totalCount;
   const invitations = data?.invitations;
   const handleDeleteInvitation = async (invitationId: number) => {
     try {
@@ -25,13 +28,31 @@ function InviteListTable({ boardid }: InviteListTableProps) {
     }
   };
 
+  if (!totalCount) return;
+  const totalPages = Math.ceil(totalCount / size);
+
+  const handleClickRight = () => {
+    setPage(page + 1);
+  };
+
+  const handleClickLeft = () => {
+    setPage(page - 1);
+  };
+
   return (
     <div className="p-30pxr">
       <div className="flex justify-between">
         <h1 className="font-bold text-24pxr mobile:text-20pxr">초대 내역</h1>
         <div className="flex items-center space-x-22pxr ">
-          <p className="text-14pxr">1 페이지 중 1</p>
-          <PagenationButton />
+          <p className="text-14pxr">
+            {totalPages} 페이지 중 {page}
+          </p>
+          <PagenationButton
+            onClickRight={handleClickRight}
+            onClickLeft={handleClickLeft}
+            totalPages={totalPages}
+            page={page}
+          />
           <Button
             variant="primary"
             size="mobile"

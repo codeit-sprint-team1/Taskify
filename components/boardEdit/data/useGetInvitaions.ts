@@ -1,4 +1,5 @@
 import { useAsync } from '@/hooks/useAsync';
+import { DashboardsInvitation } from '@/types/dashboards';
 import { InvitationsRawData } from '@/types/invitations';
 import { axiosAuthInstance } from '@/utils';
 
@@ -26,12 +27,15 @@ function useGetInvitaions({ boardid, page, size }: useGetInvitationsProps) {
   };
 
   const getInvitaions = () =>
-    axiosAuthInstance.get<InvitationsRawData>(
-      `dashboards/${boardid}/invitations?number=${page}&size=${size}`
+    axiosAuthInstance.get<DashboardsInvitation>(
+      `dashboards/${boardid}/invitations?page=${page}&size=${size}`
     );
 
-  const { execute, error, loading, data } = useAsync(getInvitaions);
-  // const invitations = mapInvitationsData(data?.invitations);
+  const { execute, error, loading, data } = useAsync(
+    getInvitaions,
+    false,
+    page
+  );
   return {
     execute,
     error,
