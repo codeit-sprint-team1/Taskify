@@ -16,10 +16,16 @@ function PaginationButton({
   totalPages,
   page,
 }: PaginationButtonProps) {
+  const disabledButton = 'border border-gray30';
+  const activeButton = 'border border-black bg-violet';
   return (
     <div className="flex">
       <button
-        className="w-40pxr h-40pxr flex-center rounded-t rounded-l border border-gray30"
+        className={
+          page === 1
+            ? `w-40pxr h-40pxr flex-center rounded-l ${disabledButton}`
+            : `w-40pxr h-40pxr flex-center rounded-l ${activeButton}`
+        }
         type="button"
         onClick={onClickLeft}
         disabled={page === 1}
@@ -27,12 +33,20 @@ function PaginationButton({
         <Image src={arrowLeftIcon} alt="왼쪽화살표 아이콘" />
       </button>
       <button
-        className="w-40pxr h-40pxr flex-center rounded-r rounded-b border border-gray30"
+        className={
+          totalPages <= page
+            ? `w-40pxr h-40pxr flex-center rounded-r ${disabledButton}`
+            : `w-40pxr h-40pxr flex-center rounded-r ${activeButton}`
+        }
         type="button"
         onClick={onClickRight}
         disabled={totalPages <= page}
       >
-        <Image src={arrowRightIcon} alt="오른쪽화살표 아이콘" />
+        <Image
+          src={arrowRightIcon}
+          alt="오른쪽화살표 아이콘"
+          className={totalPages <= page ? 'fill-gray30' : 'fill-violet'}
+        />
       </button>
     </div>
   );
