@@ -51,7 +51,10 @@ export default function LoginForm() {
   }, [error, setError]);
 
   return (
-    <form onSubmit={handleSubmit(login)}>
+    <form
+      onSubmit={handleSubmit(login)}
+      className="w-520pxr flex flex-col gap-16pxr mobile:mx-12pxr mobile:w-350pxr "
+    >
       <div>
         <label>이메일</label>
         <Controller
@@ -74,7 +77,7 @@ export default function LoginForm() {
           )}
         />
       </div>
-      <div>
+      <div className="relative">
         <label>비밀번호</label>
         <Controller
           control={control}

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
 interface SignInLayoutProps {
@@ -11,13 +12,20 @@ export default function SignLayout({
   form,
   footer,
 }: SignInLayoutProps) {
+  const router = useRouter();
+  const isLoginPage = router.pathname === '/login';
+
   return (
-    <div>
-      <div>
+    <main
+      className={`bg-gray10 overflow-y-scroll flex-center ${
+        isLoginPage ? 'h-screen' : 'h-full py-50pxr'
+      }`}
+    >
+      <section className="flex-center flex-col ">
         {header}
         {form}
         {footer}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
