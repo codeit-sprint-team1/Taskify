@@ -56,16 +56,15 @@ function Button({
 
   switch (size) {
     case 'desktop': {
-      combinedClassName +=
-        ' desktop:py-7pxr desktop:px-29pxr desktop:text-14pxr ';
+      combinedClassName += ' py-7pxr px-29pxr text-14pxr ';
       break;
     }
     case 'tablet': {
-      combinedClassName += ' tablet:py-6pxr tablet:px-23pxr tablet:text-14pxr ';
+      combinedClassName += ' py-6pxr px-23pxr text-14pxr ';
       break;
     }
     case 'mobile': {
-      combinedClassName += ' mobile:py-7pxr mobile:x-37pxr mobile:text-12pxr ';
+      combinedClassName += ' py-7pxr x-37pxr text-12pxr ';
       break;
     }
     case 'responsive': {
