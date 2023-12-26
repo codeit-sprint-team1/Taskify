@@ -1,5 +1,5 @@
 import { useAsync } from '@/hooks/useAsync';
-import { InvitationsRawData } from '@/types/types';
+import { InvitationsRawData } from '@/types/invitations';
 import { axiosAuthInstance } from '@/utils';
 
 interface useGetInvitationsProps {

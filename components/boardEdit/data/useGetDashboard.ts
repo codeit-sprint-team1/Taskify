@@ -1,6 +1,5 @@
 import { useAsync } from '@/hooks/useAsync';
 import { axiosAuthInstance } from '@/utils';
-import { useEffect } from 'react';
 
 interface UseGetDashboardProps {
   boardid: number;

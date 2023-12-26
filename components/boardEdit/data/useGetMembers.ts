@@ -1,5 +1,5 @@
 import { useAsync } from '@/hooks/useAsync';
-import { Members } from '@/types/types';
+import { Members } from '@/types/members';
 import { axiosAuthInstance } from '@/utils';
 
 interface useGetMembersProps {
