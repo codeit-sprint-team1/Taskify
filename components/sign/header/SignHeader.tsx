@@ -1,5 +1,5 @@
-import logo from '@/public/icons/logo.svg';
-import mainImage from '@/public/icons/mainIcon.svg';
+import logo from '@/public/icons/logo-icon.svg';
+import mainImage from '@/public/icons/main-icon.svg';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { WELLCOME_MESSAGE } from '../constants';

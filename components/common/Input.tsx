@@ -4,6 +4,7 @@ import {
   HTMLInputTypeAttribute,
   forwardRef,
 } from 'react';
+import { Label } from '..';
 
 export interface InputProps {
   label?: string;
@@ -34,10 +35,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <div>
-        <div className="font-medium mb-10pxr text-18pxr text-gray70 mobile:text-16pxr ">
-          <label>{label}</label>
-          {required && <span className="text-violet">*</span>}
-        </div>
+        <Label text={label} required={required} />
         <div className="mt-2.5">
           <input
             ref={ref}

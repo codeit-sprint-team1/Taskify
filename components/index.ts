@@ -14,3 +14,4 @@ export { default as ModalTitle } from './modal/ModalTitle';
 export { default as Portal } from './modal/Portal';
 export { default as Modal } from './modal/Modal';
 export { default as CreateDashboardModal } from './modal/CreateDashboardModal';
+export { default as Label } from './common/Label';
