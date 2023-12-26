@@ -64,6 +64,7 @@ function MembersTable({ boardid }: MembersTableProps) {
                 onClick={() => handleDeleteMember(item.id)}
                 variant="secondary"
                 size="small"
+                className="mobile:py-7pxr mobile:px-9pxr mobile:w-52pxr"
               >
                 삭제
               </Button>

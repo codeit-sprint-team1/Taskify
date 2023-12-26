@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import ColorChips from '../common/ColorChips';
 import { Button, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
-import { Dashboard } from '@/types/types';
+import { Dashboard } from '../modal/type';
 
 interface NameEditFormProps {
   boardInfo: Dashboard;

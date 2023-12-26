@@ -17,7 +17,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
       const res = await axiosAuthInstance.delete(
         `dashboards/${boardid}/invitations/${invitationId}`
       );
-      if (res?.status === 204) alert('성공적으로 취소 되었습니다!'); // toastify로 교체
+      if (res?.status === 204) alert('성공적으로 취소 되었습니다!');
       execute();
     } catch (error) {
       console.error(error);
@@ -51,6 +51,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
                 onClick={() => handleDeleteInvitation(invitation.id)}
                 variant="secondary"
                 size="small"
+                className="mobile:py-7pxr mobile:px-9pxr mobile:w-52pxr"
               >
                 취소
               </Button>
