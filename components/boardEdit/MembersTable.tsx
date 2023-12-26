@@ -3,6 +3,7 @@ import { Button } from '..';
 import Image from 'next/image';
 import useGetMembers from './data/useGetMembers';
 import { axiosAuthInstance } from '@/utils';
+import PagenationButton from '../common/PagenationButton';
 
 interface MembersTableProps {
   boardid: number;
@@ -40,9 +41,7 @@ function MembersTable({ boardid }: MembersTableProps) {
         <h1 className="font-bold text-24pxr">구성원</h1>
         <div className="flex items-center space-x-22pxr">
           <p className="font-14pxr">1 페이지 중 1</p>
-          <Button variant="secondary" size="xsmall">
-            페이지네이션
-          </Button>
+          <PagenationButton />
         </div>
       </div>
       <p className="text-16pxr text-gray40 py-24pxr">이름</p>

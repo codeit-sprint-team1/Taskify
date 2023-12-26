@@ -4,6 +4,7 @@ import Image from 'next/image';
 import inviteIcon from '@/public/icons/inviteIcon.svg';
 import useGetInvitaions from './data/useGetInvitaions';
 import { axiosAuthInstance } from '@/utils';
+import PagenationButton from '../common/PagenationButton';
 
 interface InviteListTableProps {
   boardid: number;
@@ -30,9 +31,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
         <h1 className="font-bold text-24pxr">초대 내역</h1>
         <div className="flex items-center space-x-22pxr">
           <p className="font-14pxr">1 페이지 중 1</p>
-          <Button variant="secondary" size="xsmall">
-            페이지네이션
-          </Button>
+          <PagenationButton />
           <Button variant="primary" size="mobile" className="w-105pxr">
             <div className="flex gap-x-8pxr">
               <Image src={inviteIcon} alt="초대하기 아이콘" />
