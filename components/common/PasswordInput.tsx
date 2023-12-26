@@ -32,6 +32,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         <button
           type="button"
           onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+          className="absolute right-10pxr top-47pxr"
         >
           {isPasswordVisible ? (
             <Image src={EyeOnIcon} alt="비밀번호 보이기 아이콘" />

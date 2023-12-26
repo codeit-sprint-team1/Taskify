@@ -48,7 +48,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             onBlur={onBlur}
             className={`block w-full rounded-md border border-solid ${
               hasError ? 'border-red' : 'border-gray30'
-            } px-16pxr py-15pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0`}
+            } px-16pxr py-15pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr`}
           />
         </div>
         {hasError && (
