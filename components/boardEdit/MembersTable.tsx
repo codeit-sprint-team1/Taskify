@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '..';
-import Image from 'next/image';
+import { Button, ProfileImage } from '..';
 import useGetMembers from './data/useGetMembers';
 import { axiosAuthInstance } from '@/utils';
 import PagenationButton from '../common/PagenationButton';
@@ -12,18 +11,11 @@ interface MembersTableProps {
 function MembersTable({ boardid }: MembersTableProps) {
   const PAGE = 1;
   const SIZE = 4;
-  const {
-    execute,
-    error,
-    loading,
-    data: members,
-  } = useGetMembers({ boardid, page: PAGE, size: SIZE });
-
-  if (loading) return;
-
-  if (loading) {
-    return <p>로딩중...</p>;
-  }
+  const { execute, data: members } = useGetMembers({
+    boardid,
+    page: PAGE,
+    size: SIZE,
+  });
 
   const handleDeleteMember = async (memberId: number) => {
     try {
@@ -38,9 +30,9 @@ function MembersTable({ boardid }: MembersTableProps) {
   return (
     <div className="p-30pxr">
       <div className="flex justify-between">
-        <h1 className="font-bold text-24pxr">구성원</h1>
+        <h1 className="font-bold text-24pxr mobile:text-20pxr">구성원</h1>
         <div className="flex items-center space-x-22pxr">
-          <p className="font-14pxr">1 페이지 중 1</p>
+          <p className="text-14pxr">1 페이지 중 1</p>
           <PagenationButton />
         </div>
       </div>
@@ -50,13 +42,7 @@ function MembersTable({ boardid }: MembersTableProps) {
           return (
             <div key={item.id} className="flex justify-between">
               <div className="flex items-center space-x-12pxr">
-                <Image
-                  width={38}
-                  height={38}
-                  className="w-38pxr h-38pxr rounded-full object-cover"
-                  src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
-                  alt="구성원 프로필 이미지"
-                />
+                <ProfileImage name={item.nickname} src={item.profileImageUrl} />
                 <p>{item.nickname}</p>
               </div>
               <Button

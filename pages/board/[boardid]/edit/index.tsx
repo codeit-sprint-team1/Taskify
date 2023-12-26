@@ -37,7 +37,7 @@ function BoardEditPage() {
       <Button
         variant="modal"
         size="small"
-        className="font-medium text-black w-320pxr h-62pxr mb-56pxr mt-32pxr"
+        className="font-medium text-black w-320pxr h-62pxr mb-56pxr mt-32pxr mobile:mx-auto"
         onClick={deleteDashBoard}
       >
         대시보드 삭제하기
