@@ -1,5 +1,5 @@
-import logo from '@/public/icons/logo.svg';
-import mainImage from '@/public/icons/mainIcon.svg';
+import logo from '@/public/icons/logo-icon.svg';
+import mainImage from '@/public/icons/main-icon.svg';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { WELLCOME_MESSAGE } from '../constants';
@@ -24,7 +24,7 @@ export default function SignHeader() {
           alt="로고 이미지"
           className="w-140pxr mobile:w-97pxr"
         />
-        <span className="text-20pxr font-medium">
+        <span className="font-medium text-20pxr">
           {isLoginPage ? WELLCOME_MESSAGE.login : WELLCOME_MESSAGE.signup}
         </span>
       </div>
