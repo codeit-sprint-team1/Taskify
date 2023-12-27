@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import addIcon from '@/public/icons/add-icon.svg';
 import Image from 'next/image';
 import { Button, Input } from '..';
 
 function MypageProfile() {
+  const imageUploaderRef = useRef<HTMLInputElement>(null);
+  const onClickInput = () => {
+    if (imageUploaderRef.current) {
+      imageUploaderRef.current.click();
+    }
+  };
   return (
     <div className="max-w-[620px] space-y-32pxr p-28pxr">
       <h1 className="text-24pxr font-bold mobile:text-20pxr">프로필</h1>
-      <div className="flex flex-col gap-24pxr">
+      <form className="flex flex-col gap-24pxr">
         <div className="flex gap-16pxr mobile:block mobile:space-y-24pxr">
-          <div className="flex-center bg-gray10 w-190pxr h-190pxr border mobile:w-100pxr mobile:h-100pxr">
-            <Image
-              src={addIcon}
-              alt="추가하기 아이콘"
-              className="w-30pxr mobile:w-20pxr"
+          <div className="flex-center bg-gray10 w-190pxr h-190pxr border mobile:w-100pxr mobile:h-100pxr cursor-pointer">
+            <input
+              type="file"
+              className="hidden"
+              name="imageUploader"
+              ref={imageUploaderRef}
             />
+            <label htmlFor="imageUploader">
+              <button onClick={onClickInput}>
+                <Image
+                  src={addIcon}
+                  alt="추가하기 아이콘"
+                  className="w-30pxr mobile:w-20pxr"
+                />
+              </button>
+            </label>
           </div>
           <div className="flex flex-col gap-16pxr grow">
             <Input label="이메일" value="이메일밸류" />
@@ -28,7 +44,7 @@ function MypageProfile() {
         >
           변경
         </Button>
-      </div>
+      </form>
     </div>
   );
 }
