@@ -37,15 +37,23 @@ interface DropdownManagerProps {
 }
 
 export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
-  const members = ['진수', '일이삼사오육칠팔구십', '서영', '진우'];
+  const members = ['진수', '승연', '서영', '진우', '일이삼사오육칠팔구십'];
   const [value, setValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLInputElement>(null);
   const [selectedMember, setSelectedMember] = useState('');
   const filteredMembers = members.filter((member) => member.includes(value));
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e?.target?.value);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      if (!ref?.current?.contains(document.activeElement)) {
+        setIsOpen(false);
+      }
+    }, 100);
   };
 
   const handleOpenClick = () => {
@@ -68,20 +76,24 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
           value={value}
           onChange={handleChange}
           ref={ref}
+          onBlur={handleBlur}
           onFocus={() => setIsOpen(true)}
-          className="block w-full rounded-md border border-solid border-gray30
-           pr-16pxr pl-35pxr py-11pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr "
+          className={`block w-full rounded-md border border-solid border-gray30
+           pr-16pxr pl-35pxr ${
+             selectedMember && value ? 'pl-35pxr' : 'pl-11pxr'
+           }  py-11pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr `}
         />
-        <div className="absolute pl-5pxr">
-          {selectedMember && (
+        {selectedMember && value && (
+          <div className="absolute pl-5pxr">
             <ProfileImage
               src={ProfileSrc}
               name={selectedMember}
               width={26}
               height={26}
             />
-          )}
-        </div>
+          </div>
+        )}
+
         <button onClick={handleOpenClick} tabIndex={-1}>
           <Image
             src={dropdownImage}
