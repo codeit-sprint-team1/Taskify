@@ -31,7 +31,12 @@ function DashboardListItem({ dashboard, currentId }: DashboardListItemsProps) {
   const bg = colors[dashboard?.color];
 
   return (
-    <Link href={`./${dashboard.id}`}>
+    <Link
+      href={{
+        pathname: '/dashboard/[id]',
+        query: { id: dashboard.id },
+      }}
+    >
       <div
         className={`flex items-center mobile:justify-center w-full rounded-md h-45pxr px-12pxr ${
           String(dashboard.id) === currentId && 'bg-violet8'
