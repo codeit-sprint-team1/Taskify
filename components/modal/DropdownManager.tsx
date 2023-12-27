@@ -42,7 +42,7 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
   const [selectedMember, setSelectedMember] = useState('');
-  const isSearchMember = members?.filter((member) => member === value);
+  const filteredMembers = members.filter((member) => member.includes(value));
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e?.target?.value);
@@ -82,7 +82,7 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
             />
           )}
         </div>
-        <button onClick={handleOpenClick}>
+        <button onClick={handleOpenClick} tabIndex={-1}>
           <Image
             src={dropdownImage}
             alt="목록보기 화살표 이미지"
@@ -93,13 +93,14 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
         </button>
       </div>
       {isOpen &&
-        members?.map((member) => (
+        filteredMembers?.map((member) => (
           <button
             className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
             onClick={() => handleMemberClick(member)}
             key={member}
+            tabIndex={0}
           >
-            <div className="flex items-center gap-6pxr pl-10pxr">
+            <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
               <ProfileImage
                 src={ProfileSrc}
                 name={member}
