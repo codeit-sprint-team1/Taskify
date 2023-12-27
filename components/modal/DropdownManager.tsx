@@ -50,6 +50,8 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
 
   const handleBlur = () => {
     setTimeout(() => {
+      if (isOpen && value) return;
+
       if (!ref?.current?.contains(document.activeElement)) {
         setIsOpen(false);
       }
@@ -79,12 +81,12 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
           onBlur={handleBlur}
           onFocus={() => setIsOpen(true)}
           className={`block w-full rounded-md border border-solid border-gray30
-           pr-16pxr pl-35pxr ${
-             selectedMember && value ? 'pl-35pxr' : 'pl-11pxr'
-           }  py-11pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr `}
+           pr-16pxr ${
+             selectedMember && value ? 'pl-40pxr' : 'pl-11pxr'
+           }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr `}
         />
         {selectedMember && value && (
-          <div className="absolute pl-5pxr">
+          <div className="absolute pl-10pxr">
             <ProfileImage
               src={ProfileSrc}
               name={selectedMember}
