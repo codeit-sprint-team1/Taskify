@@ -8,12 +8,13 @@
 //   return (
 //     <div>
 //       <Label htmlFor="members" text="담당자" />
-//       <Input
+//       <input
 //         type="text"
 //         list="members"
 //         placeholder="이름을 입력해주세요"
 //         value={value}
 //         onChange={(e) => setValue(e.target.value)}
+//         className="border border-solid border-gray-70"
 //       />
 //       <datalist id="members">
 //         {members?.map((member) => (
@@ -94,7 +95,7 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
       {isOpen &&
         members?.map((member) => (
           <button
-            className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 h-50pxr "
+            className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
             onClick={() => handleMemberClick(member)}
             key={member}
           >
