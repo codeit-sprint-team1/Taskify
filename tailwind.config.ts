@@ -15,6 +15,7 @@ const pxToRem = (px: number, base = 16) => `${px / base}rem`;
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './page-layout/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './page-layout/**/*.{js,ts,jsx,tsx,mdx}',
@@ -45,7 +46,7 @@ const config: Config = {
         gray50: '#787486',
         gray40: '#9fa6b2',
         gray30: '#d9d9d9',
-        gray20: '#EEEEEE',
+        gray20: '##EEEEEE',
         gray10: '#fafafa',
         white: '#ffffff',
         violet: '#5534da',
