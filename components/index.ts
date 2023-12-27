@@ -18,3 +18,5 @@ export { default as CreateDashboardModal } from './modal/CreateDashboardModal';
 export { default as HeaderButton } from './dashboard/header/HeaderButton';
 export { default as Header } from './dashboard/header/Header';
 export { default as DashboardHeader } from './dashboard/header/DashboardHeader';
+export { default as CreateDashboardButton } from './dashboard/sidebar/CreateDashboardButton';
+export { default as DashboardSidebar } from './dashboard/sidebar/DashboardSidebar';
