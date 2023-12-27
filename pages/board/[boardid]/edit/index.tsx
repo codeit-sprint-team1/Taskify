@@ -9,7 +9,6 @@ import React from 'react';
 import useGetDashboard from '@/components/boardEdit/data/useGetDashboard';
 import { useRouter } from 'next/router';
 import useDeleteDashboard from '@/components/boardEdit/data/useDeleteDashboard';
-import { axiosAuthInstance } from '@/utils';
 
 function BoardEditPage() {
   const router = useRouter();
@@ -21,13 +20,6 @@ function BoardEditPage() {
   });
   const { execute: deleteDashBoard } = useDeleteDashboard({ boardid });
   const dashboardTitle = dashboard?.title;
-
-  const invite = async () => {
-    const res = await axiosAuthInstance.post(`dashboards/133/invitations`, {
-      email: 'wade10@codeit.com',
-    });
-    console.log(res);
-  };
 
   return (
     <div className="m-20pxr">
@@ -50,7 +42,6 @@ function BoardEditPage() {
       >
         대시보드 삭제하기
       </Button>
-      <button onClick={invite}>초대하기테스트</button>
     </div>
   );
 }
