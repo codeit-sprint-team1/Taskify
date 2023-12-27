@@ -109,6 +109,7 @@ export default function BoardList() {
             color={`bg-${item.color}`}
             createByMe={item.createdByMe}
             id={item.id}
+            key={item.id}
           />
         ))}
       </div>

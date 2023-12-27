@@ -4,6 +4,7 @@ import { Button } from '@/components';
 import Image from 'next/image';
 import { InvitationsRawData, Invitations } from '@/types/invitations';
 import { useState } from 'react';
+import React from 'react';
 
 const CreatedAt = new Date();
 const UpdatedAt = new Date();
@@ -12,7 +13,7 @@ const mok: InvitationsRawData = {
   cursorId: 1,
   invitations: [
     {
-      id: 0,
+      id: 1,
       inviterUserId: 0,
       teamId: 'test1',
       dashboard: {
@@ -29,7 +30,7 @@ const mok: InvitationsRawData = {
       updatedAt: UpdatedAt,
     },
     {
-      id: 0,
+      id: 2,
       inviterUserId: 0,
       teamId: 'test2',
       dashboard: {
@@ -46,7 +47,7 @@ const mok: InvitationsRawData = {
       updatedAt: UpdatedAt,
     },
     {
-      id: 0,
+      id: 3,
       inviterUserId: 0,
       teamId: 'test3',
       dashboard: {
@@ -63,7 +64,7 @@ const mok: InvitationsRawData = {
       updatedAt: UpdatedAt,
     },
     {
-      id: 0,
+      id: 4,
       inviterUserId: 0,
       teamId: 'test4',
       dashboard: {
@@ -80,7 +81,7 @@ const mok: InvitationsRawData = {
       updatedAt: UpdatedAt,
     },
     {
-      id: 0,
+      id: 5,
       inviterUserId: 0,
       teamId: 'test5',
       dashboard: {
@@ -98,6 +99,23 @@ const mok: InvitationsRawData = {
     },
   ],
 };
+
+function InvitationsList({ item }: { item: Invitations }) {
+  return (
+    <div className="grid grid-cols-3 justify-center items-center">
+      <div className="pl-32pxr">{item.dashboard.title}</div>
+      <div>{item.invitee.nickname}</div>
+      <div className="flex gap-10pxr">
+        <Button variant="primary" size="small">
+          수락
+        </Button>
+        <Button variant="secondary" size="small">
+          거절
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 function InvitationsValid({ invitations }: { invitations: Invitations[] }) {
   const [searchValue, setSearchValue] = useState('');
@@ -120,25 +138,14 @@ function InvitationsValid({ invitations }: { invitations: Invitations[] }) {
         <div className="text-gray40">수락 여부</div>
       </div>
       {filterInvitations.map((item, index) => (
-        <>
-          <div className="grid grid-cols-3 justify-center items-center">
-            <div className="pl-32pxr">{item.dashboard.title}</div>
-            <div>{item.invitee.nickname}</div>
-            <div className="flex gap-10pxr">
-              <Button variant="primary" size="small">
-                수락
-              </Button>
-              <Button variant="secondary" size="small">
-                거절
-              </Button>
-            </div>
-          </div>
+        <React.Fragment key={item.id}>
+          <InvitationsList item={item} />
           {index !== filterInvitations.length - 1 ? (
             <hr className="border-gray20" />
           ) : (
             ''
           )}
-        </>
+        </React.Fragment>
       ))}
     </>
   );
