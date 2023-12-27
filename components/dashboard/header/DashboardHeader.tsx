@@ -1,6 +1,6 @@
 import Header from './Header';
 import HeaderButton from './HeaderButton';
-import addIcon from '@/public/icons/add-icon.svg';
+import addBoxIcon from '@/public/icons/add_box-icon.svg';
 import settingIcon from '@/public/icons/setting-icon.svg';
 import { DashboardHeaderProps } from './Header';
 import { useRouter } from 'next/router';
@@ -11,7 +11,7 @@ export default function DashboardHeader({ dashboard }: DashboardHeaderProps) {
     router.push(`${dashboard.id}/edit`);
   };
   const handleInvitingButtonClick = () => {
-    console.log('초대하기 모달 띄우기');
+    //초대하기 모달 띄우기
   };
   return (
     <Header dashboard={dashboard}>
@@ -26,7 +26,7 @@ export default function DashboardHeader({ dashboard }: DashboardHeaderProps) {
           </HeaderButton>
           <HeaderButton
             onClick={handleInvitingButtonClick}
-            src={addIcon}
+            src={addBoxIcon}
             alt="멤버를 초대할 수 있는 플러스 모양 아이콘"
           >
             초대하기
