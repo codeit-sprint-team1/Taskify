@@ -63,18 +63,20 @@ export default function DashboardSidebar({
 }: DashboardSidebarProps) {
   return (
     <aside className="h-full overflow-x-hidden overflow-y-scroll duration-100 ease-in-out border-r w-160pxr transition-width py-20pxr px-12pxr mobile:w-67pxr desktop:w-300pxr border-r-gray30">
-      <div className="ml-12px mobile:flex-center">
-        <Image
-          src={logoLarge}
-          alt="내 대시보드로 이동하는 로고"
-          className="mobile:hidden"
-        />
-        <Image
-          src={logoSmall}
-          alt="내 대시보드로 이동하는 로고"
-          className="hidden mobile:block"
-        />
-      </div>
+      <Link href="/mydashboard">
+        <div className="ml-12px mobile:flex-center">
+          <Image
+            src={logoLarge}
+            alt="내 대시보드로 이동하는 로고"
+            className="mobile:hidden"
+          />
+          <Image
+            src={logoSmall}
+            alt="내 대시보드로 이동하는 로고"
+            className="hidden mobile:block"
+          />
+        </div>
+      </Link>
       <div className="mt-42pxr">
         <div className="flex items-center justify-between px-12pxr mb-15pxr">
           <p className="font-bold text-gray50 text-12pxr mobile:hidden">
