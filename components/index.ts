@@ -15,3 +15,6 @@ export { default as ModalTitle } from './modal/ModalTitle';
 export { default as Portal } from './modal/Portal';
 export { default as Modal } from './modal/Modal';
 export { default as CreateDashboardModal } from './modal/CreateDashboardModal';
+export { default as HeaderButton } from './dashboard/header/HeaderButton';
+export { default as Header } from './dashboard/header/Header';
+export { default as DashboardHeader } from './dashboard/header/DashboardHeader';

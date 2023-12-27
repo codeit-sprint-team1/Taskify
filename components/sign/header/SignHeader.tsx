@@ -24,7 +24,7 @@ export default function SignHeader() {
           alt="로고 이미지"
           className="w-140pxr mobile:w-97pxr"
         />
-        <span className="text-20pxr font-medium">
+        <span className="font-medium text-20pxr">
           {isLoginPage ? WELLCOME_MESSAGE.login : WELLCOME_MESSAGE.signup}
         </span>
       </div>
