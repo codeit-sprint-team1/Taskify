@@ -1,18 +1,11 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDashboardList } from '@/store/memos/useDashboardList';
 import { Dashboards } from '@/types/dashboards';
 import DashboardLayout from '@/page-layout/DashboardLayout';
 import { DashboardHeader, DashboardSidebar } from '@/components';
-import useGetDashboardList from '@/components/dashboard/data/useGetDashboards';
 
 export default function DashboardPage() {
-  const { dashboards } = useGetDashboardList();
-  const { dashboardList, setDashboardList } = useDashboardList();
-
-  useEffect(() => {
-    setDashboardList(dashboards);
-  }, [dashboards]);
+  const { dashboardList } = useDashboardList();
 
   const router = useRouter();
   const currentId = router.query['id'] as string | undefined;

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { Dashboards } from '@/types/dashboards';
+import { persist } from 'zustand/middleware';
 
 interface DashboardListStoreType {
   dashboardList: Dashboards[];
@@ -12,14 +13,19 @@ const addBoard = (prevList: Dashboards[], newBoard: Dashboards) => {
   return { dashboardList: newList };
 };
 
-export const useDashboardList = create<DashboardListStoreType>((set) => ({
-  dashboardList: [],
-  setDashboardList: (newList) => {
-    set({
-      dashboardList: newList,
-    });
-  },
-  addDashboard: (newBoard) => {
-    set((prevState) => addBoard(prevState.dashboardList, newBoard));
-  },
-}));
+export const useDashboardList = create(
+  persist<DashboardListStoreType>(
+    (set) => ({
+      dashboardList: [],
+      setDashboardList: (newList) => {
+        set({
+          dashboardList: newList,
+        });
+      },
+      addDashboard: (newBoard) => {
+        set((prevState) => addBoard(prevState.dashboardList, newBoard));
+      },
+    }),
+    { name: 'dashboardList' }
+  )
+);
