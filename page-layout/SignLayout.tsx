@@ -21,7 +21,7 @@ export default function SignLayout({
         isLoginPage ? 'h-screen' : 'h-full py-50pxr'
       }`}
     >
-      <section className="flex-center flex-col ">
+      <section className="flex-center flex-col">
         {header}
         {form}
         {footer}
