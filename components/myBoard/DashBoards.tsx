@@ -1,6 +1,6 @@
-import plusIcon from '../../public/icons/plusIcon.svg';
-import arrowIcon from '../../public/icons/arrowIcon.svg';
-import crownIcon from '../../public/icons/crownIcon.svg';
+import plusIcon from '../../public/icons/plus-icon.svg';
+import arrowIcon from '../../public/icons/arrow-icon.svg';
+import crownIcon from '../../public/icons/crown-icon.svg';
 import Image from 'next/image';
 import { DashboardsRawData } from '@/types/dashboards';
 import Link from 'next/link';
@@ -75,7 +75,7 @@ function Board({
           <div className={`w-8pxr h-8pxr ${color} rounded-full`}></div>
           <div className="flex-center gap-8pxr">
             <div className="font-semibold text-gray70">{title}</div>
-            {createByMe ? <Image src={crownIcon} alt="crownIcon" /> : ''}
+            {createByMe && <Image src={crownIcon} alt="crownIcon" />}
           </div>
         </div>
         <div>
@@ -113,11 +113,9 @@ export default function BoardList() {
           />
         ))}
       </div>
-      {dashboards[0] ? (
-        <div className="flex justify-end">1 페이중 중 1 </div> // 페이지 네이션 오면 바꾸기
-      ) : (
-        ''
-      )}
+      {
+        dashboards[0] && <div className="flex justify-end">1 페이중 중 1 </div> // 페이지 네이션 오면 바꾸기
+      }
     </div>
   );
 }

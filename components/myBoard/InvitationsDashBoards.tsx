@@ -1,5 +1,5 @@
-import searchIcon from '../../public/icons/searchIcon.svg';
-import notValidIcon from '../../public/icons/invitationsNotValidIcon.svg';
+import searchIcon from '../../public/icons/search-icon.svg';
+import notValidIcon from '../../public/icons/invitations-not-valid-icon.svg';
 import { Button } from '@/components';
 import Image from 'next/image';
 import { InvitationsRawData, Invitations } from '@/types/invitations';
@@ -140,10 +140,8 @@ function InvitationsValid({ invitations }: { invitations: Invitations[] }) {
       {filterInvitations.map((item, index) => (
         <React.Fragment key={item.id}>
           <InvitationsList item={item} />
-          {index !== filterInvitations.length - 1 ? (
+          {index !== filterInvitations.length - 1 && (
             <hr className="border-gray20" />
-          ) : (
-            ''
           )}
         </React.Fragment>
       ))}
