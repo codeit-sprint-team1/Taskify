@@ -1,9 +1,9 @@
 import { Header, DashboardSidebar } from '@/components';
 import DashboardLayout from '@/page-layout/DashboardLayout';
-import useGetDashboards from '@/components/dashboard/data/useGetDashboards';
+import { useDashboardList } from '@/store/memos/useDashboardList';
 
-export default function TestPage() {
-  const { dashboards } = useGetDashboards();
+export default function MyDashboardPage() {
+  const { dashboardList, setDashboardList } = useDashboardList();
 
   const dashboard = {
     title: '내 대시보드',
@@ -15,7 +15,7 @@ export default function TestPage() {
       <DashboardLayout
         header={<Header dashboard={dashboard} />}
         main={<div>main</div>}
-        sidebar={<DashboardSidebar dashboardList={dashboards} />}
+        sidebar={<DashboardSidebar dashboardList={dashboardList} />}
       ></DashboardLayout>
     </>
   );
