@@ -1,32 +1,3 @@
-// import { useRef, useState } from 'react';
-// import { Input, Label } from '..';
-
-// const members = ['진수', '승연', '서영', '진우'];
-
-// export default function DropdownManager() {
-//   const [value, setValue] = useState<string>('');
-//   return (
-//     <div>
-//       <Label htmlFor="members" text="담당자" />
-//       <input
-//         type="text"
-//         list="members"
-//         placeholder="이름을 입력해주세요"
-//         value={value}
-//         onChange={(e) => setValue(e.target.value)}
-//         className="border border-solid border-gray-70"
-//       />
-//       <datalist id="members">
-//         {members?.map((member) => (
-//           <div>
-//             <option value={member}></option>
-//           </div>
-//         ))}
-//       </datalist>
-//     </div>
-//   );
-// }
-
 import React, { ChangeEvent, useRef, useState } from 'react';
 import dropdownImage from '@/public/icons/dropdown-icon.svg';
 import Image from 'next/image';
