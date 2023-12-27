@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { InvitationsRawData, Invitations } from '@/types/invitations';
 import { useState } from 'react';
 import React from 'react';
+import useGetInvitations from './data/useGetInvitations';
 
 const CreatedAt = new Date();
 const UpdatedAt = new Date();
@@ -159,11 +160,13 @@ function InvitationsNotValid() {
 }
 
 export default function InvitationsDashBoards() {
-  const { invitations } = mok;
+  // const { invitations } = mok;
+  const { invitations } = useGetInvitations();
+  console.log(invitations);
   return (
     <div className="bg-white rounded-lg px-32pxr py-28pxr flex flex-col gap-20pxr w-full">
       <div className="text-gray70 text-24pxr font-bold">초대받은 대시보드</div>
-      {invitations[0] ? (
+      {invitations && invitations.length !== 0 ? (
         <InvitationsValid invitations={invitations} />
       ) : (
         <InvitationsNotValid />
