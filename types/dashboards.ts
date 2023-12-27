@@ -13,7 +13,7 @@ export interface Dashboards {
 export interface DashboardsRawData {
   cursorId: number;
   totalCount: number;
-  dashboards: Dashboards;
+  dashboards: Dashboards[];
 }
 
 export interface DashboardsInvitation {

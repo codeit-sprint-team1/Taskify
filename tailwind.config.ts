@@ -46,7 +46,7 @@ const config: Config = {
         gray50: '#787486',
         gray40: '#9fa6b2',
         gray30: '#d9d9d9',
-        gray20: 'eeeeee',
+        gray20: '#eeeeee',
         gray10: '#fafafa',
         white: '#ffffff',
         violet: '#5534da',
