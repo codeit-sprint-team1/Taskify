@@ -40,7 +40,11 @@ export default function CreateDashboardModal({
   };
 
   const { addDashboard } = useDashboardList();
-  const { execute: postDashboards, data: response } = usePostDashboards({
+  const {
+    execute: postDashboards,
+    data: response,
+    loading,
+  } = usePostDashboards({
     title: watch('title'),
     color: color,
   });
@@ -79,7 +83,7 @@ export default function CreateDashboardModal({
         </div>
         <Modal.ColorChips onSelect={onSelect} />
         <Modal.Button
-          disabled={!isValid || color === ''}
+          disabled={!isValid || color === '' || loading}
           onCancel={handleCancel}
         >
           생성
