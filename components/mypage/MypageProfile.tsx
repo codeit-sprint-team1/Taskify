@@ -5,7 +5,7 @@ import { Button, Input } from '..';
 
 function MypageProfile() {
   return (
-    <div className="max-w-[620px] pace-y-32pxr p-28pxr">
+    <div className="max-w-[620px] space-y-32pxr p-28pxr">
       <h1 className="text-24pxr font-bold mobile:text-20pxr">프로필</h1>
       <div className="flex flex-col gap-24pxr">
         <div className="flex gap-16pxr mobile:block mobile:space-y-24pxr">
