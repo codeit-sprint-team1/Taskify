@@ -1,5 +1,6 @@
 import BoardEditLayout from '@/page-layout/BoardEditLayout';
 import {
+  ArrowBackButton,
   Button,
   InviteListTable,
   MembersTable,
@@ -9,6 +10,7 @@ import React from 'react';
 import useGetDashboard from '@/components/boardEdit/data/useGetDashboard';
 import { useRouter } from 'next/router';
 import useDeleteDashboard from '@/components/boardEdit/data/useDeleteDashboard';
+import Link from 'next/link';
 
 function BoardEditPage() {
   const router = useRouter();
@@ -23,6 +25,9 @@ function BoardEditPage() {
 
   return (
     <div className="m-20pxr">
+      <Link href={`/board/${boardid}`}>
+        <ArrowBackButton />
+      </Link>
       <BoardEditLayout
         nameEditForm={
           <NameEditForm

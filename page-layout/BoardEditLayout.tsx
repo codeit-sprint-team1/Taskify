@@ -14,7 +14,6 @@ function BoardEditLayout({
 }: BoardEditLayoutProps) {
   return (
     <div className="flex flex-col max-w-[620px] min-w-[375px] gap-y-40pxr mobile:gap-y-11pxr">
-      <ArrowBackButton />
       {nameEditForm}
       {membersTable}
       {inviteListTable}
