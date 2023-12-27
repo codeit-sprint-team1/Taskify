@@ -1,6 +1,6 @@
 import { forwardRef, useMemo, useState } from 'react';
-import EyeOnIcon from '@/public/icons/visibility_on.svg';
-import EyeOffIcon from '@/public/icons/visibility_off.svg';
+import EyeOnIcon from '@/public/icons/visibility_on-icon.svg';
+import EyeOffIcon from '@/public/icons/visibility_off-icon.svg';
 import Input, { InputProps } from '@/components/common/Input';
 import Image from 'next/image';
 

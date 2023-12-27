@@ -3,6 +3,7 @@ import notValidIcon from '../../public/icons/invitationsNotValidIcon.svg';
 import { Button } from '@/components';
 import Image from 'next/image';
 import { InvitationsRawData, Invitations } from '@/types/invitations';
+import { useState } from 'react';
 
 const CreatedAt = new Date();
 const UpdatedAt = new Date();
@@ -99,18 +100,26 @@ const mok: InvitationsRawData = {
 };
 
 function InvitationsValid({ invitations }: { invitations: Invitations[] }) {
+  const [searchValue, setSearchValue] = useState('');
+  const filterInvitations = invitations.filter((item) =>
+    item.dashboard.title.includes(searchValue)
+  );
   return (
     <>
       <div className="flex rounded-md border border-solid border-gray30 px-16pxr py-8pxr gap-8pxr">
         <Image src={searchIcon} alt="searchIcon" />
-        <input className="w-full placeholder:text-gray40" placeholder="검색" />
+        <input
+          className="w-full placeholder:text-gray40"
+          placeholder="검색"
+          onChange={(event) => setSearchValue(event.target.value)}
+        />
       </div>
       <div className="grid grid-cols-3">
         <div className="text-gray40">이름</div>
         <div className="text-gray40">초대자</div>
         <div className="text-gray40">수락 여부</div>
       </div>
-      {invitations.map((item, index) => (
+      {filterInvitations.map((item, index) => (
         <>
           <div className="grid grid-cols-3 justify-center items-center">
             <div className="pl-32pxr">{item.dashboard.title}</div>
@@ -124,7 +133,7 @@ function InvitationsValid({ invitations }: { invitations: Invitations[] }) {
               </Button>
             </div>
           </div>
-          {index !== invitations.length - 1 ? (
+          {index !== filterInvitations.length - 1 ? (
             <hr className="border-gray20" />
           ) : (
             ''

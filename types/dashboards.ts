@@ -1,3 +1,5 @@
+import { Invitations } from './invitations';
+
 export interface Dashboards {
   id: number;
   title: string;
@@ -12,4 +14,9 @@ export interface DashboardsRawData {
   cursorId: number;
   totalCount: number;
   dashboards: Dashboards[];
+}
+
+export interface DashboardsInvitation {
+  totalCount: number;
+  invitations: Invitations[];
 }

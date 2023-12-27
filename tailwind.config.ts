@@ -15,6 +15,7 @@ const pxToRem = (px: number, base = 16) => `${px / base}rem`;
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './page-layout/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './page-layout/**/*.{js,ts,jsx,tsx,mdx}',

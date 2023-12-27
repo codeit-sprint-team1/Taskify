@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { motion } from 'framer-motion';
-import checkIcon from '@/public/icons/checkIcon.svg';
+import checkIcon from '@/public/icons/check-icon.svg';
 import Image from 'next/image';
 
 interface ColorChipsProps {
