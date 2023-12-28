@@ -1,7 +1,7 @@
 import { Modal } from '@/components/index';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import usePostDashboards from './data/usePostDashboards';
+import usePostDashboards from '../data/usePostDashboards';
 import { useDashboardList } from '@/store/memos/useDashboardList';
 
 interface CreateDashboardModalProps {

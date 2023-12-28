@@ -17,7 +17,7 @@ export { default as ModalButton } from './modal/ModalButton';
 export { default as ModalTitle } from './modal/ModalTitle';
 export { default as Portal } from './modal/Portal';
 export { default as Modal } from './modal/Modal';
-export { default as CreateDashboardModal } from './modal/CreateDashboardModal';
+export { default as CreateDashboardModal } from './modal/create-dashboard/CreateDashboardModal';
 export { default as MypageProfile } from './mypage/MypageProfile';
 export { default as PasswordModify } from './mypage/PasswordModify';
 export { default as ArrowBackButton } from './boardEdit/ArrowBackButton';
