@@ -5,21 +5,21 @@ export interface ProfileImageProps {
   src: string | null;
   width?: number;
   height?: number;
+  size?: string;
 }
 
-export default function ProfileImage({
-  name,
-  src,
-  width = 38,
-  height = 38,
-}: ProfileImageProps) {
+export default function ProfileImage({ name, src, size }: ProfileImageProps) {
+  const divSize = size === 'sm' ? 'w-26pxr h-26pxr' : 'w-38pxr h-38pxr';
+  const ImageSize = size === 'sm' ? 26 : 38;
   return (
-    <div
-      className={`rounded-full flex-center bg-green`}
-      style={{ width: width, height: height }}
-    >
+    <div className={`rounded-full flex-center bg-green ${divSize}`}>
       {src ? (
-        <Image src={src} alt="프로필 이미지" width={width} height={height} />
+        <Image
+          src={src}
+          alt="프로필 이미지"
+          width={ImageSize}
+          height={ImageSize}
+        />
       ) : (
         <p className="text-white">{name[0]}</p>
       )}

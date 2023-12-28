@@ -58,12 +58,7 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
         />
         {selectedMember && value && (
           <div className="absolute pl-10pxr">
-            <ProfileImage
-              src={ProfileSrc}
-              name={selectedMember}
-              width={26}
-              height={26}
-            />
+            <ProfileImage src={ProfileSrc} name={selectedMember} size="sm" />
           </div>
         )}
 
@@ -86,12 +81,7 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
             tabIndex={0}
           >
             <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-              <ProfileImage
-                src={ProfileSrc}
-                name={member}
-                width={26}
-                height={26}
-              />
+              <ProfileImage src={ProfileSrc} name={member} size="sm" />
               {member}
             </div>
           </button>
