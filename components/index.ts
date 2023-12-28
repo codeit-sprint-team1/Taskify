@@ -24,3 +24,5 @@ export { default as ArrowBackButton } from './boardEdit/ArrowBackButton';
 export { default as HeaderButton } from './dashboard/header/HeaderButton';
 export { default as Header } from './dashboard/header/Header';
 export { default as DashboardHeader } from './dashboard/header/DashboardHeader';
+export { default as BoardList } from './myBoard/DashBoards';
+export { default as InvitationsDashBoards } from './myBoard/InvitationsDashBoards';
