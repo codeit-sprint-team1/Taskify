@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import dropdownImage from '@/public/icons/dropdown-icon.svg';
 import Image from 'next/image';
 import { Label } from '..';
@@ -16,12 +16,30 @@ export default function DropdownState({
   const [value, setValue] = useState(initialState);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedState, setSelectedState] = useState('');
+  const dropdownRef = useRef<HTMLUListElement>(null);
 
   const handleStateClick = (state: string) => {
     setValue(state);
     setSelectedState(state);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
     <div className="w-217pxr h-79pxr">
       <Label htmlFor="members" text="상태" />
@@ -55,7 +73,7 @@ export default function DropdownState({
           />
         </button>
       </div>
-      <ul className="max-h-160pxr overflow-y-auto">
+      <ul ref={dropdownRef} className="max-h-160pxr overflow-y-auto">
         {isOpen &&
           states?.map((state) => (
             <li>
