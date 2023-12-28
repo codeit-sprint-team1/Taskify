@@ -1,7 +1,8 @@
-import { Modal, ColorChips } from '@/components/index';
-import { useState } from 'react';
+import { Modal } from '@/components/index';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import usePostDashboard from './data/usePostDashboard';
+import usePostDashboards from './data/usePostDashboards';
+import { useDashboardList } from '@/store/memos/useDashboardList';
 
 interface CreateDashboardModalProps {
   isOpen: boolean;
@@ -23,7 +24,7 @@ export default function CreateDashboardModal({
     handleSubmit,
     watch,
     reset,
-    formState: { isValid, isSubmitSuccessful },
+    formState: { isValid },
   } = useForm<CreateDashboardModalForm>();
 
   const watchInput = watch('title');
@@ -32,23 +33,32 @@ export default function CreateDashboardModal({
     setColor(value);
   };
 
-  const { execute: postDashboard } = usePostDashboard({
-    title: watch('title'),
-    color: color,
-  });
-
   const handleCancel = () => {
     reset();
     setColor('');
     onCancel();
   };
 
-  const onSubmit = () => {
-    postDashboard();
-    if (isSubmitSuccessful) {
-      handleCancel();
-    }
+  const { addDashboard } = useDashboardList();
+  const {
+    execute: postDashboards,
+    data: response,
+    loading,
+  } = usePostDashboards({
+    title: watch('title'),
+    color: color,
+  });
+
+  const onSubmit = async () => {
+    await postDashboards();
+    handleCancel();
   };
+
+  useEffect(() => {
+    if (response) {
+      addDashboard(response);
+    }
+  }, [response]);
 
   return (
     <>
@@ -73,7 +83,7 @@ export default function CreateDashboardModal({
         </div>
         <Modal.ColorChips onSelect={onSelect} />
         <Modal.Button
-          disabled={!isValid || color === ''}
+          disabled={!isValid || color === '' || loading}
           onCancel={handleCancel}
         >
           생성
