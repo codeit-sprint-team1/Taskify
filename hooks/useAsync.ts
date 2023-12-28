@@ -3,7 +3,8 @@ import { AxiosResponse } from 'axios';
 
 export const useAsync = <T>(
   asyncFunction: () => Promise<AxiosResponse<T>>,
-  lazyMode: boolean = false
+  lazyMode: boolean = false,
+  deps?: any
 ) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | any>(null);
@@ -28,7 +29,7 @@ export const useAsync = <T>(
     if (!lazyMode) {
       execute();
     }
-  }, [lazyMode]);
+  }, [lazyMode, deps]);
 
   return { execute, loading, error, data };
 };
