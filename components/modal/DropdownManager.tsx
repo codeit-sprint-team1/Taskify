@@ -88,11 +88,10 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
       <ul ref={dropdownRef} className="max-h-180pxr overflow-y-auto">
         {isOpen &&
           filteredMembers?.map((member) => (
-            <li>
+            <li key={member}>
               <button
                 className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
                 onClick={() => handleMemberClick(member)}
-                key={member}
                 tabIndex={0}
               >
                 <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
