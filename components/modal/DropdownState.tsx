@@ -1,51 +1,49 @@
-import React, {
-  ChangeEvent,
-  MouseEvent,
-  MouseEventHandler,
-  ReactNode,
-  useRef,
-  useState,
-} from 'react';
+import { useState } from 'react';
 import dropdownImage from '@/public/icons/dropdown-icon.svg';
 import Image from 'next/image';
-import { Label, ProfileImage } from '..';
+import { Label } from '..';
 import ColumnState from '../common/ColumnState';
 
 interface DropdownManagerProps {
-  initialState: ReactNode;
-  titles: string[];
+  initialState: string;
+  states: string[];
 }
 
 export default function DropdownState({
   initialState,
-  titles,
+  states,
 }: DropdownManagerProps) {
-  const [value, setValue] = useState<ReactNode>(initialState);
+  const [value, setValue] = useState(initialState);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedMember, setSelectedMember] = useState('');
+  const [selectedState, setSelectedState] = useState('');
 
-  const handleMemberClick = (title: string) => {
-    setValue(title);
-    setSelectedMember(title);
+  const handleStateClick = (state: string) => {
+    setValue(state);
+    setSelectedState(state);
     setIsOpen(false);
   };
   return (
     <div className="w-217pxr h-79pxr">
       <Label htmlFor="members" text="상태" />
       <div className="relative flex items-center ">
-        <button
-          type="submit"
+        <input
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
           className={`block w-full rounded-md border border-solid border-gray30
            pr-16pxr ${
-             selectedMember && value ? 'pl-40pxr' : 'pl-11pxr'
-           }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 outline-0 h-50pxr `}
+             selectedState && value ? 'pl-40pxr' : 'pl-11pxr'
+           }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 outline-0 h-50pxr cursor-pointer`}
         />
-        {selectedMember && value && (
-          <div className="absolute pl-10pxr" onClick={() => setIsOpen(!isOpen)}>
-            <ColumnState title={selectedMember} />
-          </div>
-        )}
+        <div
+          className="absolute pl-10pxr cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {selectedState && value ? (
+            <ColumnState state={selectedState} />
+          ) : (
+            <ColumnState state={value} />
+          )}
+        </div>
 
         <button onClick={() => setIsOpen(!isOpen)} tabIndex={-1}>
           <Image
@@ -58,15 +56,14 @@ export default function DropdownState({
         </button>
       </div>
       {isOpen &&
-        titles?.map((title) => (
+        states?.map((state) => (
           <button
             className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
-            onClick={() => handleMemberClick(title)}
-            key={title}
-            tabIndex={0}
+            onClick={() => handleStateClick(state)}
+            key={state}
           >
             <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-              <ColumnState title={title} />
+              <ColumnState state={state} />
             </div>
           </button>
         ))}
