@@ -32,7 +32,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         <button
           type="button"
           onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-          className="absolute right-10pxr top-47pxr"
+          className="absolute right-10pxr top-15pxr"
         >
           {isPasswordVisible ? (
             <Image src={EyeOnIcon} alt="비밀번호 보이기 아이콘" />
@@ -45,7 +45,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     );
 
     return (
-      <div>
+      <div className="relative">
         <Input
           ref={ref}
           label={label}
