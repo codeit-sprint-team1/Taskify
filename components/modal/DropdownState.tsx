@@ -55,18 +55,22 @@ export default function DropdownState({
           />
         </button>
       </div>
-      {isOpen &&
-        states?.map((state) => (
-          <button
-            className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
-            onClick={() => handleStateClick(state)}
-            key={state}
-          >
-            <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-              <ColumnState state={state} />
-            </div>
-          </button>
-        ))}
+      <ul className="max-h-160pxr overflow-y-auto">
+        {isOpen &&
+          states?.map((state) => (
+            <li>
+              <button
+                className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
+                onClick={() => handleStateClick(state)}
+                key={state}
+              >
+                <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
+                  <ColumnState state={state} />
+                </div>
+              </button>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }
