@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { Button, Input } from '..';
 import { axiosAuthInstance } from '@/utils';
 import { useUserInfo } from '@/store/memos';
+import 'react-toastify/dist/ReactToastify.css';
+import { notify } from '../common/Toast';
 
 function MypageProfile() {
   const imageUploaderRef = useRef<HTMLInputElement>(null);
@@ -31,7 +33,6 @@ function MypageProfile() {
       }
     );
     setImgUrl(res?.data.profileImageUrl);
-    console.log(res?.data.profileImageUrl);
   };
 
   const onChangeImg = (event: ChangeEvent<HTMLInputElement>) => {
@@ -50,10 +51,13 @@ function MypageProfile() {
 
   const modifyMydata = async () => {
     try {
-      await axiosAuthInstance.put(`users/me`, {
+      const res = await axiosAuthInstance.put(`users/me`, {
         nickname,
         profileImageUrl: imgUrl,
       });
+      if (res.status === 200) {
+        notify({ type: 'success', text: '회원정보가 수정되었습니다 😊' });
+      }
     } catch (error) {
       console.error(error);
     }

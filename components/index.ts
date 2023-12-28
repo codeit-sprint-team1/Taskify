@@ -24,3 +24,4 @@ export { default as ArrowBackButton } from './boardEdit/ArrowBackButton';
 export { default as HeaderButton } from './dashboard/header/HeaderButton';
 export { default as Header } from './dashboard/header/Header';
 export { default as DashboardHeader } from './dashboard/header/DashboardHeader';
+export { default as Toast } from './common/Toast';
