@@ -3,8 +3,6 @@ import Image from 'next/image';
 export interface ProfileImageProps {
   name: string;
   src: string | null;
-  width?: number;
-  height?: number;
   size?: string;
 }
 
