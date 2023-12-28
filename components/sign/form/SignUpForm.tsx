@@ -111,7 +111,7 @@ export default function SignUpForm() {
           )}
         />
       </div>
-      <div className="relative">
+      <div>
         <label className="font-small mb-8pxr">비밀번호</label>
         <Controller
           control={control}
@@ -134,7 +134,7 @@ export default function SignUpForm() {
           )}
         />
       </div>
-      <div className="relative">
+      <div>
         <label className="font-small mb-8pxr">비밀번호 확인</label>
         <Controller
           control={control}

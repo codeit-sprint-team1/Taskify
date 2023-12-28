@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import addBoxIcon from '@/public/icons/add_box-icon.svg';
-import { CreateDashboardModal } from '@/components';
+import { CreateDashboardModal } from '@/components/';
 import useToggle from '@/hooks/useToggle';
 
 export default function CreateDashboardButton() {
