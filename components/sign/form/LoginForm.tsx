@@ -77,7 +77,7 @@ export default function LoginForm() {
           )}
         />
       </div>
-      <div className="relative">
+      <div>
         <label>비밀번호</label>
         <Controller
           control={control}
