@@ -56,7 +56,6 @@ export default function LoginForm() {
       className="w-520pxr flex flex-col gap-16pxr mobile:mx-12pxr mobile:w-350pxr "
     >
       <div>
-        <label>이메일</label>
         <Controller
           control={control}
           name="email"
@@ -73,12 +72,13 @@ export default function LoginForm() {
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
+              label="이메일"
+              size="sm"
             />
           )}
         />
       </div>
       <div>
-        <label>비밀번호</label>
         <Controller
           control={control}
           name="password"
@@ -93,6 +93,8 @@ export default function LoginForm() {
             <PasswordInput
               {...field}
               hasEyeIcon
+              label="비밀번호"
+              size="sm"
               placeholder={PLACEHOLDER.password}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}

@@ -3,6 +3,7 @@ import EyeOnIcon from '@/public/icons/visibility_on-icon.svg';
 import EyeOffIcon from '@/public/icons/visibility_off-icon.svg';
 import Input, { InputProps } from '@/components/common/Input';
 import Image from 'next/image';
+import { Label } from '..';
 
 type PasswordInputProps = {
   hasEyeIcon?: boolean;
@@ -19,6 +20,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       helperText,
       onChange,
       onBlur,
+      size,
     },
     ref
   ) => {
@@ -27,12 +29,13 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       () => (isPasswordVisible ? 'text' : 'password'),
       [isPasswordVisible]
     );
+    const eyeIconPosition = size === 'sm' ? 'top-47pxr' : 'top-50pxr';
     const EyeIcon = useMemo(
       () => (
         <button
           type="button"
           onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-          className="absolute right-10pxr top-15pxr"
+          className={`absolute right-15pxr ${eyeIconPosition}`}
         >
           {isPasswordVisible ? (
             <Image src={EyeOnIcon} alt="비밀번호 보이기 아이콘" />
@@ -49,6 +52,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         <Input
           ref={ref}
           label={label}
+          size={size}
           value={value}
           placeholder={placeholder}
           type={inputType}
