@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { axiosAuthInstance } from '@/utils';
 import { useAsync } from '@/hooks/useAsync';
-import { Dashboard } from '../type';
+import { Dashboards } from '@/types/dashboards';
 
 interface PostDashboardBody {
   title: string;
@@ -11,7 +11,7 @@ interface PostDashboardBody {
 const usePostDashboard = ({ title, color }: PostDashboardBody) => {
   const postDashboard = useCallback(
     () =>
-      axiosAuthInstance.post<{ data: Dashboard }>('dashboards', {
+      axiosAuthInstance.post<{ data: Dashboards }>('dashboards', {
         title,
         color,
       }),
