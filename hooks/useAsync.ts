@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 
 export const useAsync = <T>(
-  asyncFunction: () => Promise<AxiosResponse<T>>,
+  asyncFunction: () => Promise<AxiosResponse<T>> | void,
   lazyMode: boolean = false,
   deps?: any
 ) => {

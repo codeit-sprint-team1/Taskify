@@ -5,11 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'image.utoimage.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.simplilearn.com',
+        hostname: 'sprint-fe-project.s3.ap-northeast-2.amazonaws.com',
       },
     ],
   },
