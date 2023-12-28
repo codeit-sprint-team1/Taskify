@@ -1,25 +1,47 @@
-import React from 'react';
-import { Button, Input } from '..';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { Button, Input, PasswordInput } from '..';
+import { useForm } from 'react-hook-form';
 
 function PasswordModify() {
+  const { register, handleSubmit } = useForm({ mode: 'onBlur' });
+  const [currentPassword, setCurrentPassword] = useState<string | null>('');
+  const [newPassword, setNewPassword] = useState<string | null>('');
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState<string | null>(
+    ''
+  );
+
+  const onSubmit = () => {};
+
   return (
     <div className="max-w-[620px] space-y-32pxr p-28pxr">
       <h1 className="text-24pxr font-bold mobile:text-20pxr">비밀번호 변경</h1>
-      <div className="flex flex-col gap-20pxr">
-        <Input
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-20pxr"
+      >
+        <PasswordInput
           label="현재 비밀번호"
-          value="현재 비밀번호값"
+          value={currentPassword}
           placeholder="현재 비밀번호 입력"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setCurrentPassword(e.target.value)
+          }
         />
-        <Input
+        <PasswordInput
           label="새 비밀번호"
-          value="새 비밀번호값"
+          value={newPassword}
           placeholder="새 비밀번호 입력"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setNewPassword(e.target.value)
+          }
         />
-        <Input
+        <PasswordInput
           label="새 비밀번호 확인"
-          value="새 비밀번호 확인값"
+          value={newPasswordConfirm}
           placeholder="새 비밀번호 입력"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setNewPasswordConfirm(e.target.value)
+          }
         />
         <Button
           variant="primary"
@@ -28,7 +50,7 @@ function PasswordModify() {
         >
           변경
         </Button>
-      </div>
+      </form>
     </div>
   );
 }
