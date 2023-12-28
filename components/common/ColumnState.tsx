@@ -12,9 +12,9 @@ export default function ColumnState({ title }: ColumnStateProps) {
   ];
 
   return (
-    <div className="inline-flex items-center h-22pxr gap-6pxr px-8pxr border rounded-xl bg-gray30">
+    <div className="inline-flex whitespace-nowrap items-center h-22pxr gap-6pxr px-8pxr border rounded-xl bg-gray10">
       <div className="rounded-full bg-green w-6pxr h-6pxr"></div>
-      <span className="text-12pxr text-gray70">{title}</span>
+      <span className="text-12pxr text-green ">{title}</span>
     </div>
   );
 }

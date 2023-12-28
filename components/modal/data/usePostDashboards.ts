@@ -8,17 +8,17 @@ interface PostDashboardBody {
   color: string;
 }
 
-const usePostDashboard = ({ title, color }: PostDashboardBody) => {
-  const postDashboard = useCallback(
+const usePostDashboards = ({ title, color }: PostDashboardBody) => {
+  const postDashboards = useCallback(
     () =>
-      axiosAuthInstance.post<{ data: Dashboards }>('dashboards', {
+      axiosAuthInstance.post<Dashboards>('dashboards', {
         title,
         color,
       }),
     [title, color]
   );
 
-  const { execute, loading, error, data } = useAsync(postDashboard, true);
+  const { execute, loading, error, data } = useAsync(postDashboards, true);
 
   return {
     execute,
@@ -28,4 +28,4 @@ const usePostDashboard = ({ title, color }: PostDashboardBody) => {
   };
 };
 
-export default usePostDashboard;
+export default usePostDashboards;

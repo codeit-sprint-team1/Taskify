@@ -6,15 +6,19 @@ import ImagePick from '@/components/modal/ImagePick';
 import SelectDate from '@/components/modal/SelectDate';
 
 export default function testPage() {
+  const titles = ['To Do', 'On Progress', 'Done'];
   return (
     <div>
       <TextArea label="설명" required={true} />
       <SelectDate label="마감일" />
       <ImagePick label="이미지" />
       <DropdownManager ProfileSrc="" />
-      <DropdownState ProfileSrc="" label="상태" />
+      <DropdownState
+        titles={titles}
+        initialState={<ColumnState title="To do" />}
+      />
       <div className="mb-30pxr"></div>
-      <ColumnState title="To Do" />
+      {/* <ColumnState title="To Do" /> */}
     </div>
   );
 }
