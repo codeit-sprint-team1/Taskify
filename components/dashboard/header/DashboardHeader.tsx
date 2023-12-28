@@ -3,7 +3,6 @@ import Header from './Header';
 import { DashboardHeaderProps } from './Header';
 import HeaderButton from './HeaderButton';
 import InviteButton from './InviteButton';
-import addBoxIcon from '@/public/icons/add_box-icon.svg';
 import settingIcon from '@/public/icons/setting-icon.svg';
 
 export default function DashboardHeader({ dashboard }: DashboardHeaderProps) {
