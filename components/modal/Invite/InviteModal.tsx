@@ -1,5 +1,5 @@
 import { Modal } from '@/components';
-import { ModalProps } from '../CreateDashboardModal';
+import { ModalProps } from '../create-dashboard/CreateDashboardModal';
 import { Controller, useForm } from 'react-hook-form';
 import { ERROR_MESSAGE, VALID_EMAIL_REG } from '@/components/sign/constants';
 import usePostInvitations from '../data/usePostInvitations';
@@ -65,7 +65,7 @@ export default function InviteModal({ isOpen, onCancel }: ModalProps) {
           <Modal.Input
             ref={ref}
             label="이메일"
-            placeholder="초대를 보낼 멤버의 이메일을 입력해주세요"
+            placeholder="초대할 멤버의 이메일을 입력해 주세요"
             type="text"
             value={watchInput}
             onChange={onChange}
