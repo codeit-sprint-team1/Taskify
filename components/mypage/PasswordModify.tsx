@@ -127,7 +127,7 @@ function PasswordModify() {
           <Button
             variant="primary"
             size="modal"
-            className="self-end"
+            className="self-end mobile:self-center"
             onClick={toggle}
           >
             확인
