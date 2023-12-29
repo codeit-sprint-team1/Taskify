@@ -4,12 +4,6 @@ import { Profile } from '@/components';
 import crownIcon from '@/public/icons/crown-icon.svg';
 import { useUserInfo } from '@/store/memos';
 
-export interface MyDashboardHeaderProps {
-  dashboard: {
-    title: string;
-    createdByMe: boolean;
-  };
-}
 export interface DashboardHeaderProps {
   dashboard: {
     id: number;
@@ -21,7 +15,6 @@ export interface DashboardHeaderProps {
 
 type HeaderProps = {
   dashboard: {
-    id?: number;
     title: string;
     createdByMe: boolean;
   };
@@ -33,10 +26,12 @@ export default function Header({ dashboard, children }: HeaderProps) {
   const [profileImage, setProfileImage] = useState<string | null>('');
 
   const { userInfo } = useUserInfo();
+
   useEffect(() => {
     setNickname(userInfo.nickname);
     setProfileImage(userInfo.profileImageUrl);
   }, []);
+
   return (
     <header className="flex items-center justify-end border-b desktop:justify-between mobile:justify-end h-70pxr desktop:pl-40pxr desktop:pr-80pxr px-40pxr mobile:px-12pxr border-b-gray30">
       <div className="hidden desktop:flex desktop:items-center gap-8pxr ">
