@@ -5,6 +5,7 @@ import { ERROR_MESSAGE, VALID_PASSWORD_REG } from '../sign/constants';
 import { axiosAuthInstance } from '@/utils';
 import axios, { AxiosError } from 'axios';
 import useToggle from '@/hooks/useToggle';
+import { notify } from '../common/Toast';
 
 interface FormValues {
   currentPassword: string;
@@ -27,6 +28,12 @@ function PasswordModify() {
         password: watch('currentPassword'),
         newPassword: watch('newPassword'),
       });
+      if (res.status === 204) {
+        notify({
+          type: 'success',
+          text: '새로운 비밀번호로 변경되었습니다. 🥰',
+        });
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;

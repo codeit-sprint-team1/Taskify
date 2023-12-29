@@ -96,7 +96,12 @@ function MypageProfile() {
             </label>
           </div>
           <div className="flex flex-col gap-16pxr grow">
-            <Input label="이메일" placeholder={email} disabled />
+            <Input
+              label="이메일"
+              value={email}
+              disabled
+              classNames="text-gray30"
+            />
             <Input
               label="닉네임"
               value={nickname}
