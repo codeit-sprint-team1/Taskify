@@ -10,7 +10,6 @@ export interface MyDashboardHeaderProps {
     createdByMe: boolean;
   };
 }
-
 export interface DashboardHeaderProps {
   dashboard: {
     id: number;
@@ -20,7 +19,14 @@ export interface DashboardHeaderProps {
   children?: ReactNode;
 }
 
-type HeaderProps = MyDashboardHeaderProps & DashboardHeaderProps;
+type HeaderProps = {
+  dashboard: {
+    id?: number;
+    title: string;
+    createdByMe: boolean;
+  };
+  children?: ReactNode;
+};
 
 export default function Header({ dashboard, children }: HeaderProps) {
   const [nickname, setNickname] = useState('');
