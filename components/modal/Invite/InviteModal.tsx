@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ERROR_MESSAGE, VALID_EMAIL_REG } from '@/components/sign/constants';
 import usePostInvitations from '../data/usePostInvitations';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export interface InviteModalForm {
   email: string;
@@ -16,7 +17,7 @@ export default function InviteModal({ isOpen, onCancel }: ModalProps) {
     watch,
     reset,
     setError,
-    formState: { isValid, isSubmitSuccessful },
+    formState: { isValid },
   } = useForm<InviteModalForm>();
 
   const watchInput = watch('email');
@@ -26,11 +27,14 @@ export default function InviteModal({ isOpen, onCancel }: ModalProps) {
     onCancel();
   };
 
+  const router = useRouter();
+  const currentId = router.query['id'] as string;
+
   const {
     execute: postInvitations,
     loading,
     error,
-  } = usePostInvitations('182', watchInput);
+  } = usePostInvitations(currentId, watchInput);
 
   const onSubmit = async () => {
     await postInvitations();
