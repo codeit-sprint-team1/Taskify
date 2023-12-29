@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent } from 'react';
 import cancelIcon from '@/public/icons/cancel-icon.svg';
 
 interface TagProps {
