@@ -3,14 +3,14 @@ import { Button } from '@/components/index';
 
 interface ModalButtonProps {
   children: ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
   onCancel: () => void;
 }
 
 export default function ModalButton({
   children,
   onCancel,
-  disabled,
+  disabled = false,
 }: ModalButtonProps) {
   return (
     <div className="flex justify-end w-full gap-12pxr">
