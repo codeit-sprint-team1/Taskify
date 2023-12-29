@@ -16,6 +16,9 @@ export interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   required?: boolean;
+  classNames?: string;
+  size?: string;
+  [x: string]: any;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -30,12 +33,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       onChange,
       onBlur,
       required = false,
+      classNames,
+      size,
+      ...props
     },
     ref
   ) => {
     return (
       <div>
-        <Label text={label} required={required} />
+        <Label text={label} required={required} size={size} />
         <div className="mt-2.5">
           <input
             ref={ref}
@@ -46,7 +52,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             onBlur={onBlur}
             className={`block w-full rounded-md border border-solid ${
               hasError ? 'border-red' : 'border-gray30'
-            } px-16pxr py-15pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr`}
+            } px-16pxr py-15pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr ${classNames}`}
+            {...props}
           />
         </div>
         {hasError && (

@@ -27,7 +27,7 @@ export default function ImagePick({ label, required }: CardLabelProps) {
     <div>
       <Label text={label} required={required} />
       <button
-        className="border border-solid rounded-md bg-gray10 w-76pxr h-76pxr relative overflow-hidden"
+        className="border border-solid rounded-md bg-gray10 w-76pxr h-76pxr relative overflow-hidden mobile:w-58pxr mobile:h-58pxr"
         onClick={handleButtonClick}
       >
         <div className="w-full h-full">
@@ -36,6 +36,7 @@ export default function ImagePick({ label, required }: CardLabelProps) {
             className="hidden"
             ref={fileInput}
             onChange={handleProfileChange}
+            accept="image/*"
           />
           {selectImage ? (
             <div className="w-full h-full rounded-md overflow-hidden relative">
@@ -47,7 +48,7 @@ export default function ImagePick({ label, required }: CardLabelProps) {
               />
             </div>
           ) : (
-            <div className="p-24pxr ">
+            <div className="p-24pxr mobile:p-18pxr">
               <Image
                 src={AddImage}
                 alt="더하기 이미지"

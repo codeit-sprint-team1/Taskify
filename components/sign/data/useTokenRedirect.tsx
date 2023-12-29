@@ -6,7 +6,7 @@ function useTokenRedirect(tokenResponse?: string) {
 
   useEffect(() => {
     const routeToDashboardPage = () => {
-      router.replace('board');
+      router.replace('mydashboard');
     };
     const accessTokenInLocalStorage = localStorage.getItem('accessToken');
 

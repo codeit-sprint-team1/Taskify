@@ -25,6 +25,7 @@ export const ERROR_MESSAGE = {
   passwordRequired: '비밀번호를 입력해 주세요.',
   passwordInvalid: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
   passwordCheck: '비밀번호를 확인해 주세요.',
+  passwordDifferent: '현재 비밀번호가 틀렸습니다.',
   confirmedPasswordNotMatch: '비밀번호가 일치하지 않습니다.',
   nicknameRequired: '닉네임을 입력해주세요.',
   nicknameLimit: '닉네임은 10자를 초과할 수 없습니다.',
@@ -40,4 +41,3 @@ export const WELLCOME_MESSAGE = {
 export const VALID_PASSWORD_REG = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
 export const VALID_EMAIL_REG =
   /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
