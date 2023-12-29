@@ -2,8 +2,6 @@ export { default as Label } from './common/Label';
 export { default as Button } from './common/Button';
 export { default as ColorChips } from './common/ColorChips';
 export { default as Input } from './common/Input';
-export { default as ProfileImage } from './common/ProfileImage';
-export { default as Profile } from './common/Profile';
 export { default as PasswordInput } from './common/PasswordInput';
 export { default as ProfileImage } from './common/ProfileImage';
 export { default as Profile } from './common/Profile';
