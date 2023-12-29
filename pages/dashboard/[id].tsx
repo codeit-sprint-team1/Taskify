@@ -18,7 +18,6 @@ export default function DashboardPage() {
   }
 
   if (!dashboard) return;
-
   return (
     <>
       <DashboardLayout
