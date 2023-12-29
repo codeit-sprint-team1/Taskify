@@ -108,9 +108,7 @@ const AddTag = () => {
         />
       </div>
       <div className="text-14pxr text-red mt-8pxr">
-        {errors.tagInput && (
-          <p>{errors.tagInput.message || '태그는 8자 이하로 작성해주세요'}</p>
-        )}
+        {errors.tagInput && <p>{errors.tagInput.message}</p>}
       </div>
     </div>
   );
