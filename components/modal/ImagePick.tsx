@@ -36,6 +36,7 @@ export default function ImagePick({ label, required }: CardLabelProps) {
             className="hidden"
             ref={fileInput}
             onChange={handleProfileChange}
+            accept="image/*"
           />
           {selectImage ? (
             <div className="w-full h-full rounded-md overflow-hidden relative">
