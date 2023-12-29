@@ -1,4 +1,4 @@
-import { Modal } from '@/components/index';
+import { Modal } from '@/components';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostDashboards from '../data/usePostDashboards';
@@ -29,7 +29,6 @@ export default function CreateDashboardModal({ isOpen, onCancel }: ModalProps) {
   const onSelect = (value: string) => {
     setColor(value);
   };
-
   const handleCancel = () => {
     reset();
     setColor('');

@@ -1,6 +1,6 @@
-import InviteModal from '@/components/modal/InviteModal';
-import useToggle from '@/hooks/useToggle';
 import HeaderButton from './HeaderButton';
+import { InviteModal } from '@/components';
+import useToggle from '@/hooks/useToggle';
 import addBoxIcon from '@/public/icons/add_box-icon.svg';
 
 export default function InviteButton() {

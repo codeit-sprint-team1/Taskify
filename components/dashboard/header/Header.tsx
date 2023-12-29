@@ -13,7 +13,7 @@ export interface MyDashboardHeaderProps {
 
 export interface DashboardHeaderProps {
   dashboard: {
-    id?: number;
+    id: number;
     title: string;
     createdByMe: boolean;
   };
@@ -32,7 +32,7 @@ export default function Header({ dashboard, children }: HeaderProps) {
     setProfileImage(userInfo.profileImageUrl);
   }, []);
   return (
-    <header className="flex items-center justify-end border-b desktop:justify-between mobile:justify-end h-70pxr desktop:pl-40pxr desktop:pr-80pxr px-40pxr mobile:px-12pxr  border-b-gray30">
+    <header className="flex items-center justify-end border-b desktop:justify-between mobile:justify-end h-70pxr desktop:pl-40pxr desktop:pr-80pxr px-40pxr mobile:px-12pxr border-b-gray30">
       <div className="hidden desktop:flex desktop:items-center gap-8pxr ">
         <h1 className="flex items-center font-bold text-20pxr whitespace-nowrap">
           {dashboard.title}
