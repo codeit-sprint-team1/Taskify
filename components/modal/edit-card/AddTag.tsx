@@ -1,8 +1,7 @@
 import React, { KeyboardEvent, useState } from 'react';
 import { useForm, Controller, ControllerRenderProps } from 'react-hook-form';
-import Tag from '../../common/Tag';
-import { Input } from '../..';
 import calculateLength from './calculateLength';
+import { Input, Label, Tag } from '@/components';
 
 interface FormValues {
   tagInput: string;
@@ -18,7 +17,7 @@ const AddTag = () => {
     clearErrors,
     reset,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm({ defaultValues: { tagInput: '' }, mode: 'onBlur' });
   const hasError = Boolean(errors.tagInput);
 
   const submitTagItem = (data: FormValues) => {
@@ -26,6 +25,22 @@ const AddTag = () => {
       setError('tagInput', {
         type: 'manual',
         message: '태그는 10개까지 입력 가능합니다',
+      });
+      return;
+    }
+    const regex = /^[가-힣A-Za-z0-9]+$/;
+    const validTag = regex.test(data.tagInput);
+    if (!validTag) {
+      setError('tagInput', {
+        type: 'manual',
+        message: '태그는 한글, 영문, 숫자만 사용할 수 있습니다',
+      });
+      return;
+    }
+    if (tagList.includes(data.tagInput)) {
+      setError('tagInput', {
+        type: 'manual',
+        message: '중복된 태그입니다',
       });
       return;
     }
@@ -42,13 +57,12 @@ const AddTag = () => {
     field: ControllerRenderProps<FormValues, 'tagInput'>,
     e: KeyboardEvent<HTMLInputElement>
   ) => {
+    e.stopPropagation();
     if (e.nativeEvent.isComposing) return;
-
     if (e.key === 'Enter') {
       e.preventDefault();
       handleSubmit(submitTagItem)();
     }
-
     if (e.key === 'Backspace' && !field.value) {
       e.preventDefault();
       if (tagList.length > 0) {
@@ -59,6 +73,7 @@ const AddTag = () => {
 
   return (
     <div>
+      <Label text="태그" />
       <div
         className={`flex items-center gap-x-8pxr flex-wrap border ${
           hasError ? 'border-red' : 'border-gray30'
@@ -78,15 +93,17 @@ const AddTag = () => {
               '태그는 한글 8자 또는 영문 16자 이하로 작성해주세요',
           }}
           render={({ field }) => (
-            <Input
-              {...field}
-              type="text"
-              placeholder="입력 후 Enter"
-              onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
-                onKeyDown(field, e)
-              }
-              className="h-50pxr outline-none"
-            />
+            <div className="flex-grow">
+              <Input
+                {...field}
+                type="text"
+                placeholder="입력 후 Enter"
+                onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
+                  onKeyDown(field, e)
+                }
+                className=" w-full h-50pxr outline-none"
+              />
+            </div>
           )}
         />
       </div>
