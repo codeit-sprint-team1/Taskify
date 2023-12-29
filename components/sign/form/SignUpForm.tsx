@@ -60,7 +60,6 @@ export default function SignUpForm() {
       className="w-520pxr flex flex-col gap-16pxr mobile:mx-12pxr mobile:w-350pxr"
     >
       <div>
-        <label className="font-small mb-8pxr">이메일</label>
         <Controller
           control={control}
           name="email"
@@ -74,6 +73,8 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              label="이메일"
+              size="sm"
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error) || isEmailAlreadyExist}
               helperText={
@@ -86,7 +87,6 @@ export default function SignUpForm() {
         />
       </div>
       <div>
-        <label className="font-small mb-8pxr">닉네임</label>
         <Controller
           control={control}
           name="nickname"
@@ -107,12 +107,13 @@ export default function SignUpForm() {
               placeholder={PLACEHOLDER.nickname}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
+              label="닉네임"
+              size="sm"
             />
           )}
         />
       </div>
-      <div className="relative">
-        <label className="font-small mb-8pxr">비밀번호</label>
+      <div>
         <Controller
           control={control}
           name="password"
@@ -125,6 +126,8 @@ export default function SignUpForm() {
           }}
           render={({ field, fieldState }) => (
             <PasswordInput
+              label="비밀번호"
+              size="sm"
               {...field}
               hasEyeIcon
               placeholder={PLACEHOLDER.password}
@@ -134,8 +137,7 @@ export default function SignUpForm() {
           )}
         />
       </div>
-      <div className="relative">
-        <label className="font-small mb-8pxr">비밀번호 확인</label>
+      <div>
         <Controller
           control={control}
           name="confirmedPassword"
@@ -152,6 +154,8 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
+              label="비밀번호 확인"
+              size="sm"
               hasEyeIcon
               placeholder={PLACEHOLDER.confirmedPassword}
               hasError={Boolean(fieldState.error)}

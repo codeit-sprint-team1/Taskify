@@ -1,4 +1,4 @@
-export interface Invitee {
+export interface User {
   nickname: string;
   email: string;
   id: number;
@@ -6,13 +6,13 @@ export interface Invitee {
 
 export interface Invitations {
   id: number;
-  inviterUserId: number;
+  inviter: User;
   teamId: string;
   dashboard: {
     title: string;
     id: number;
   };
-  invitee: Invitee;
+  invitee: User;
   inviteAccepted: boolean;
   createdAt: Date;
   updatedAt: Date;

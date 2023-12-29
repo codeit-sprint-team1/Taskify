@@ -8,10 +8,20 @@ interface DropdownManagerProps {
 }
 
 export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
-  const members = ['진수', '승연', '서영', '진우', '일이삼사오육칠팔구십'];
+  const members = [
+    '진수',
+    '승연',
+    '서영',
+    '진우',
+    '일이삼사오육칠팔구십',
+    '멤버1',
+    '멤버2',
+    '멤버3',
+  ];
   const [value, setValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLInputElement>(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [selectedMember, setSelectedMember] = useState('');
   const filteredMembers = members.filter((member) => member.includes(value));
 
@@ -20,10 +30,13 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
   };
 
   const handleBlur = () => {
-    setTimeout(() => {
-      if (isOpen && value) return;
+    if (!isOpen && !value) setIsOpen(false);
 
-      if (!ref?.current?.contains(document.activeElement)) {
+    setTimeout(() => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(document.activeElement)
+      ) {
         setIsOpen(false);
       }
     }, 100);
@@ -48,7 +61,7 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
           placeholder="이름을 입력해주세요"
           value={value}
           onChange={handleChange}
-          ref={ref}
+          ref={inputRef}
           onBlur={handleBlur}
           onFocus={() => setIsOpen(true)}
           className={`block w-full rounded-md border border-solid border-gray30
@@ -72,20 +85,23 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
           />
         </button>
       </div>
-      {isOpen &&
-        filteredMembers?.map((member) => (
-          <button
-            className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
-            onClick={() => handleMemberClick(member)}
-            key={member}
-            tabIndex={0}
-          >
-            <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-              <ProfileImage src={ProfileSrc} name={member} size="sm" />
-              {member}
-            </div>
-          </button>
-        ))}
+      <ul ref={dropdownRef} className="max-h-180pxr overflow-y-auto">
+        {isOpen &&
+          filteredMembers?.map((member) => (
+            <li key={member}>
+              <button
+                className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
+                onClick={() => handleMemberClick(member)}
+                tabIndex={0}
+              >
+                <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
+                  <ProfileImage src={ProfileSrc} name={member} size="sm" />
+                  {member}
+                </div>
+              </button>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }

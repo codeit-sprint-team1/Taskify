@@ -15,7 +15,7 @@ import Link from 'next/link';
 function BoardEditPage() {
   const router = useRouter();
   const params = router.query;
-  const boardid = params?.boardid ? Number(params.boardid) : null;
+  const boardid = params?.id ? Number(params.id) : null;
   if (boardid === null || isNaN(boardid)) return;
   const { execute: getDashboard, data: dashboard } = useGetDashboard({
     boardid,
@@ -25,7 +25,7 @@ function BoardEditPage() {
 
   return (
     <div className="m-20pxr">
-      <Link href={`/board/${boardid}`}>
+      <Link href={`/dashboard/${boardid}`}>
         <ArrowBackButton />
       </Link>
       <BoardEditLayout
