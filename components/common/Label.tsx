@@ -2,11 +2,16 @@ export interface LabelProps {
   text?: string;
   required?: boolean;
   htmlFor?: string;
+  size?: string;
 }
 
-export default function Label({ text, required, htmlFor }: LabelProps) {
+export default function Label({ text, required, htmlFor, size }: LabelProps) {
+  const textSize = size === 'sm' ? 'text-16pxr' : 'text-18pxr';
+
   return (
-    <div className="font-medium mb-10pxr text-18pxr text-gray70 mobile:text-16pxr ">
+    <div
+      className={`font-medium mb-10pxr ${textSize} text-gray70 mobile:text-16pxr `}
+    >
       <label htmlFor={htmlFor}>{text}</label>
       {required && <span className="text-violet">*</span>}
     </div>

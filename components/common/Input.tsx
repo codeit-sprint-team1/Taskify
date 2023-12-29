@@ -17,6 +17,7 @@ export interface InputProps {
   onBlur?: FocusEventHandler<HTMLInputElement>;
   required?: boolean;
   classNames?: string;
+  size?: string;
   [x: string]: any;
 }
 
@@ -33,13 +34,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       onBlur,
       required = false,
       classNames,
+      size,
       ...props
     },
     ref
   ) => {
     return (
       <div>
-        <Label text={label} required={required} />
+        <Label text={label} required={required} size={size} />
         <div className="mt-2.5">
           <input
             ref={ref}
