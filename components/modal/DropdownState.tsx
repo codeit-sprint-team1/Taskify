@@ -44,7 +44,7 @@ export default function DropdownState({
   }, [dropdownRef]);
 
   return (
-    <div className="w-217pxr h-79pxr">
+    <div>
       <Label htmlFor="members" text="상태" />
       <div className="relative flex items-center ">
         <input
