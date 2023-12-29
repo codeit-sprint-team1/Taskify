@@ -5,7 +5,7 @@ import { Invitations } from '@/types/invitations';
 
 export default function useGetInvitations() {
   const getDashBoards = useCallback(
-    () => axiosAuthInstance.get('invitations'),
+    () => axiosAuthInstance.get('invitations?size=1000'),
     []
   );
   const { execute, loading, error, data } = useAsync(getDashBoards, false);
