@@ -1,8 +1,8 @@
 import { Modal } from '@/components';
-import { ModalProps } from './CreateDashboardModal';
+import { ModalProps } from '../CreateDashboardModal';
 import { Controller, useForm } from 'react-hook-form';
 import { ERROR_MESSAGE, VALID_EMAIL_REG } from '@/components/sign/constants';
-import usePostInvitations from './data/usePostInvitations';
+import usePostInvitations from '../data/usePostInvitations';
 import { useEffect } from 'react';
 
 export interface InviteModalForm {
@@ -44,7 +44,6 @@ export default function InviteModal({ isOpen, onCancel }: ModalProps) {
         message: error.response.data.message,
       });
     } else {
-      console.log('메롱');
       handleCancel();
     }
   }, [error, loading]);
