@@ -85,7 +85,7 @@ export default function DashboardSidebar({
           <CreateDashboardButton />
         </div>
         <div className="flex flex-col w-full gap-3pxr">
-          {dashboardList.map((dashboard) => {
+          {dashboardList?.map((dashboard) => {
             return (
               <DashboardListItem
                 key={dashboard.id}
