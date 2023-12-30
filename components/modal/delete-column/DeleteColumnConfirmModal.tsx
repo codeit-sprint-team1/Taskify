@@ -2,13 +2,17 @@ import { FormEvent, useEffect } from 'react';
 import { Modal, ModalButton } from '@/components';
 import useDeleteColumns from '@/components/dashboard/data/useDeleteColumns';
 import { notify } from '@/components/common/Toast';
-import { DeleteColumnModalProps } from './DeleteColumnModal';
+import { ModalProps } from '../create-dashboard/CreateDashboardModal';
+
+export interface DeleteColumnConfirmModalProps extends ModalProps {
+  columnId: number;
+}
 
 export default function DeleteColumnConfirmModal({
   isOpen,
   onCancel,
   columnId,
-}: DeleteColumnModalProps) {
+}: DeleteColumnConfirmModalProps) {
   const {
     execute: deleteColumns,
     loading,
