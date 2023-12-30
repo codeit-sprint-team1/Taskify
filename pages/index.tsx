@@ -156,7 +156,7 @@ export default function Home() {
   const { userInfo } = useUserInfo();
   const router = useRouter();
   useEffect(() => {
-    if (userInfo.id) router.push('/myboard');
+    if (userInfo.id) router.push('/mydashboard');
   }, []);
   return (
     <>

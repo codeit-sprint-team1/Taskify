@@ -9,7 +9,6 @@ import useGetDashBoards from './data/useGetDashBoards';
 import { useDashboardList } from '@/store/memos/useDashboardList';
 import { useEffect, useState } from 'react';
 import { Dashboards } from '@/types/dashboards';
-import usePagination from './data/useGetPagination';
 import PaginationButton from '../common/PaginationButton';
 
 interface Colors {
@@ -85,7 +84,7 @@ export default function BoardList() {
 
   useEffect(() => {
     if (dashboardList) {
-      setData(dashboardList.splice((page - 1) * 5, 5));
+      setData(dashboardList.slice((page - 1) * 5, page * 5));
     }
   }, [dashboardList, page]);
 
@@ -107,7 +106,7 @@ export default function BoardList() {
       </div>
       {data && (
         <div className="flex justify-end items-center gap-16pxr">
-          <div>
+          <div className="text-14pxr text-black">
             {totalPage} 페이지 중 {page}
           </div>
           <PaginationButton
