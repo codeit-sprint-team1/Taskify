@@ -9,11 +9,9 @@ import {
 import React from 'react';
 import useGetDashboard from '@/components/boardEdit/data/useGetDashboard';
 import { useRouter } from 'next/router';
-import useDeleteDashboard from '@/components/boardEdit/data/useDeleteDashboard';
 import Link from 'next/link';
 import DeleteDashboardConfirmModal from '@/components/boardEdit/DeleteDashboardConfirmModal';
 import useToggle from '@/hooks/useToggle';
-import { axiosAuthInstance } from '@/utils';
 
 function BoardEditPage() {
   const router = useRouter();
@@ -28,14 +26,6 @@ function BoardEditPage() {
 
   const handleCancel = () => {
     toggle();
-  };
-
-  const testCreateBoard = async () => {
-    const res = await axiosAuthInstance.post(`dashboards`, {
-      title: '테스트용보드',
-      color: '#5534da',
-    });
-    console.log(res);
   };
 
   return (
@@ -69,7 +59,6 @@ function BoardEditPage() {
         onCancel={handleCancel}
         boardid={boardid}
       />
-      <button onClick={testCreateBoard}>생성하기</button>
     </div>
   );
 }
