@@ -9,6 +9,8 @@ import useGetDashBoards from './data/useGetDashBoards';
 import { useDashboardList } from '@/store/memos/useDashboardList';
 import { useEffect, useState } from 'react';
 import { Dashboards } from '@/types/dashboards';
+import usePagination from './data/useGetPagination';
+import PaginationButton from '../common/PaginationButton';
 
 interface Colors {
   [key: string]: string;
@@ -70,23 +72,23 @@ function CreateBoard() {
 }
 
 export default function BoardList() {
-  const { dashboards } = useGetDashBoards();
+  const { dashboards, totalPage } = useGetDashBoards();
   const [data, setData] = useState<Dashboards[]>();
   const { dashboardList, setDashboardList } = useDashboardList();
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (dashboards) {
       setDashboardList(dashboards);
     }
-  }, []);
+  }, [dashboards]);
 
   useEffect(() => {
-    setData(dashboardList);
-  }, [dashboardList]);
+    if (dashboardList) {
+      setData(dashboardList.splice((page - 1) * 5, 5));
+    }
+  }, [dashboardList, page]);
 
-  if (data && data.length > 5) {
-    data.pop();
-  }
   return (
     <div className="flex flex-col gap-12pxr">
       <div className="grid grid-cols-3 gap-12pxr">
@@ -103,9 +105,19 @@ export default function BoardList() {
             />
           ))}
       </div>
-      {
-        data && <div className="flex justify-end">1 페이중 중 1 </div> // 페이지 네이션 오면 바꾸기
-      }
+      {data && (
+        <div className="flex justify-end items-center gap-16pxr">
+          <div>
+            {totalPage} 페이지 중 {page}
+          </div>
+          <PaginationButton
+            onClickLeft={() => setPage(page - 1)}
+            onClickRight={() => setPage(page + 1)}
+            page={page}
+            totalPages={totalPage}
+          />
+        </div>
+      )}
     </div>
   );
 }
