@@ -13,6 +13,15 @@
   }
 }
 
+body {
+  // 스크롤 숨기기
+  -ms-overflow-style: none; /* IE and 엣지 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 @layer components {
   .flex-center {
     @apply flex flex-row justify-center items-center;
