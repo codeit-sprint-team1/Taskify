@@ -1,4 +1,4 @@
-import { EventHandler, FormEvent, ReactNode } from 'react';
+import { FormEvent, ReactNode } from 'react';
 import {
   ModalTitle,
   ModalButton,
