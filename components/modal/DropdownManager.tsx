@@ -52,7 +52,7 @@ export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
     setIsOpen(false);
   };
   return (
-    <div className="w-217pxr h-79pxr">
+    <div>
       <Label htmlFor="members" text="담당자" />
       <div className="relative flex items-center ">
         <input
