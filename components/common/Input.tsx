@@ -41,7 +41,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <div>
-        <Label text={label} required={required} size={size} />
+        {label && <Label text={label} required={required} size={size} />}
         <div className="mt-2.5">
           <input
             ref={ref}
