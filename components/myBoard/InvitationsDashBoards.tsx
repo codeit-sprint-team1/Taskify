@@ -60,32 +60,36 @@ function InvitationsValid({
   );
   return (
     <>
-      <div className="flex rounded-md border border-solid border-gray30 px-16pxr py-8pxr gap-8pxr">
-        <Image src={searchIcon} alt="searchIcon" />
-        <input
-          className="w-full placeholder:text-gray40"
-          placeholder="검색"
-          onChange={(event) => setSearchValue(event.target.value)}
-        />
-      </div>
-      <div className="grid grid-cols-3">
-        <div className="text-gray40">이름</div>
-        <div className="text-gray40">초대자</div>
-        <div className="text-gray40">수락 여부</div>
-      </div>
-      {filterInvitations.map((item, index, array) => (
-        <React.Fragment key={item.id}>
-          <InvitationsList
-            item={item}
-            setData={setData}
-            data={array}
-            index={index}
+      <div className="flex flex-col gap-20pxr">
+        <div className="flex rounded-md border border-solid border-gray30 px-16pxr py-8pxr gap-8pxr">
+          <Image src={searchIcon} alt="searchIcon" />
+          <input
+            className="w-full placeholder:text-gray40"
+            placeholder="검색"
+            onChange={(event) => setSearchValue(event.target.value)}
           />
-          {index !== filterInvitations.length - 1 && (
-            <hr className="border-gray20" />
-          )}
-        </React.Fragment>
-      ))}
+        </div>
+        <div className="grid grid-cols-3">
+          <div className="text-gray40">이름</div>
+          <div className="text-gray40">초대자</div>
+          <div className="text-gray40">수락 여부</div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-26pxr overflow-scroll h-full">
+        {filterInvitations.map((item, index, array) => (
+          <React.Fragment key={item.id}>
+            <InvitationsList
+              item={item}
+              setData={setData}
+              data={array}
+              index={index}
+            />
+            {index !== filterInvitations.length - 1 && (
+              <hr className="border-gray20" />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
     </>
   );
 }
@@ -106,8 +110,8 @@ export default function InvitationsDashBoards() {
   useEffect(() => setData(invitations), [invitations]);
 
   return (
-    <div className="bg-white rounded-lg px-32pxr py-28pxr flex flex-col gap-20pxr w-full">
-      <div className="text-gray70 text-24pxr font-bold">초대받은 대시보드</div>
+    <div className="bg-white rounded-lg px-32pxr py-28pxr flex flex-col gap-20pxr w-full overflow-hidden">
+      <div className="text-gray70 text-24pxr font-bold ">초대받은 대시보드</div>
       {data && data.length !== 0 ? (
         <InvitationsValid data={data} setData={setData} />
       ) : (

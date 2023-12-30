@@ -71,16 +71,10 @@ function CreateBoard() {
 }
 
 export default function BoardList() {
-  const { dashboards, totalPage } = useGetDashBoards();
+  const { totalPage } = useGetDashBoards();
   const [data, setData] = useState<Dashboards[]>();
-  const { dashboardList, setDashboardList } = useDashboardList();
+  const { dashboardList } = useDashboardList();
   const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    if (dashboards) {
-      setDashboardList(dashboards);
-    }
-  }, [dashboards]);
 
   useEffect(() => {
     if (dashboardList) {
