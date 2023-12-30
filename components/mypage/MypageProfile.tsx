@@ -6,13 +6,16 @@ import { axiosAuthInstance } from '@/utils';
 import { useUserInfo } from '@/store/memos';
 import 'react-toastify/dist/ReactToastify.css';
 import { notify } from '../common/Toast';
+import { Controller, useForm } from 'react-hook-form';
+import axios from 'axios';
 
 function MypageProfile() {
   const { userInfo, setUserInfo } = useUserInfo();
   const { email, profileImageUrl, nickname: userNickname } = userInfo;
   const imageUploaderRef = useRef<HTMLInputElement>(null);
   const [imgUrl, setImgUrl] = useState<string | null>(profileImageUrl);
-  const [nickname, setNickname] = useState(userNickname);
+
+  const { control, watch, setError } = useForm({ mode: 'onBlur' });
 
   const onClickInput = () => {
     if (imageUploaderRef.current) {
@@ -46,14 +49,10 @@ function MypageProfile() {
     }
   };
 
-  const handleChangeNickname = (event: ChangeEvent<HTMLInputElement>) => {
-    setNickname(event.target.value);
-  };
-
   const modifyMydata = async () => {
     try {
       const res = await axiosAuthInstance.put(`users/me`, {
-        nickname,
+        nickname: watch('nickname'),
         profileImageUrl: imgUrl,
       });
       if (res.status === 200) {
@@ -61,7 +60,9 @@ function MypageProfile() {
         setUserInfo(res?.data);
       }
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        setError('nickname', { message: error.response?.data.message });
+      }
     }
   };
 
@@ -104,11 +105,18 @@ function MypageProfile() {
               disabled
               classNames="text-gray30"
             />
-            <Input
-              label="닉네임"
-              value={nickname}
-              onChange={handleChangeNickname}
-            />
+            <Controller
+              name="nickname"
+              control={control}
+              render={({ field, fieldState }) => (
+                <Input
+                  {...field}
+                  label="닉네임"
+                  hasError={Boolean(fieldState.error)}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            ></Controller>
           </div>
         </div>
         <Button
