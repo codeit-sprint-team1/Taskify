@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { EventHandler, FormEvent, ReactNode } from 'react';
 import {
   ModalTitle,
   ModalButton,
@@ -11,7 +11,7 @@ import { Portal } from '@/components';
 
 interface ModalMainProps {
   children?: ReactNode;
-  onSubmit: () => void;
+  onSubmit: (() => void) | ((e: FormEvent) => void);
   isOpen: boolean;
 }
 
