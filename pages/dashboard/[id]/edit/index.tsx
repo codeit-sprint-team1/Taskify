@@ -1,19 +1,6 @@
-import BoardEditLayout from '@/page-layout/BoardEditLayout';
-import {
-  ArrowBackButton,
-  Button,
-  DashboardHeader,
-  DashboardSidebar,
-  InviteListTable,
-  MembersTable,
-  NameEditForm,
-} from '@/components';
+import { DashboardHeader, DashboardSidebar } from '@/components';
 import React from 'react';
-import useGetDashboard from '@/components/boardEdit/data/useGetDashboard';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import DeleteDashboardConfirmModal from '@/components/boardEdit/DeleteDashboardConfirmModal';
-import useToggle from '@/hooks/useToggle';
 import BoardEditMain from '@/components/boardEdit/BoardEditMain';
 import DashboardLayout from '@/page-layout/DashboardLayout';
 import { useDashboardList } from '@/store/memos/useDashboardList';

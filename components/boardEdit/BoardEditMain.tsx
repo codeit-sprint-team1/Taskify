@@ -3,12 +3,12 @@ import React from 'react';
 import {
   ArrowBackButton,
   Button,
+  DeleteDashboardConfirmModal,
   InviteListTable,
   MembersTable,
   NameEditForm,
 } from '..';
 import BoardEditLayout from '@/page-layout/BoardEditLayout';
-import DeleteDashboardConfirmModal from './DeleteDashboardConfirmModal';
 import useGetDashboard from './data/useGetDashboard';
 import useToggle from '@/hooks/useToggle';
 
