@@ -25,9 +25,11 @@ function BoardEditPage() {
 
   return (
     <div className="m-20pxr">
-      <Link href={`/dashboard/${boardid}`}>
-        <ArrowBackButton />
-      </Link>
+      <div className="w-100pxr">
+        <Link href={`/dashboard/${boardid}`}>
+          <ArrowBackButton />
+        </Link>
+      </div>
       <BoardEditLayout
         nameEditForm={
           <NameEditForm
