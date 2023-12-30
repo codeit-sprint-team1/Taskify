@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from '..';
+import { Button, InviteModal } from '..';
 import Image from 'next/image';
 import inviteIcon from '@/public/icons/inviteIcon.svg';
 import useGetInvitaions from './data/useGetInvitaions';
 import { axiosAuthInstance } from '@/utils';
 import PagenationButton from '../common/PaginationButton';
+import useToggle from '@/hooks/useToggle';
 
 interface InviteListTableProps {
   boardid: number;
@@ -28,6 +29,8 @@ function InviteListTable({ boardid }: InviteListTableProps) {
     }
   };
 
+  const { isOn, toggle } = useToggle();
+
   if (!totalCount) return;
   const totalPages = Math.ceil(totalCount / size);
 
@@ -37,6 +40,10 @@ function InviteListTable({ boardid }: InviteListTableProps) {
 
   const handleClickLeft = () => {
     setPage(page - 1);
+  };
+
+  const handleCancel = () => {
+    toggle();
   };
 
   return (
@@ -57,12 +64,14 @@ function InviteListTable({ boardid }: InviteListTableProps) {
             variant="primary"
             size="mobile"
             className="w-105pxr mobile:hidden"
+            onClick={toggle}
           >
             <div className="flex gap-x-8pxr">
               <Image src={inviteIcon} alt="초대하기 아이콘" />
               초대하기
             </div>
           </Button>
+          <InviteModal isOpen={isOn} onCancel={handleCancel} />
         </div>
       </div>
       <div className="flex justify-between items-center">
