@@ -166,12 +166,12 @@ function ColumnTitle() {
 
 function Column() {
   return (
-    <div className="flex flex-col w-354pxr h-1000pxr overflow-scroll p-20pxr bg-gray10 gap-25pxr border-solid border border-gray20">
+    <div className="flex flex-col w-354pxr h-screen px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20">
       <ColumnTitle />
-      <div className="flex-col-center gap-15pxr">
+      <div className="flex-col-center gap-15pxr overflow-auto">
         <CardAdd />
         {mok.cards.map((card) => (
-          <Card card={card} />
+          <Card card={card} key={card.id} />
         ))}
       </div>
     </div>
@@ -180,7 +180,7 @@ function Column() {
 
 export default function BoardsPage() {
   return (
-    <div className="w-screen h-screen bg-pink flex-center gap-20pxr">
+    <div className="w-screen bg-pink">
       <Column />
     </div>
   );
