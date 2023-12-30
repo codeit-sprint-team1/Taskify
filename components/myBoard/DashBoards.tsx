@@ -71,13 +71,14 @@ function CreateBoard() {
 }
 
 export default function BoardList() {
-  const { totalPage } = useGetDashBoards();
   const [data, setData] = useState<Dashboards[]>();
   const { dashboardList } = useDashboardList();
   const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
     if (dashboardList) {
+      setTotalPage(Math.ceil(dashboardList.length / 5));
       setData(dashboardList.slice((page - 1) * 5, page * 5));
     }
   }, [dashboardList, page]);
