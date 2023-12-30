@@ -10,8 +10,8 @@ export default function MyDashBoards() {
     if (!userInfo.id) router.push('/login');
   }, []);
   return (
-    <div className="w-screen h-screen pt-40pxr pl-40pxr bg-gray10 ">
-      <div className="w-1020pxr flex-col-center gap-44pxr">
+    <div className="w-full h-full py-40pxr pl-40pxr bg-gray10 ">
+      <div className="w-1020pxr flex flex-col gap-44pxr h-full ">
         <BoardList />
         <InvitationsDashBoards />
       </div>
