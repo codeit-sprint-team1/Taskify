@@ -20,7 +20,7 @@ export default function DashboardPage() {
 
   if (!dashboard) return;
   return (
-    <div className="h-screen w-screen">
+    <div>
       <DashboardLayout
         header={<DashboardHeader dashboard={dashboard} />}
         main={<Columns />}
