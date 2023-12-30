@@ -34,3 +34,4 @@ export { default as CreateDashboardButton } from './dashboard/sidebar/CreateDash
 export { default as DashboardSidebar } from './dashboard/sidebar/DashboardSidebar';
 export { default as BoardList } from './myBoard/DashBoards';
 export { default as InvitationsDashBoards } from './myBoard/InvitationsDashBoards';
+export { default as Tag } from '@/components/common/Tag';
