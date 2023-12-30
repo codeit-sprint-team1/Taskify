@@ -41,3 +41,12 @@ export const WELLCOME_MESSAGE = {
 export const VALID_PASSWORD_REG = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
 export const VALID_EMAIL_REG =
   /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+export const DEFAULT_USER_STATE = {
+  id: null,
+  email: '',
+  nickname: '',
+  profileImageUrl: '',
+  createdAt: '',
+  updatedAt: '',
+};

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import addIcon from '@/public/icons/add-icon.svg';
 import Image from 'next/image';
 import { Button, Input } from '..';
@@ -8,11 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { notify } from '../common/Toast';
 
 function MypageProfile() {
+  const { userInfo, setUserInfo } = useUserInfo();
+  const { email, profileImageUrl, nickname: userNickname } = userInfo;
   const imageUploaderRef = useRef<HTMLInputElement>(null);
-  const [imgUrl, setImgUrl] = useState<string>('');
-  const [nickname, setNickname] = useState('');
-  const { userInfo } = useUserInfo();
-  const email = userInfo?.email;
+  const [imgUrl, setImgUrl] = useState<string | null>(profileImageUrl);
+  const [nickname, setNickname] = useState(userNickname);
+
   const onClickInput = () => {
     if (imageUploaderRef.current) {
       imageUploaderRef.current.click();
@@ -57,6 +58,7 @@ function MypageProfile() {
       });
       if (res.status === 200) {
         notify({ type: 'success', text: '회원정보가 수정되었습니다 😊' });
+        setUserInfo(res?.data);
       }
     } catch (error) {
       console.error(error);
