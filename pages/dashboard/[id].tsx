@@ -3,6 +3,7 @@ import { useDashboardList } from '@/store/memos/useDashboardList';
 import { Dashboards } from '@/types/dashboards';
 import DashboardLayout from '@/page-layout/DashboardLayout';
 import { DashboardHeader, DashboardSidebar } from '@/components';
+import Columns from '@/components/dashboard/column';
 
 export default function DashboardPage() {
   const { dashboardList } = useDashboardList();
@@ -19,10 +20,10 @@ export default function DashboardPage() {
 
   if (!dashboard) return;
   return (
-    <>
+    <div>
       <DashboardLayout
         header={<DashboardHeader dashboard={dashboard} />}
-        main={<div>main</div>}
+        main={<Columns />}
         sidebar={
           <DashboardSidebar
             dashboardList={dashboardList}
@@ -30,6 +31,6 @@ export default function DashboardPage() {
           />
         }
       />
-    </>
+    </div>
   );
 }
