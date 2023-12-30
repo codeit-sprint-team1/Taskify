@@ -4,7 +4,7 @@ import cancelIcon from '@/public/icons/cancel-icon.svg';
 
 interface TagProps {
   tag: string;
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   isEdit?: boolean;
 }
 
