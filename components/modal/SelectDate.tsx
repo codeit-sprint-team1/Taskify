@@ -14,7 +14,6 @@ export default function SelectDate({ label, required }: CardLabelProps) {
     const selectedDate = new Date(date);
     return currentDate.getDate() <= selectedDate.getDate();
   };
-
   return (
     <div>
       <Label text={label} required={required} />
@@ -28,7 +27,7 @@ export default function SelectDate({ label, required }: CardLabelProps) {
         />
         <DatePicker
           selected={selectDate}
-          dateFormat="yyyy년 MM월 dd일 HH시 mm분 "
+          dateFormat="yyyy년 MM월 dd일 HH시 mm분"
           onChange={(date) => setSelectDate(date)}
           locale={ko}
           className="outline-0 cursor-pointer w-250pxr caret-transparent"

@@ -27,6 +27,7 @@ export default function ImagePick({ label, required }: CardLabelProps) {
     <div>
       <Label text={label} required={required} />
       <button
+        type="button"
         className="border border-solid rounded-md bg-gray10 w-76pxr h-76pxr relative overflow-hidden mobile:w-58pxr mobile:h-58pxr"
         onClick={handleButtonClick}
       >

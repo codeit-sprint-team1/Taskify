@@ -1,107 +1,128 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, forwardRef, useRef, useState } from 'react';
 import dropdownImage from '@/public/icons/dropdown-icon.svg';
 import Image from 'next/image';
 import { Label, ProfileImage } from '..';
 
 interface DropdownManagerProps {
-  ProfileSrc: string;
+  ProfileSrc: string | null;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-export default function DropdownManager({ ProfileSrc }: DropdownManagerProps) {
-  const members = [
-    '진수',
-    '승연',
-    '서영',
-    '진우',
-    '일이삼사오육칠팔구십',
-    '멤버1',
-    '멤버2',
-    '멤버3',
-  ];
-  const [value, setValue] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLUListElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [selectedMember, setSelectedMember] = useState('');
-  const filteredMembers = members.filter((member) => member.includes(value));
+const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
+  (
+    { ProfileSrc = '', value: externalValue, onChange: externalOnChange },
+    ref
+  ) => {
+    const members = [
+      '진수',
+      '승연',
+      '서영',
+      '진우',
+      '일이삼사오육칠팔구십',
+      '멤버1',
+      '멤버2',
+      '멤버3',
+    ];
+    const [internalValue, setInternalValue] = useState(externalValue || '');
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef<HTMLUListElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [selectedMember, setSelectedMember] = useState('');
+    const filteredMembers = members.filter((member) =>
+      member.includes(internalValue)
+    );
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e?.target?.value);
-  };
-
-  const handleBlur = () => {
-    if (!isOpen && !value) setIsOpen(false);
-
-    setTimeout(() => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(document.activeElement)
-      ) {
-        setIsOpen(false);
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      setInternalValue(newValue);
+      if (externalOnChange) {
+        externalOnChange(newValue);
       }
-    }, 100);
-  };
+    };
 
-  const handleOpenClick = () => {
-    setIsOpen(!isOpen);
-  };
+    const handleBlur = () => {
+      if (!isOpen && !internalValue) setIsOpen(false);
 
-  const handleMemberClick = (member: string) => {
-    setValue(member);
-    setSelectedMember(member);
-    setIsOpen(false);
-  };
-  return (
-    <div>
-      <Label htmlFor="members" text="담당자" />
-      <div className="relative flex items-center ">
-        <input
-          type="text"
-          list="members"
-          placeholder="이름을 입력해주세요"
-          value={value}
-          onChange={handleChange}
-          ref={inputRef}
-          onBlur={handleBlur}
-          onFocus={() => setIsOpen(true)}
-          className={`block w-full rounded-md border border-solid border-gray30
-           pr-16pxr ${
-             selectedMember && value ? 'pl-40pxr' : 'pl-11pxr'
-           }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr `}
-        />
-        {selectedMember && value && (
-          <div className="absolute pl-10pxr">
-            <ProfileImage src={ProfileSrc} name={selectedMember} size="sm" />
-          </div>
-        )}
+      setTimeout(() => {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(document.activeElement)
+        ) {
+          setIsOpen(false);
+        }
+      }, 100);
+    };
 
-        <button onClick={handleOpenClick} tabIndex={-1}>
-          <Image
-            src={dropdownImage}
-            alt="목록보기 화살표 이미지"
-            className="absolute right-10pxr top-10pxr"
-            width={26}
-            height={26}
+    const handleOpenClick = () => {
+      setIsOpen(!isOpen);
+    };
+
+    const handleMemberClick = (member: string) => {
+      setInternalValue(member);
+      setSelectedMember(member);
+      setIsOpen(false);
+      if (externalOnChange) {
+        externalOnChange(member);
+      }
+    };
+
+    return (
+      <div>
+        <Label htmlFor="members" text="담당자" />
+        <div className="relative flex items-center ">
+          <input
+            ref={ref}
+            type="text"
+            list="members"
+            placeholder="이름을 입력해주세요"
+            value={internalValue}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onFocus={() => setIsOpen(true)}
+            className={`block w-full rounded-md border border-solid border-gray30
+              pr-16pxr ${
+                selectedMember === internalValue && internalValue
+                  ? 'pl-40pxr'
+                  : 'pl-11pxr'
+              }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr `}
           />
-        </button>
+          {selectedMember === internalValue && internalValue && (
+            <div className="absolute pl-10pxr">
+              <ProfileImage src={ProfileSrc} name={selectedMember} size="sm" />
+            </div>
+          )}
+
+          <button onClick={handleOpenClick} tabIndex={-1}>
+            <Image
+              src={dropdownImage}
+              alt="목록보기 화살표 이미지"
+              className="absolute right-10pxr top-10pxr"
+              width={26}
+              height={26}
+            />
+          </button>
+        </div>
+        <ul ref={dropdownRef} className="max-h-180pxr overflow-y-auto">
+          {isOpen &&
+            filteredMembers.map((member) => (
+              <li key={member}>
+                <button
+                  className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
+                  onClick={() => handleMemberClick(member)}
+                  tabIndex={0}
+                >
+                  <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
+                    <ProfileImage src={ProfileSrc} name={member} size="sm" />
+                    {member}
+                  </div>
+                </button>
+              </li>
+            ))}
+        </ul>
       </div>
-      <ul ref={dropdownRef} className="max-h-180pxr overflow-y-auto">
-        {isOpen &&
-          filteredMembers?.map((member) => (
-            <li key={member}>
-              <button
-                className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
-                onClick={() => handleMemberClick(member)}
-                tabIndex={0}
-              >
-                <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-                  <ProfileImage src={ProfileSrc} name={member} size="sm" />
-                  {member}
-                </div>
-              </button>
-            </li>
-          ))}
-      </ul>
-    </div>
-  );
-}
+    );
+  }
+);
+
+export default DropdownManager;
