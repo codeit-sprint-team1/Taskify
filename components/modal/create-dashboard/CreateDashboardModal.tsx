@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostDashboards from '../data/usePostDashboards';
 import { useDashboardList } from '@/store/memos/useDashboardList';
-
+import { ColorChips, ModalButton } from '@/components';
 export interface ModalProps {
   isOpen: boolean;
   onCancel: () => void;
@@ -26,9 +26,10 @@ export default function CreateDashboardModal({ isOpen, onCancel }: ModalProps) {
 
   const watchInput = watch('title');
 
-  const onSelect = (value: string) => {
-    setColor(value);
+  const onSelect = (color: string) => {
+    setColor(color);
   };
+
   const handleCancel = () => {
     reset();
     setColor('');
@@ -77,13 +78,13 @@ export default function CreateDashboardModal({ isOpen, onCancel }: ModalProps) {
             )}
           />
         </div>
-        <Modal.ColorChips onSelect={onSelect} />
-        <Modal.Button
+        <ColorChips onSelect={onSelect} />
+        <ModalButton
           disabled={!isValid || color === '' || loading}
           onCancel={handleCancel}
         >
           생성
-        </Modal.Button>
+        </ModalButton>
       </Modal>
     </>
   );
