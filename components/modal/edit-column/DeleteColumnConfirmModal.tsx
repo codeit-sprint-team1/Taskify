@@ -4,14 +4,16 @@ import useDeleteColumns from '@/components/dashboard/data/useDeleteColumns';
 import { notify } from '@/components/common/Toast';
 import { ModalProps } from '../create-dashboard/CreateDashboardModal';
 
-export interface DeleteColumnConfirmModalProps extends ModalProps {
+interface DeleteColumnConfirmModalProps extends ModalProps {
   columnId: number;
+  onClose: () => void;
 }
 
 export default function DeleteColumnConfirmModal({
   isOpen,
   onCancel,
   columnId,
+  onClose,
 }: DeleteColumnConfirmModalProps) {
   const {
     execute: deleteColumns,
@@ -32,7 +34,7 @@ export default function DeleteColumnConfirmModal({
     } else if (status === 204) {
       notify({ type: 'success', text: '컬럼이 삭제됐습니다 🗑' });
     }
-    onCancel();
+    onClose();
   }, [loading]);
 
   return (
