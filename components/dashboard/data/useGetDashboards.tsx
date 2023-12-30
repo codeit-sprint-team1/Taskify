@@ -3,7 +3,7 @@ import { axiosAuthInstance } from '@/utils';
 import { useCallback } from 'react';
 import { Dashboards } from '@/types/dashboards';
 
-export default function useGetDashboards() {
+const useGetDashboards = () => {
   const getDashboards = useCallback(
     () =>
       axiosAuthInstance.get(
@@ -24,4 +24,6 @@ export default function useGetDashboards() {
     totalCount,
     dashboards,
   };
-}
+};
+
+export default useGetDashboards;
