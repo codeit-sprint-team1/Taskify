@@ -5,7 +5,7 @@ import settingIcon from '../../public/icons/boards/card-desktop-settings.svg';
 import plusIcon from '../../public/icons/boards/plus.svg';
 import Image from 'next/image';
 import { CardsList, Card } from '@/types/cards';
-import { axiosAuthInstance } from '@/utils';
+import { useRouter } from 'next/router';
 
 const mok: CardsList = {
   cursorId: 2,
@@ -164,16 +164,42 @@ function ColumnTitle() {
   );
 }
 
-export default function Column() {
+function Column() {
   return (
-    <div className="flex flex-col w-354pxr px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20">
+    <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20">
       <ColumnTitle />
-      <div className="flex-col-center gap-15pxr overflow-auto">
+      <div className="flex flex-col gap-15pxr h-full overflow-scroll">
         <CardAdd />
         {mok.cards.map((card) => (
           <Card card={card} key={card.id} />
         ))}
       </div>
+    </div>
+  );
+}
+
+function ColumnAdd() {
+  return (
+    <div className="flex flex-col items-center shrink-0 w-354pxr h-full px-20pxr pt-68pxr bg-gray10 ">
+      <div className="bg-white flex-center border-solid border border-gray30 w-full py-20pxr gap-12pxr rounded-lg">
+        <div className="text-18pxr font-bold">새로운 컬럼 추가하기</div>
+        <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
+          <Image src={plusIcon} alt="plusIcon" />
+        </div>
+      </div>{' '}
+    </div>
+  );
+}
+
+export default function Columns() {
+  const router = useRouter();
+  const currentId = router.query['id'] as string | undefined;
+  return (
+    <div className="bg-gray10 h-full w-full flex overflow-scroll">
+      <Column />
+      <Column /> <Column /> <Column /> <Column /> <Column /> <Column />
+      <Column /> <Column />
+      <ColumnAdd />
     </div>
   );
 }

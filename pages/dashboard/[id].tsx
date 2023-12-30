@@ -3,7 +3,7 @@ import { useDashboardList } from '@/store/memos/useDashboardList';
 import { Dashboards } from '@/types/dashboards';
 import DashboardLayout from '@/page-layout/DashboardLayout';
 import { DashboardHeader, DashboardSidebar } from '@/components';
-import Column from '@/components/dashboard/column';
+import Columns from '@/components/dashboard/column';
 
 export default function DashboardPage() {
   const { dashboardList } = useDashboardList();
@@ -17,14 +17,13 @@ export default function DashboardPage() {
       return String(dashboard?.id) === currentId;
     });
   }
-  console.log(dashboard);
 
   if (!dashboard) return;
   return (
-    <>
+    <div className="h-screen w-screen">
       <DashboardLayout
         header={<DashboardHeader dashboard={dashboard} />}
-        main={<Column />}
+        main={<Columns />}
         sidebar={
           <DashboardSidebar
             dashboardList={dashboardList}
@@ -32,6 +31,6 @@ export default function DashboardPage() {
           />
         }
       />
-    </>
+    </div>
   );
 }
