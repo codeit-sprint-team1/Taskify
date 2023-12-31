@@ -6,7 +6,7 @@ export const ROUTE = {
   dashboard: '/dashboard',
 };
 
-export const COLOR_COMB = {
+export const RANDOM_COLOR_COMB = {
   'bg-lightGreen': 'text-green',
   'bg-lightPurple': 'text-purple',
   'bg-lightOrange': 'text-orange',
@@ -18,3 +18,5 @@ export const COLOR_COMB = {
   'bg-pastelBlue': 'text-darkBlue',
   'bg-lightRed': 'text-pastelRed',
 };
+
+export const RANDOM_COLORS = Object.keys(RANDOM_COLOR_COMB);
