@@ -1,8 +1,9 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { Profile } from '@/components';
-import crownIcon from '@/public/icons/crown-icon.svg';
 import { useUserInfo } from '@/store/memos';
+import useToggle from '@/hooks/useToggle';
+import { Profile, ProfileDropdownMenu } from '@/components';
+import crownIcon from '@/public/icons/crown-icon.svg';
 
 export interface DashboardHeaderProps {
   dashboard: {
@@ -24,13 +25,30 @@ type HeaderProps = {
 export default function Header({ dashboard, children }: HeaderProps) {
   const [nickname, setNickname] = useState('');
   const [profileImage, setProfileImage] = useState<string | null>('');
-
+  const { isOn, toggle } = useToggle(false);
   const { userInfo } = useUserInfo();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setNickname(userInfo.nickname);
     setProfileImage(userInfo.profileImageUrl);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current !== null &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        toggle();
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
 
   return (
     <header className="flex items-center justify-end border-b desktop:justify-between mobile:justify-end h-70pxr desktop:pl-40pxr desktop:pr-80pxr px-40pxr mobile:px-12pxr border-b-gray30">
@@ -50,7 +68,12 @@ export default function Header({ dashboard, children }: HeaderProps) {
       </div>
       <div className="flex items-center">
         {children}
-        <Profile name={nickname} src={profileImage} />
+        <div ref={dropdownRef} className="relative">
+          <button type="button" onClick={toggle}>
+            <Profile name={nickname} src={profileImage} />
+          </button>
+          {isOn && <ProfileDropdownMenu />}
+        </div>
       </div>
     </header>
   );

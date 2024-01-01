@@ -26,6 +26,7 @@ export { default as LoginForm } from './sign/form/LoginForm';
 export { default as SignUpForm } from './sign/form/SignUpForm';
 export { default as MypageProfile } from './mypage/MypageProfile';
 export { default as PasswordModify } from './mypage/PasswordModify';
+export { default as ProfileDropdownMenu } from './dashboard/header/ProfileDropdownMenu';
 export { default as HeaderButton } from './dashboard/header/HeaderButton';
 export { default as HeaderMembers } from './dashboard/header/HeaderMembers';
 export { default as Header } from './dashboard/header/Header';
