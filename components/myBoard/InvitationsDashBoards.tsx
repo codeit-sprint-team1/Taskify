@@ -32,14 +32,23 @@ function InvitationsList({
     Refuse();
   }
   return (
-    <div className="grid grid-cols-3 justify-center items-center">
-      <div className="pl-32pxr">{item.dashboard.title}</div>
-      <div>{item.invitee.nickname}</div>
+    <div className="grid desktop:grid-cols-3 tablet:grid-cols-3 mobile:grid-rows-3 justify-center items-center mobile:text-14pxr">
+      <div className="pl-32pxr mobile:pl-0pxr">
+        <span className="pr-28pxr hidden mobile:inline text-gray40">이름</span>
+        {item.dashboard.title}
+      </div>
+      <div className="mobile:text-14pxr">
+        {' '}
+        <span className="pr-16pxr hidden mobile:inline text-gray40">
+          초대자
+        </span>
+        {item.invitee.nickname}
+      </div>
       <div className="flex gap-10pxr">
-        <Button variant="primary" size="small" onClick={acceptInvitation}>
+        <Button variant="primary" size="xsmall" onClick={acceptInvitation}>
           수락
         </Button>
-        <Button variant="secondary" size="small" onClick={refuseInvitation}>
+        <Button variant="secondary" size="xsmall" onClick={refuseInvitation}>
           거절
         </Button>
       </div>
@@ -64,18 +73,18 @@ function InvitationsValid({
         <div className="flex rounded-md border border-solid border-gray30 px-16pxr py-8pxr gap-8pxr">
           <Image src={searchIcon} alt="searchIcon" />
           <input
-            className="w-full placeholder:text-gray40"
+            className="w-full placeholder:text-gray40 mobile:text-14pxr"
             placeholder="검색"
             onChange={(event) => setSearchValue(event.target.value)}
           />
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 mobile:hidden">
           <div className="text-gray40">이름</div>
           <div className="text-gray40">초대자</div>
           <div className="text-gray40">수락 여부</div>
         </div>
       </div>
-      <div className="flex flex-col gap-26pxr overflow-scroll h-full">
+      <div className="flex flex-col gap-20pxr overflow-scroll h-full">
         {filterInvitations.map((item, index, array) => (
           <React.Fragment key={item.id}>
             <InvitationsList
@@ -97,8 +106,10 @@ function InvitationsValid({
 function InvitationsNotValid() {
   return (
     <div className="flex-col-center gap-24pxr pt-44pxr pb-100pxr">
-      <Image src={notValidIcon} alt="notValidIcon" />
-      <div>아직 초대받은 대시보드가 없어요</div>
+      <div className="mobile:w-60pxr mobile:h-60pxr">
+        <Image src={notValidIcon} alt="notValidIcon" />
+      </div>
+      <div className="mobile:text-14pxr">아직 초대받은 대시보드가 없어요</div>
     </div>
   );
 }
@@ -111,7 +122,9 @@ export default function InvitationsDashBoards() {
 
   return (
     <div className="bg-white rounded-lg px-32pxr py-28pxr flex flex-col gap-20pxr w-full overflow-hidden">
-      <div className="text-gray70 text-24pxr font-bold ">초대받은 대시보드</div>
+      <div className="text-gray70 text-24pxr font-bold mobile:text-20pxr">
+        초대받은 대시보드
+      </div>
       {data && data.length !== 0 ? (
         <InvitationsValid data={data} setData={setData} />
       ) : (
