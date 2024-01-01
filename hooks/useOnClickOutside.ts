@@ -1,14 +1,19 @@
-import { useRef, useEffect } from 'react';
-import useToggle from './useToggle';
+import { useRef, useEffect, useState } from 'react';
 
 const useOnClickOutside = () => {
-  const { isOn, toggle } = useToggle(false);
+  const [isOn, setIsOn] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement & HTMLUListElement>(null);
+
+  const toggle = () => {
+    setIsOn(!isOn);
+  };
+
+  console.log('hi');
 
   useEffect(() => {
     const handleClickOutside = (e: Event) => {
       if (ref.current !== null && !ref.current.contains(e.target as Node)) {
-        toggle();
+        setIsOn(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
