@@ -2,19 +2,23 @@ import { Modal } from '@/components';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostColumns from '../data/usePostColumns';
-import { useDashboardList } from '@/store/memos/useDashboardList';
 import { useRouter } from 'next/router';
 
 export interface ModalProps {
   isOpen: boolean;
   onCancel: () => void;
+  getColum: () => void;
 }
 
 export interface CreateColumnModalForm {
   title: string;
 }
 
-export default function CreateColumnModal({ isOpen, onCancel }: ModalProps) {
+export default function CreateColumnModal({
+  isOpen,
+  onCancel,
+  getColum,
+}: ModalProps) {
   const {
     control,
     handleSubmit,
@@ -42,6 +46,7 @@ export default function CreateColumnModal({ isOpen, onCancel }: ModalProps) {
 
   const onSubmit = async () => {
     await postInvitations();
+    getColum();
   };
 
   useEffect(() => {
