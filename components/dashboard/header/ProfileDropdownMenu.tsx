@@ -1,5 +1,5 @@
 import { useDashboardList } from '@/store/memos/useDashboardList';
-import useUserInfo, { defaultState } from '@/store/memos/useUserInfo';
+import useUserInfo from '@/store/memos/useUserInfo';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
