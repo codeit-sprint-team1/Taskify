@@ -4,10 +4,13 @@ import DashboardLayout from '@/page-layout/DashboardLayout';
 import { Header, DashboardSidebar } from '@/components';
 import useGetDashboards from '@/components/dashboard/data/useGetDashboards';
 import MyDashBoards from '@/components/myBoard/MyDashBoards';
+import useRedirectToMain from '@/hooks/useRedirectToHome';
 
 export default function MyDashboardPage() {
   const { dashboards } = useGetDashboards();
   const { dashboardList, setDashboardList } = useDashboardList();
+
+  useRedirectToMain('accessToken');
 
   useEffect(() => {
     setDashboardList(dashboards);
