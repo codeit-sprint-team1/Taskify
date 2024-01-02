@@ -13,7 +13,10 @@ function InviteList({ invitations, onDelete }: InviteListProps) {
     <div className="space-y-32pxr">
       {invitations?.map((invitation) => {
         return (
-          <div key={invitation.id} className="flex justify-between">
+          <div
+            key={invitation.id}
+            className="flex justify-between items-center"
+          >
             <p>{invitation.invitee.email}</p>
             <Button
               onClick={() => onDelete(invitation.id)}

@@ -18,6 +18,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
   const { execute, data } = useGetInvitaions({ boardid, page, size });
   const totalCount = data?.totalCount;
   const invitations = data?.invitations;
+
   const handleDeleteInvitation = async (invitationId: number) => {
     try {
       const res = await axiosAuthInstance.delete(
@@ -28,10 +29,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
       console.error(error);
     }
   };
-  console.log(invitations?.length);
-
   const { isOn, toggle } = useToggle();
-
   if (!totalCount) return null;
   const totalPages = Math.ceil(totalCount / size);
 
@@ -45,6 +43,10 @@ function InviteListTable({ boardid }: InviteListTableProps) {
 
   const handleCancel = () => {
     toggle();
+  };
+
+  const handleInvite = () => {
+    execute();
   };
 
   return (
@@ -72,7 +74,11 @@ function InviteListTable({ boardid }: InviteListTableProps) {
               초대하기
             </div>
           </Button>
-          <InviteModal isOpen={isOn} onCancel={handleCancel} />
+          <InviteModal
+            isOpen={isOn}
+            onCancel={handleCancel}
+            handler={handleInvite}
+          />
         </div>
       </div>
       <div className="flex justify-between items-center">
