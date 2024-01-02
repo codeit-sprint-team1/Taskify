@@ -86,7 +86,6 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
   useEffect(() => {
     setProfileMembers(members.slice(0, numberToMap));
     setRestMembers(members.slice(numberToMap));
-    console.log(totalCount, numberToMap);
   }, [numberToMap, totalCount, dashboardId]);
 
   return (
