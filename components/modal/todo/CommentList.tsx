@@ -8,19 +8,31 @@ function CommentList() {
       <Image
         src={sampleIcon}
         alt="프로필아이콘"
-        className="w-34pxr h-34pxr rounded-full bg-green flex-center"
+        className="w-34pxr h-34pxr rounded-full bg-green flex-center mobile:w-26pxr mobile:h-26pxr"
       />
       <div className="flex flex-col gap-6pxr">
         <div className="space-x-8pxr">
-          <span className="font-semibold text-14pxr">정만철(사용자이름)</span>
-          <span className="text-gray40 text-12pxr">2024.01.02 23:42</span>
+          <span className="font-semibold text-14pxr mobile:text-12pxr">
+            정만철(사용자이름)
+          </span>
+          <span className="text-gray40 text-12pxr mobile:text-10pxr">
+            2024.01.02 23:42
+          </span>
         </div>
-        <p className="text-14pxr">오늘안에 CCC 까지 만들 수 있을까요?</p>
+        <p className="text-14pxr mobile:text-12pxr">
+          오늘안에 CCC 까지 만들 수 있을까요?
+        </p>
         <div className="flex gap-12pxr">
-          <button className="text-gray40 text-12pxr underline" type="button">
+          <button
+            className="text-gray40 text-12pxr underline mobile:text-10pxr"
+            type="button"
+          >
             수정
           </button>
-          <button className="text-gray40 text-12pxr underline" type="button">
+          <button
+            className="text-gray40 text-12pxr underline mobile:text-10pxr"
+            type="button"
+          >
             삭제
           </button>
         </div>

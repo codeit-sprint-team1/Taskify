@@ -6,7 +6,7 @@ function CommentInput() {
   const { control, watch } = useForm();
   return (
     <form className="flex flex-col gap-10pxr relative">
-      <label className="text-16pxr font-medium">댓글</label>
+      <label className="text-16pxr font-medium mobile:text-14pxr">댓글</label>
       <Controller
         name="comment"
         control={control}
@@ -14,7 +14,7 @@ function CommentInput() {
           <textarea
             {...field}
             maxLength={200}
-            className="h-110pxr p-16pxr rounded-md border border-gray30 overflow-scroll focus:outline-none"
+            className="h-110pxr p-16pxr rounded-md border border-gray30 overflow-scroll focus:outline-none mobile:h-70pxr"
             placeholder="댓글 작성하기"
           ></textarea>
         )}
@@ -22,7 +22,7 @@ function CommentInput() {
       <Button
         variant="secondary"
         size="modal"
-        className="absolute right-12pxr bottom-12pxr"
+        className="absolute right-12pxr bottom-12pxr mobile:w-84pxr"
       >
         입력
       </Button>

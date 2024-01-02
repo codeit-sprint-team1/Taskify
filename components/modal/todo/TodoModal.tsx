@@ -22,27 +22,27 @@ function TodoModal({ isOpen, onCancel, tag }: TodoModalProps) {
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit}>
       <div className="flex flex-col gap-24pxr">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mobile:flex-col-reverse">
           <Modal.Title>새로운 일정 관리 Taskify</Modal.Title>
-          <div className="flex gap-24pxr">
+          <div className="flex gap-24pxr mobile:self-end">
             <button type="button">
               <Image
                 src={kekbabIcon}
                 alt="케밥 아이콘"
-                className="w-28pxr h-28pxr"
+                className="w-28pxr h-28pxr mobile:w-20pxr mobile:h-20pxr"
               />
             </button>
             <button type="button" onClick={onCancel}>
               <Image
                 src={closeIcon}
                 alt="취소 아이콘"
-                className="w-32pxr h-32pxr"
+                className="w-32pxr h-32pxr mobile:w-24pxr mobile:h-24pxr"
               />
             </button>
           </div>
         </div>
-        <div className="flex gap-24pxr">
-          <div className="flex flex-col gap-26pxr max-w-[450px]">
+        <div className="flex gap-24pxr mobile:flex-col">
+          <div className="flex flex-col gap-26pxr max-w-[450px] mobile:order-2">
             <div className="flex gap-20pxr">
               <Tag tag="To Do" />
               <Image

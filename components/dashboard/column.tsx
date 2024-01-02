@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import useGetColum from './data/useGetColums';
 import useGetCards from './data/useGetCards';
 import useToggle from '@/hooks/useToggle';
-import { CreateColumnModal } from '..';
+import { CreateColumnModal, TodoModal } from '..';
 import { useEffect } from 'react';
 import { Columns } from '@/types/columns';
 import { DateTime } from 'ts-luxon';
@@ -82,11 +82,15 @@ function ColumnTitle({
 
 function Column({ data }: { data: Columns }) {
   const { cards, totalCount } = useGetCards(data.id);
+  const { isOn, toggle } = useToggle();
   return (
     <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
       <ColumnTitle title={data.title} totalCount={totalCount} />
       <div className="flex flex-col gap-15pxr h-full overflow-scroll">
-        <CardAdd />
+        <button onClick={toggle}>
+          <CardAdd />
+        </button>
+        <TodoModal isOpen={isOn} onCancel={toggle} />
         {cards && cards.map((card) => <Card card={card} key={card.id} />)}
       </div>
     </div>
