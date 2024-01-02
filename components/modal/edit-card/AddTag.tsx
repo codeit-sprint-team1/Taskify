@@ -55,13 +55,13 @@ const AddTag = ({ onTagListChange }: AddTagProps) => {
     }
 
     clearErrors('tagInput');
-    setTagList((prev) => [...prev, data.tagInput]);
     updateTagList([...tagList, data.tagInput]);
     reset({ tagInput: '' });
   };
 
   const deleteTagItem = (tagToDelete: string) => {
-    setTagList(tagList.filter((tag) => tag !== tagToDelete));
+    const newTagList = tagList.filter((tag) => tag !== tagToDelete);
+    updateTagList(newTagList);
   };
 
   const onKeyDown = (

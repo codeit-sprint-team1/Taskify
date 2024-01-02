@@ -1,13 +1,12 @@
 import { ImagePick, Input, Modal, SelectDate, TextArea } from '@/components';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-
+import usePostDashboards from '../data/usePostDashboards';
 import { useDashboardList } from '@/store/memos/useDashboardList';
 import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
 import { DevTool } from '@hookform/devtools';
-import usePostCard from './data/usePostCard';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -19,30 +18,30 @@ export interface CreateCardModalForm {
   manager: string;
   description: string;
   dueDate: Date | null;
-  imageUrl: string;
-  tags: string;
+  image: string;
+  tags: string[];
 }
 
 export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>();
-  const [color, setColor] = useState<string>('');
+  const defaultValues = {
+    title: '',
+    manager: '',
+    description: '',
+    dueDate: null,
+    image: '',
+    tags: [],
+  };
   const {
     control,
     handleSubmit,
     watch,
     reset,
     setValue,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<CreateCardModalForm>({
-    defaultValues: {
-      title: '',
-      manager: '',
-      description: '',
-      dueDate: null,
-      imageUrl: '',
-      tags: '',
-    },
+    defaultValues,
     mode: 'onChange',
   });
   console.log([
@@ -50,17 +49,17 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     watch('manager'),
     watch('description'),
     watch('dueDate'),
-    watch('imageUrl'), // File 객체는 selectImageFile
+    watch('image'), // File 객체는 selectImageFile
     watch('tags'),
   ]);
 
   const handleImageSelect = (file: File) => {
     setSelectedImageFile(file);
-    setValue('imageUrl', file.name);
+    setValue('image', file.name);
   };
 
   const onTagListChange = (newTagList: string[]) => {
-    setValue('tags', newTagList.join(','));
+    setValue('tags', newTagList);
   };
 
   const handleCancel = () => {
@@ -68,19 +67,28 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     onCancel();
   };
 
-  const { addDashboard } = useDashboardList();
+  const isFormFullyFilled = () => {
+    const formValues = watch();
+    return (
+      Object.keys(defaultValues) as Array<keyof CreateCardModalForm>
+    ).every((key) => {
+      const value = formValues[key];
+      if (Array.isArray(value)) {
+        return value.length > 0;
+      } else {
+        return value !== null && value !== '';
+      }
+    });
+  };
 
+  const { addDashboard } = useDashboardList();
   const {
     execute: postDashboards,
     data: response,
     loading,
-  } = usePostCard({
+  } = usePostDashboards({
     title: watch('title'),
-    manager: watch('manager'),
-    description: watch('description'),
-    dueDate: watch('dueDate'),
-    imageUrl: watch('imageUrl'),
-    tags: watch('tags'),
+    color: 'color',
   });
 
   const onSubmit = async () => {
@@ -99,7 +107,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
       <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
         <Modal.Title>할 일 생성</Modal.Title>
         <div className="flex flex-col items-cen gap-10pxr">
-          <Controller
+          <Controller //선택한 value가 member와 동일해야함
             control={control}
             name="manager"
             rules={{ required: true }}
@@ -131,7 +139,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
           />
           <Controller
             control={control}
-            name="imageUrl"
+            name="image"
             rules={{ required: true }}
             render={({ field }) => (
               <ImagePick
@@ -149,7 +157,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
           />
         </div>
         <ModalButton
-          disabled={Object.keys(errors).length !== 0 || loading}
+          disabled={Object.keys(errors).length !== 0 || !isFormFullyFilled()}
           onCancel={handleCancel}
         >
           생성
