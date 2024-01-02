@@ -13,10 +13,10 @@ interface MemberProps {
 }
 
 function Member({ member, index }: MemberProps) {
-  const { id, email, nickname, profileImageUrl } = member;
+  const { userId, nickname, profileImageUrl } = member;
   return (
     <div className={`hover:z-10 ${index !== 0 && '-ml-8pxr mobile:-ml-12pxr'}`}>
-      <ProfileImage name={nickname} src={profileImageUrl} />
+      <ProfileImage name={nickname} src={profileImageUrl} userId={userId} />
     </div>
   );
 }
@@ -69,11 +69,11 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
   return (
     <div className="flex items-center h-34pxr">
       {profileMembers?.map((member, index) => {
-        return <Member key={member.id} member={member} index={index} />;
+        return <Member key={member.userId} member={member} index={index} />;
       })}
       {restMembers?.length !== 0 && (
         <div key={numberToMap - 1} className={`-ml-8pxr mobile:-ml-12pxr`}>
-          <ProfileImage name={`${restMembers?.length}+`} src="" />
+          <ProfileImage name={`${restMembers?.length}+`} src="" userId={9} />
         </div>
       )}
     </div>

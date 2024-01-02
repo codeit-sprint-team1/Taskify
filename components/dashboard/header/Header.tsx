@@ -50,7 +50,7 @@ export default function Header({ dashboard, children }: HeaderProps) {
       </div>
       <div className="flex items-center">
         {children}
-        <Profile name={nickname} src={profileImage} />
+        <Profile name={nickname} src={profileImage} userId={userInfo.id} />
       </div>
     </header>
   );

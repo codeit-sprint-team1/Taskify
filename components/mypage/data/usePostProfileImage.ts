@@ -24,7 +24,6 @@ function usePostProfileImage({ imgFile }: usePostProfileImageProps) {
     );
   };
   const { execute, data } = useAsync(postProfileImage, true);
-  console.log(data);
   return {
     execute,
     data,

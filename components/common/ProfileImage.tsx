@@ -1,16 +1,42 @@
 import Image from 'next/image';
+import getRandomNum from '@/utils/getRandomNum';
 
 export interface ProfileImageProps {
+  userId: number | null;
   name: string;
   src: string | null;
   size?: string;
 }
 
-export default function ProfileImage({ name, src, size }: ProfileImageProps) {
+interface RandomColors {
+  [key: number]: string;
+}
+
+const RANDOM_COLORS: RandomColors = {
+  0: 'bg-lightgreen',
+  1: 'bg-lightpurple',
+  2: 'bg-lightorange',
+  3: 'bg-lightblue',
+  4: 'bg-lightpink',
+  5: 'bg-gray30',
+  6: 'bg-lightbrown',
+  7: 'bg-lightyellow',
+  8: 'bg-pastelblue',
+  9: 'bg-lightred',
+};
+
+export default function ProfileImage({
+  name,
+  src,
+  size,
+  userId,
+}: ProfileImageProps) {
   const divSize = size === 'sm' ? 'w-26pxr h-26pxr' : 'w-38pxr h-38pxr';
+  const num = getRandomNum(userId ?? 0);
+  const bg = RANDOM_COLORS[num];
   return (
     <div
-      className={`rounded-full flex-center bg-green border-2 border-white relative overflow-hidden ${divSize}`}
+      className={`rounded-full flex-center  border-2 border-white relative overflow-hidden ${bg} ${divSize}`}
     >
       {src ? (
         <Image src={src} alt="프로필 이미지" fill />
