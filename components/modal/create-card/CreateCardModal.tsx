@@ -17,8 +17,8 @@ export interface CreateCardModalForm {
   manager: string;
   title: string;
   description: string;
-  dueDate: Date | null; // string 타입
-  imageUrl: File | null; // string 타입
+  dueDate: Date | null;
+  imageUrl: File | null;
   tags: string[];
   assigneeUserId: number;
   dashboardId: number;
@@ -51,8 +51,11 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     mode: 'onChange',
   });
   console.log([
-    watch('title'),
-    // watch('manager'),
+    // assigneeUserId: 1,
+    // dashboardId: 1,
+    // columnId: 1,
+    // watch('title'),
+    watch('manager'),
     watch('description'),
     watch('dueDate'),
     selectedImageFile, // File 객체는 selectImageFile
@@ -87,9 +90,8 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     });
   };
 
-  const { addDashboard } = useDashboardList();
   const {
-    execute: postDashboards,
+    execute: postCard,
     data: response,
     loading,
   } = usePostCard({
@@ -104,7 +106,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
   });
 
   const onSubmit = async () => {
-    await postDashboards();
+    await postCard();
     handleCancel();
   };
 
@@ -115,11 +117,11 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
   // }, [response]);
 
   return (
-    <div>
-      <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
+    <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
+      <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-15pxr">
         <Modal.Title>할 일 생성</Modal.Title>
-        <div className="flex flex-col items-cen gap-10pxr">
-          <Controller //선택한 value가 member와 동일해야함
+        <div className="flex flex-col gap-10pxr w-506pxr">
+          <Controller
             control={control}
             name="manager"
             rules={{ required: true }}
@@ -175,7 +177,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
           생성
         </ModalButton>
         <DevTool control={control} />
-      </Modal>
-    </div>
+      </div>
+    </Modal>
   );
 }

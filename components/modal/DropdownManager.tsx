@@ -2,11 +2,13 @@ import React, { ChangeEvent, forwardRef, useRef, useState } from 'react';
 import dropdownImage from '@/public/icons/dropdown-icon.svg';
 import Image from 'next/image';
 import { Label, ProfileImage } from '..';
+import useGetMembers from '../boardEdit/data/useGetMembers';
 
 interface DropdownManagerProps {
   ProfileSrc: string | null;
   value?: string;
   onChange?: (value: string) => void;
+  // boardid: number;
 }
 
 const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(

@@ -13,13 +13,19 @@ import { useEffect } from 'react';
 import { Columns } from '@/types/columns';
 import { DateTime } from 'ts-luxon';
 import testImg from '../../public/icons/boards/test-img.png';
+import CreateCardModal from '../modal/create-card/CreateCardModal';
 
 function CardAdd() {
+  const { isOn, toggle } = useToggle(false);
   return (
-    <button className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md">
+    <button
+      className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md"
+      onClick={toggle}
+    >
       <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
         <Image src={plusIcon} alt="plusIcon" />
       </div>
+      <CreateCardModal isOpen={isOn} onCancel={toggle} />
     </button>
   );
 }
