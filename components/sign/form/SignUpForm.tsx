@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useSignUp, useTokenRedirect } from '../data';
+import { notify } from '@/components/common/Toast';
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -49,7 +50,7 @@ export default function SignUpForm() {
 
   useEffect(() => {
     if (data) {
-      alert(SUCCESS_JOIN_MESSAGE);
+      notify({ type: 'success', text: SUCCESS_JOIN_MESSAGE });
       router.replace('login');
     }
   }, [data]);
