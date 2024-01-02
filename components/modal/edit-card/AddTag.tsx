@@ -7,7 +7,11 @@ interface FormValues {
   tagInput: string;
 }
 
-const AddTag = () => {
+interface AddTagProps {
+  onTagListChange: (tags: string[]) => void;
+}
+
+const AddTag = ({ onTagListChange }: AddTagProps) => {
   const [tagList, setTagList] = useState<string[]>([]);
 
   const {
@@ -19,6 +23,11 @@ const AddTag = () => {
     formState: { errors },
   } = useForm({ defaultValues: { tagInput: '' }, mode: 'onBlur' });
   const hasError = Boolean(errors.tagInput);
+
+  const updateTagList = (newTags: string[]) => {
+    setTagList(newTags);
+    onTagListChange(newTags);
+  };
 
   const submitTagItem = (data: FormValues) => {
     if (tagList.length >= 10) {
@@ -44,8 +53,10 @@ const AddTag = () => {
       });
       return;
     }
+
     clearErrors('tagInput');
     setTagList((prev) => [...prev, data.tagInput]);
+    updateTagList([...tagList, data.tagInput]);
     reset({ tagInput: '' });
   };
 

@@ -19,13 +19,7 @@ export default function testPage() {
   const { isOn, toggle } = useToggle(true);
   return (
     <div>
-      <TextArea label="설명" required={true} />
-      <SelectDate label="마감일" />
-      <ImagePick label="이미지" />
-      <DropdownManager ProfileSrc="" />
-      <DropdownState states={states} initialState="To do" />
       <div className="mb-30pxr"></div>
-      <AddTag />
       <CreateCardModal isOpen={isOn} onCancel={toggle} />
     </div>
   );

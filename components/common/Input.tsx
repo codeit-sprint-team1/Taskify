@@ -26,7 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     {
       label,
       placeholder,
-      value,
+      value = '',
       type = 'text',
       hasError = false,
       helperText,

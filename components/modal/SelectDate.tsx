@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SyntheticEvent } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
@@ -7,13 +7,32 @@ import Image from 'next/image';
 import { CardLabelProps } from '../common/Textarea';
 import { Label } from '..';
 
-export default function SelectDate({ label, required }: CardLabelProps) {
-  const [selectDate, setSelectDate] = useState<Date | null>(null);
+interface SelectDateProps extends CardLabelProps {
+  value?: Date | null;
+  onChange: (date: Date | null) => void;
+}
+
+export default function SelectDate({
+  label,
+  required,
+  value,
+  onChange,
+}: SelectDateProps) {
   const isPossibleDay = (date: Date) => {
     const currentDate = new Date();
     const selectedDate = new Date(date);
+
     return currentDate.getDate() <= selectedDate.getDate();
   };
+  const handleDateChange = (
+    date: Date | null,
+    event: SyntheticEvent<any, Event> | undefined
+  ) => {
+    if (onChange) {
+      onChange(date);
+    }
+  };
+
   return (
     <div>
       <Label text={label} required={required} />
@@ -26,9 +45,9 @@ export default function SelectDate({ label, required }: CardLabelProps) {
           className="ml-10pxr"
         />
         <DatePicker
-          selected={selectDate}
+          selected={value}
           dateFormat="yyyy년 MM월 dd일 HH시 mm분"
-          onChange={(date) => setSelectDate(date)}
+          onChange={handleDateChange}
           locale={ko}
           className="outline-0 cursor-pointer w-250pxr caret-transparent"
           placeholderText="날짜를 선택해주세요."
