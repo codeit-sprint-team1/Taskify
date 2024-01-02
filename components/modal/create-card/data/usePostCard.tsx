@@ -7,25 +7,23 @@
 //   formData: FormData;
 // }
 
-// const usePostCard = ({
-//   formData
-// }: usePostCardProps) => {
-//   const postDashboards = useCallback(
+// const usePostCard = ({ formData }: usePostCardProps) => {
+//   const postCard = useCallback(
 //     () =>
-//       axiosAuthInstance.post<CreateCard>('dashboards', {
+//       axiosAuthInstance.post<CreateCard>('cards', {
 //         assigneeUserId,
-//   dashboardId,
-//   columnId,
-//   title,
-//   description,
-//   dueDate,
-//   tags,
-//   imageUrl,
+//         dashboardId,
+//         columnId,
+//         title,
+//         description,
+//         dueDate,
+//         tags,
+//         imageUrl,
 //       }),
 //     [title, color]
 //   );
 
-//   const { execute, loading, error, data } = useAsync(postDashboards, true);
+//   const { execute, loading, error, data } = useAsync(postCard, true);
 
 //   return {
 //     execute,
