@@ -9,7 +9,7 @@ export interface ModalProps {
   onCancel: () => void;
 }
 
-export interface CreateDashboardModalForm {
+export interface CreateDashboardForm {
   title: string;
 }
 
@@ -21,8 +21,8 @@ export default function CreateDashboardModal({ isOpen, onCancel }: ModalProps) {
     handleSubmit,
     watch,
     reset,
-    formState: { isValid, errors },
-  } = useForm<CreateDashboardModalForm>();
+    formState: { isValid },
+  } = useForm<CreateDashboardForm>();
 
   const watchInput = watch('title');
 

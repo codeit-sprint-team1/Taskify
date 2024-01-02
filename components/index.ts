@@ -16,6 +16,8 @@ export { default as Modal } from './modal/Modal';
 export { default as InviteModal } from './modal/Invite/InviteModal';
 export { default as CreateDashboardModal } from './modal/create-dashboard/CreateDashboardModal';
 export { default as CreateColumnModal } from './modal/create-column/createColumnModal';
+export { default as DeleteColumnConfirmModal } from './modal/edit-column/DeleteColumnConfirmModal';
+export { default as EditColumnModal } from './modal/edit-column/EditColumnModal';
 export { default as InviteListTable } from './boardEdit/InviteListTable';
 export { default as MembersTable } from './boardEdit/MembersTable';
 export { default as NameEditForm } from './boardEdit/NameEditForm';

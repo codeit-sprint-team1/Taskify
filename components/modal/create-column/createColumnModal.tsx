@@ -2,7 +2,6 @@ import { Modal } from '@/components';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostColumns from '../data/usePostColumns';
-import { useDashboardList } from '@/store/memos/useDashboardList';
 import { useRouter } from 'next/router';
 
 export interface ModalProps {
