@@ -10,10 +10,10 @@ import point2Img from '../public/images/landing/point2-img.png';
 import card1Img from '../public/images/landing/card1-img.png';
 import card2Img from '../public/images/landing/card2-img.png';
 import card3Img from '../public/images/landing/card3-img.png';
-import { useUserInfo } from '@/store/memos';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { StaticImageData } from 'next/image';
+import getLocalItem from '@/utils/getLocalItem';
 
 function Header() {
   return (
@@ -153,10 +153,10 @@ function Bottom() {
 }
 
 export default function Home() {
-  const { userInfo } = useUserInfo();
+  const token = getLocalItem('accessToken');
   const router = useRouter();
   useEffect(() => {
-    if (userInfo.id) router.push('/mydashboard');
+    if (token) router.push('/mydashboard');
   }, []);
   return (
     <>
