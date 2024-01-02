@@ -10,9 +10,8 @@ function BoardEditPage() {
   const router = useRouter();
   const params = router.query;
   const boardid = params?.id ? Number(params.id) : null;
-  if (boardid === null || isNaN(boardid)) return;
-
   const { dashboardList } = useDashboardList();
+  if (boardid === null || isNaN(boardid)) return;
 
   const currentId = router.query['id'] as string | undefined;
 

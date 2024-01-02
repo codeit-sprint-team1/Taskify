@@ -6,6 +6,7 @@ import useGetInvitaions from './data/useGetInvitaions';
 import { axiosAuthInstance } from '@/utils';
 import PagenationButton from '../common/PaginationButton';
 import useToggle from '@/hooks/useToggle';
+import InviteList from './InviteList';
 
 interface InviteListTableProps {
   boardid: number;
@@ -22,16 +23,16 @@ function InviteListTable({ boardid }: InviteListTableProps) {
       const res = await axiosAuthInstance.delete(
         `dashboards/${boardid}/invitations/${invitationId}`
       );
-      if (res?.status === 204) alert('성공적으로 취소 되었습니다!');
       execute();
     } catch (error) {
       console.error(error);
     }
   };
+  console.log(invitations?.length);
 
   const { isOn, toggle } = useToggle();
 
-  if (!totalCount) return;
+  if (!totalCount) return null;
   const totalPages = Math.ceil(totalCount / size);
 
   const handleClickRight = () => {
@@ -87,23 +88,14 @@ function InviteListTable({ boardid }: InviteListTableProps) {
           </div>
         </Button>
       </div>
-      <div className="space-y-32pxr">
-        {invitations?.map((invitation) => {
-          return (
-            <div key={invitation.id} className="flex justify-between">
-              <p>{invitation.invitee.email}</p>
-              <Button
-                onClick={() => handleDeleteInvitation(invitation.id)}
-                variant="secondary"
-                size="small"
-                className="mobile:py-7pxr mobile:px-9pxr mobile:w-52pxr"
-              >
-                취소
-              </Button>
-            </div>
-          );
-        })}
-      </div>
+      {invitations?.length === 0 ? (
+        <p>초대한 사람이 없네요 이메일로 초대해보세요!</p>
+      ) : (
+        <InviteList
+          invitations={invitations}
+          onDelete={handleDeleteInvitation}
+        />
+      )}
     </div>
   );
 }
