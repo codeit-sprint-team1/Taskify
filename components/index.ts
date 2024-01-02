@@ -8,6 +8,7 @@ export { default as Profile } from './common/Profile';
 export { default as TextArea } from './common/Textarea';
 export { default as Toast } from './common/Toast';
 export { default as Portal } from './modal/Portal';
+export { default as DropdownMenu } from './common/DropdownMenu';
 export { default as ModalTitle } from './modal/ModalTitle';
 export { default as ModalButton } from './modal/ModalButton';
 export { default as ImagePick } from './modal/ImagePick';

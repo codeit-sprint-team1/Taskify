@@ -1,28 +1,11 @@
 import { useDashboardList } from '@/store/memos/useDashboardList';
 import useUserInfo from '@/store/memos/useUserInfo';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
-
-interface ProfileDropdownItemProps {
-  handler: () => void;
-  children: ReactNode;
-}
-
-function ProfileDropdownItem({ children, handler }: ProfileDropdownItemProps) {
-  return (
-    <button
-      onClick={handler}
-      className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8"
-    >
-      {children}
-    </button>
-  );
-}
+import { DropdownMenu } from '@/components';
 
 export default function ProfileDropdownMenu() {
   const router = useRouter();
-  const isMydashboard = router.pathname === '/mydashboard';
-  const options = [
+  let options = [
     {
       key: 1,
       title: '내 대시보드',
@@ -50,18 +33,10 @@ export default function ProfileDropdownMenu() {
     },
   ];
 
-  return (
-    <ul className="absolute right-0pxr mt-10pxr w-115pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white">
-      {options.map((option) => {
-        if (option.key === 1 && isMydashboard) return;
-        return (
-          <li key={option.key}>
-            <ProfileDropdownItem handler={option.handler}>
-              {option.title}
-            </ProfileDropdownItem>
-          </li>
-        );
-      })}
-    </ul>
-  );
+  const isMydashboard = router.pathname === '/mydashboard';
+  if (isMydashboard) {
+    options = options.splice(1);
+  }
+
+  return <DropdownMenu options={options} />;
 }
