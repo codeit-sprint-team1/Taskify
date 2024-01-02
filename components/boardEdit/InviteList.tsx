@@ -11,7 +11,6 @@ interface InviteListProps {
 
 function InviteList({ invitations, onDelete }: InviteListProps) {
   if (!invitations) return;
-  console.log(invitations.length);
   return (
     <div className="space-y-32pxr">
       {invitations?.length === 0 ? (
