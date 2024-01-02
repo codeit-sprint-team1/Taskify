@@ -2,60 +2,18 @@ import plusIcon from '../../public/icons/plus-icon.svg';
 import arrowIcon from '../../public/icons/arrow-icon.svg';
 import crownIcon from '../../public/icons/crown-icon.svg';
 import Image from 'next/image';
-import { DashboardsRawData } from '@/types/dashboards';
 import Link from 'next/link';
+import { CreateDashboardModal } from '@/components';
+import useToggle from '@/hooks/useToggle';
+import useGetDashBoards from './data/useGetDashBoards';
+import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useEffect, useState } from 'react';
+import { Dashboards } from '@/types/dashboards';
+import PaginationButton from '../common/PaginationButton';
 
-const mok: DashboardsRawData = {
-  cursorId: 1,
-  totalCount: 5,
-  dashboards: [
-    {
-      id: 1,
-      title: 'test1',
-      color: 'pink',
-      createdAt: 'string',
-      updatedAt: 'string',
-      createdByMe: true,
-      userId: 1,
-    },
-    {
-      id: 2,
-      title: 'test2',
-      color: 'blue',
-      createdAt: 'string',
-      updatedAt: 'string',
-      createdByMe: false,
-      userId: 1,
-    },
-    {
-      id: 3,
-      title: 'test3',
-      color: 'red',
-      createdAt: 'string',
-      updatedAt: 'string',
-      createdByMe: true,
-      userId: 1,
-    },
-    {
-      id: 4,
-      title: 'test4',
-      color: 'violet',
-      createdAt: 'string',
-      updatedAt: 'string',
-      createdByMe: false,
-      userId: 1,
-    },
-    {
-      id: 5,
-      title: 'test5',
-      color: 'orange',
-      createdAt: 'string',
-      updatedAt: 'string',
-      createdByMe: true,
-      userId: 1,
-    },
-  ],
-};
+interface Colors {
+  [key: string]: string;
+}
 
 function Board({
   title,
@@ -68,11 +26,19 @@ function Board({
   createByMe: boolean;
   id: number;
 }) {
+  const colors: Colors = {
+    '#7ac555': 'bg-green',
+    '#5534da': 'bg-violet',
+    '#ffa500': 'bg-orange',
+    '#76a5ea': 'bg-blue',
+    '#e876ea': 'bg-pink',
+  };
+  const bg = colors[color];
   return (
     <Link href={`board/${id}`}>
       <div className="flex-center justify-between w-330pxr h-70pxr bg-white rounded-lg border border-solid border-gray30 gap-12pxr px-20pxr">
         <div className="flex-center gap-16pxr">
-          <div className={`w-8pxr h-8pxr ${color} rounded-full`}></div>
+          <div className={`w-8pxr h-8pxr rounded-full ${bg}`}></div>
           <div className="flex-center gap-8pxr">
             <div className="font-semibold text-gray70">{title}</div>
             {createByMe && <Image src={crownIcon} alt="crownIcon" />}
@@ -87,35 +53,65 @@ function Board({
 }
 
 function CreateBoard() {
+  const { isOn, toggle } = useToggle(false);
   return (
-    <button className="flex-center w-330pxr h-70pxr bg-white rounded-lg border border-solid border-gray30 gap-12pxr">
-      <div className="font-semibold text-gray70">새로운 대시보드</div>
-      <div className="bg-violet8">
-        <Image src={plusIcon} alt="plusIcon" />
-      </div>
-    </button>
+    <>
+      <button
+        onClick={toggle}
+        className="flex-center w-330pxr h-70pxr bg-white rounded-lg border border-solid border-gray30 gap-12pxr"
+      >
+        <div className="font-semibold text-gray70">새로운 대시보드</div>
+        <div className="bg-violet8">
+          <Image src={plusIcon} alt="plusIcon" />
+        </div>
+      </button>
+      <CreateDashboardModal isOpen={isOn} onCancel={toggle} />
+    </>
   );
 }
 
 export default function BoardList() {
-  const { dashboards } = mok;
+  const [data, setData] = useState<Dashboards[]>();
+  const { dashboardList } = useDashboardList();
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+
+  useEffect(() => {
+    if (dashboardList) {
+      setTotalPage(Math.ceil(dashboardList.length / 5));
+      setData(dashboardList.slice((page - 1) * 5, page * 5));
+    }
+  }, [dashboardList, page]);
+
   return (
     <div className="flex flex-col gap-12pxr">
       <div className="grid grid-cols-3 gap-12pxr">
         <CreateBoard />
-        {dashboards.map((item) => (
-          <Board
-            title={item.title}
-            color={`bg-${item.color}`}
-            createByMe={item.createdByMe}
-            id={item.id}
-            key={item.id}
-          />
-        ))}
+        {data &&
+          data.length !== 0 &&
+          data.map((item) => (
+            <Board
+              title={item.title}
+              color={item.color}
+              createByMe={item.createdByMe}
+              id={item.id}
+              key={item.id}
+            />
+          ))}
       </div>
-      {
-        dashboards[0] && <div className="flex justify-end">1 페이중 중 1 </div> // 페이지 네이션 오면 바꾸기
-      }
+      {data && (
+        <div className="flex justify-end items-center gap-16pxr">
+          <div className="text-14pxr text-black">
+            {totalPage} 페이지 중 {page}
+          </div>
+          <PaginationButton
+            onClickLeft={() => setPage(page - 1)}
+            onClickRight={() => setPage(page + 1)}
+            page={page}
+            totalPages={totalPage}
+          />
+        </div>
+      )}
     </div>
   );
 }
