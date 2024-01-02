@@ -21,6 +21,7 @@ function ProfileDropdownItem({ children, handler }: ProfileDropdownItemProps) {
 
 export default function ProfileDropdownMenu() {
   const router = useRouter();
+  const isMydashboard = router.pathname === '/mydashboard';
   const options = [
     {
       key: 1,
@@ -51,13 +52,16 @@ export default function ProfileDropdownMenu() {
 
   return (
     <ul className="absolute right-0pxr mt-10pxr w-115pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white">
-      {options.map((option) => (
-        <li key={option.key}>
-          <ProfileDropdownItem handler={option.handler}>
-            {option.title}
-          </ProfileDropdownItem>
-        </li>
-      ))}
+      {options.map((option) => {
+        if (option.key === 1 && isMydashboard) return;
+        return (
+          <li key={option.key}>
+            <ProfileDropdownItem handler={option.handler}>
+              {option.title}
+            </ProfileDropdownItem>
+          </li>
+        );
+      })}
     </ul>
   );
 }
