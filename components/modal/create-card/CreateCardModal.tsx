@@ -1,12 +1,12 @@
 import { ImagePick, Input, Modal, SelectDate, TextArea } from '@/components';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import usePostDashboards from '../data/usePostDashboards';
 import { useDashboardList } from '@/store/memos/useDashboardList';
 import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
 import { DevTool } from '@hookform/devtools';
+import usePostCard from './data/usePostCard';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -14,12 +14,15 @@ export interface ModalProps {
 }
 
 export interface CreateCardModalForm {
-  title: string;
   manager: string;
+  title: string;
   description: string;
-  dueDate: Date | null;
-  image: string;
+  dueDate: Date | null; // string 타입
+  imageUrl: File | null; // string 타입
   tags: string[];
+  assigneeUserId: number;
+  dashboardId: number;
+  columnId: number;
 }
 
 export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
@@ -30,8 +33,11 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     manager: '',
     description: '',
     dueDate: null,
-    image: '',
+    imageUrl: null,
     tags: [],
+    assigneeUserId: 1,
+    dashboardId: 1,
+    columnId: 1,
   };
   const {
     control,
@@ -46,16 +52,16 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
   });
   console.log([
     watch('title'),
-    watch('manager'),
+    // watch('manager'),
     watch('description'),
     watch('dueDate'),
-    watch('image'), // File 객체는 selectImageFile
+    selectedImageFile, // File 객체는 selectImageFile
     watch('tags'),
   ]);
 
   const handleImageSelect = (file: File) => {
     setSelectedImageFile(file);
-    setValue('image', file.name);
+    setValue('imageUrl', file);
   };
 
   const onTagListChange = (newTagList: string[]) => {
@@ -86,9 +92,15 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     execute: postDashboards,
     data: response,
     loading,
-  } = usePostDashboards({
+  } = usePostCard({
+    assigneeUserId: 1,
+    dashboardId: 1,
+    columnId: 1,
     title: watch('title'),
-    color: 'color',
+    description: watch('description'),
+    dueDate: watch('dueDate')?.toString(),
+    imageUrl: watch('imageUrl'), // File 객체는 selectImageFile
+    tags: watch('tags'),
   });
 
   const onSubmit = async () => {
@@ -96,11 +108,11 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     handleCancel();
   };
 
-  useEffect(() => {
-    if (response) {
-      addDashboard(response);
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   if (response) {
+  //     addDashboard(response);
+  //   }
+  // }, [response]);
 
   return (
     <div>
@@ -139,7 +151,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
           />
           <Controller
             control={control}
-            name="image"
+            name="imageUrl"
             rules={{ required: true }}
             render={({ field }) => (
               <ImagePick

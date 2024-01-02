@@ -77,7 +77,8 @@ const AddTag = ({ onTagListChange }: AddTagProps) => {
     if (e.key === 'Backspace' && !field.value) {
       e.preventDefault();
       if (tagList.length > 0) {
-        setTagList((prev) => prev.slice(0, prev.length - 1));
+        const newTagList = tagList.slice(0, tagList.length - 1);
+        updateTagList(newTagList);
       }
     }
   };
