@@ -7,6 +7,8 @@ import { ColorChips, ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import DropdownState from '../DropdownState';
 import AddTag from '../edit-card/AddTag';
+import { DevTool } from '@hookform/devtools';
+
 export interface ModalProps {
   isOpen: boolean;
   onCancel: () => void;
@@ -35,9 +37,14 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     formState: { isValid, errors },
   } = useForm<CreateCardModalForm>({
     defaultValues: {
+      title: '',
+      manager: '',
+      description: '',
+      dueDate: null,
       image: '',
       tags: '',
     },
+    mode: 'onChange',
   });
   console.log([
     watch('title'),
@@ -48,19 +55,13 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     watch('tags'),
   ]);
 
-  const watchInput = watch('title');
-
   const handleImageSelect = (file: File) => {
     setSelectedImageFile(file);
     setValue('image', file.name);
   };
 
-  const updateTagList = (newTags: string[]) => {
-    onTagListChange(newTags); // 부모 컴포넌트에 변경 사항 전달
-  };
-
   const onTagListChange = (newTagList: string[]) => {
-    setValue('tags', newTagList.join(',')); // 'tags' 필드 업데이트
+    setValue('tags', newTagList.join(','));
   };
 
   const handleCancel = () => {
@@ -89,6 +90,8 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     }
   }, [response]);
 
+  console.log(isValid);
+
   return (
     <div>
       <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
@@ -100,6 +103,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
           {errors.dueDate && <p>"마감일는 필수입니다."</p>}
           {errors.image && <p>"이미지는 필수입니다."</p>}
           {errors.tags && <p>"태그는 필수입니다."</p>}
+
           {/* <DropdownManager ProfileSrc={null} />
           <TextArea label="제목" required />
           <SelectDate label="마감일" />
@@ -158,7 +162,7 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
         <ModalButton disabled={!isValid || loading} onCancel={handleCancel}>
           생성
         </ModalButton>
-        <div></div>
+        <DevTool control={control} />
       </Modal>
     </div>
   );
