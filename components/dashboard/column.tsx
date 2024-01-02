@@ -6,6 +6,8 @@ import plusIcon from '../../public/icons/boards/plus.svg';
 import Image from 'next/image';
 import { CardsList, Card } from '@/types/cards';
 import { useRouter } from 'next/router';
+import useToggle from '@/hooks/useToggle';
+import { TodoModal } from '..';
 
 const mok: CardsList = {
   cursorId: 2,
@@ -127,8 +129,11 @@ function CardAdd() {
 }
 
 function Card({ card }: { card: Card }) {
+  const { isOn, toggle } = useToggle();
+
   return (
-    <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr border-solid border border-gray30">
+    <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr border-solid border border-gray30 cursor-pointer">
+      <TodoModal isOpen={isOn} onCancel={toggle} />
       <div className="bg-blue rounded-md">
         <Image src={testImg} alt="testImg" />
       </div>
