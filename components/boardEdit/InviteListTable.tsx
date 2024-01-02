@@ -15,8 +15,8 @@ interface InviteListTableProps {
 function InviteListTable({ boardid }: InviteListTableProps) {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(4);
-  const { execute, data } = useGetInvitaions({ boardid, page, size });
-  const totalCount = data?.totalCount;
+  const { execute, data, loading } = useGetInvitaions({ boardid, page, size });
+  const totalCount = data?.totalCount as number;
   const invitations = data?.invitations;
 
   const handleDeleteInvitation = async (invitationId: number) => {
@@ -30,7 +30,6 @@ function InviteListTable({ boardid }: InviteListTableProps) {
     }
   };
   const { isOn, toggle } = useToggle();
-  if (!totalCount) return null;
   const totalPages = Math.ceil(totalCount / size);
 
   const handleClickRight = () => {
@@ -94,14 +93,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
           </div>
         </Button>
       </div>
-      {invitations?.length === 0 ? (
-        <p>초대한 사람이 없네요 이메일로 초대해보세요!</p>
-      ) : (
-        <InviteList
-          invitations={invitations}
-          onDelete={handleDeleteInvitation}
-        />
-      )}
+      <InviteList invitations={invitations} onDelete={handleDeleteInvitation} />
     </div>
   );
 }
