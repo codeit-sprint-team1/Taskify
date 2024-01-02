@@ -8,8 +8,6 @@ const useOnClickOutside = () => {
     setIsOn(!isOn);
   };
 
-  console.log('hi');
-
   useEffect(() => {
     const handleClickOutside = (e: Event) => {
       if (ref.current !== null && !ref.current.contains(e.target as Node)) {
