@@ -1,4 +1,3 @@
-import testImg from '../../public/icons/boards/test-img.png';
 import calIcon from '../../public/icons/boards/calendar.svg';
 import dotIcon from '../../public/icons/boards/card-dot.svg';
 import settingIcon from '../../public/icons/boards/card-desktop-settings.svg';
@@ -11,6 +10,9 @@ import useGetCards from './data/useGetCards';
 import useToggle from '@/hooks/useToggle';
 import { CreateColumnModal } from '..';
 import { useEffect } from 'react';
+import { Columns } from '@/types/columns';
+import { DateTime } from 'ts-luxon';
+import testImg from '../../public/icons/boards/test-img.png';
 
 function CardAdd() {
   return (
@@ -23,20 +25,32 @@ function CardAdd() {
 }
 
 function Card({ card }: { card: Card }) {
+  const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
   return (
-    <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr border-solid border border-gray30">
-      <div className="bg-blue rounded-md">
+    <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
+      <div className="rounded-md tablet:w-90pxr">
+        {/* {card.imageUrl && <Image src={card.imageUrl} alt="cardImg" />} */}
         <Image src={testImg} alt="testImg" />
       </div>
-      <div className="text-gray70 font-medium">{card.title}</div>
-      <div>태그 논의하기</div>
-      <div className="flex justify-between">
-        <div className="flex-center gap-6pxr text-gray50">
-          <Image src={calIcon} alt="calIcon" />
-          2022.12.31
-        </div>
-        <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
-          B
+      <div className="tablet: w-full flex flex-col gap-10pxr">
+        <div className="text-gray70 font-medium">{card.title}</div>
+        <div className="flex-center justify-between">
+          <div className="flex flex-col gap-10pxr tablet:flex-row">
+            <div className="flex">
+              {card.tags.map((item) => (
+                <div>{item}</div>
+              ))}
+            </div>
+            <div className="flex-center gap-6pxr text-gray50 text-12pxr font-medium">
+              <Image src={calIcon} alt="calIcon" />
+              {date}
+            </div>
+          </div>
+          <div className="flex justify-end items-end h-full">
+            <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
+              {card.assignee.nickname.slice(0, 1)}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -69,7 +83,7 @@ function ColumnTitle({
 function Column({ data }: { data: Columns }) {
   const { cards, totalCount } = useGetCards(data.id);
   return (
-    <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20">
+    <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
       <ColumnTitle title={data.title} totalCount={totalCount} />
       <div className="flex flex-col gap-15pxr h-full overflow-scroll">
         <CardAdd />
@@ -87,7 +101,7 @@ function ColumnAdd({ getColum }: ColumnAddProps) {
   const { isOn, toggle } = useToggle(false);
   return (
     <>
-      <div className="flex flex-col items-center shrink-0 w-354pxr h-full px-20pxr pt-68pxr bg-gray10 ">
+      <div className="flex flex-col items-center shrink-0 w-354pxr h-full px-20pxr pt-68pxr bg-gray10 tablet:w-full tablet:pt-12pxr mobile:w-full mobile:pt-12pxr">
         <button
           onClick={toggle}
           className="bg-white flex-center border-solid border border-gray30 w-full py-20pxr gap-12pxr rounded-lg"
@@ -114,7 +128,7 @@ export default function ColumnList() {
   }, [id]);
 
   return (
-    <div className="bg-gray10 h-full w-full flex overflow-scroll">
+    <div className="bg-gray10 h-full w-full flex overflow-scroll tablet:flex-col mobile:flex-col">
       {columns &&
         columns.map((items) => <Column data={items} key={items.id} />)}
       <ColumnAdd getColum={getColum} />
