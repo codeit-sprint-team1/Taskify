@@ -38,7 +38,6 @@ function InvitationsList({
         {item.dashboard.title}
       </div>
       <div className="mobile:text-14pxr">
-        {' '}
         <span className="pr-16pxr hidden mobile:inline text-gray40">
           초대자
         </span>
