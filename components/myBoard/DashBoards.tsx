@@ -34,7 +34,7 @@ function Board({
   };
   const bg = colors[color];
   return (
-    <Link href={`board/${id}`}>
+    <Link href={`dashboard/${id}`}>
       <div className="flex-center justify-between w-full h-70pxr bg-white rounded-lg border border-solid border-gray30 gap-12pxr px-20pxr">
         <div className="flex-center gap-16pxr">
           <div className={`w-8pxr h-8pxr rounded-full ${bg}`}></div>

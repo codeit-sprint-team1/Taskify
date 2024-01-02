@@ -3,12 +3,12 @@ import { axiosAuthInstance } from '@/utils';
 import { useAsync } from '@/hooks/useAsync';
 import { Columns } from '@/types/columns';
 
-interface PostColumnsBody {
+interface PostColumnsProps {
   title: string;
   dashboardId: number;
 }
 
-const usePostColumns = ({ title, dashboardId }: PostColumnsBody) => {
+const usePostColumns = ({ title, dashboardId }: PostColumnsProps) => {
   const postColumns = useCallback(
     () =>
       axiosAuthInstance.post<Columns>('columns', {
