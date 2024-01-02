@@ -4,7 +4,7 @@ import arrowBackIcon from '@/public/icons/arrowBackIcon.svg';
 
 function ArrowBackButton() {
   return (
-    <div className="flex space-x-8pxr">
+    <div className="flex items-center space-x-8pxr">
       <button type="button">
         <Image
           src={arrowBackIcon}

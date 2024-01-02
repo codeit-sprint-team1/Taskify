@@ -36,3 +36,4 @@ export { default as DashboardSidebar } from './dashboard/sidebar/DashboardSideba
 export { default as BoardList } from './myBoard/DashBoards';
 export { default as InvitationsDashBoards } from './myBoard/InvitationsDashBoards';
 export { default as Tag } from '@/components/common/Tag';
+export { default as DeleteDashboardConfirmModal } from './boardEdit/DeleteDashboardConfirmModal';
