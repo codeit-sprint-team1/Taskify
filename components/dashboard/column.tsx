@@ -13,14 +13,32 @@ import { useEffect } from 'react';
 import { Columns } from '@/types/columns';
 import { DateTime } from 'ts-luxon';
 import testImg from '../../public/icons/boards/test-img.png';
+import CreateCardModal from '../modal/create-card/CreateCardModal';
 
-function CardAdd() {
+interface CardAddProps {
+  dashboardId: number;
+  columnId: number;
+}
+
+function CardAdd({ dashboardId, columnId }: CardAddProps) {
+  const { isOn, toggle } = useToggle(false);
   return (
-    <button className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md">
-      <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
-        <Image src={plusIcon} alt="plusIcon" />
-      </div>
-    </button>
+    <>
+      <button
+        className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md"
+        onClick={toggle}
+      >
+        <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
+          <Image src={plusIcon} alt="plusIcon" />
+        </div>
+      </button>
+      <CreateCardModal
+        isOpen={isOn}
+        onCancel={toggle}
+        dashboardId={dashboardId}
+        columnId={columnId}
+      />
+    </>
   );
 }
 
@@ -86,7 +104,7 @@ function Column({ data }: { data: Columns }) {
     <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
       <ColumnTitle title={data.title} totalCount={totalCount} />
       <div className="flex flex-col gap-15pxr h-full overflow-scroll">
-        <CardAdd />
+        <CardAdd dashboardId={data?.dashboardId} columnId={data.id} />
         {cards && cards.map((card) => <Card card={card} key={card.id} />)}
       </div>
     </div>
