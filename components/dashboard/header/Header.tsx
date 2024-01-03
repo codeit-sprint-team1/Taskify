@@ -51,7 +51,7 @@ export default function Header({ dashboard, children }: HeaderProps) {
       </div>
       <div className="flex items-center">
         {children}
-        <div ref={ref} className="relative">
+        <div ref={ref} className="relative flex">
           <button type="button" onClick={toggle}>
             <Profile name={nickname} src={profileImage} />
           </button>
