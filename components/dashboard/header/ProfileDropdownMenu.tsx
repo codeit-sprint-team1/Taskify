@@ -1,4 +1,4 @@
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useDashboardList } from '@/store/memos';
 import useUserInfo from '@/store/memos/useUserInfo';
 import { useRouter } from 'next/router';
 import { DropdownMenu } from '@/components';

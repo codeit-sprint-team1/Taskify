@@ -3,7 +3,7 @@ import ColorChips from '../common/ColorChips';
 import { Button, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
 import { Dashboards } from '@/types/dashboards';
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useDashboardList } from '@/store/memos';
 
 interface NameEditFormProps {
   boardInfo: Dashboards;

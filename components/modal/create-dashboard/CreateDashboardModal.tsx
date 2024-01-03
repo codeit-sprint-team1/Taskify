@@ -2,7 +2,7 @@ import { Modal } from '@/components';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostDashboards from '../data/usePostDashboards';
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useDashboardList } from '@/store/memos';
 import { ColorChips, ModalButton } from '@/components';
 export interface ModalProps {
   isOpen: boolean;
