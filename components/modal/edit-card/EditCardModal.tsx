@@ -102,35 +102,43 @@ export default function EditCardModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
+    <Modal
+      isOpen={isOpen}
+      onSubmit={handleSubmit(onSubmit)}
+      classNames="w-506pxr"
+    >
       <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-20pxr">
         <Modal.Title>할 일 수정</Modal.Title>
-        <div className="flex flex-col gap-32pxr w-506pxr">
-          <div className="w-217pxr mobile:w-287pxr">
-            <Controller
-              control={control}
-              name="manager"
-              render={({ field: { ref, ...rest } }) => (
-                <DropdownManager
-                  ref={ref}
-                  {...rest}
-                  dashboardId={card.dashboardId}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="states"
-              render={({ field: { ref, ...rest } }) => (
-                <DropdownState
-                  ref={ref}
-                  {...rest}
-                  initialState={state.title}
-                  states={states}
-                  onChange={handleStateChange}
-                />
-              )}
-            />
+        <div className="flex flex-col gap-32pxr ">
+          <div className="flex flex-row justify-between mobile:flex-col mobile:gap-24pxr">
+            <div className="w-217pxr mobile:w-287pxr">
+              <Controller
+                control={control}
+                name="states"
+                render={({ field: { ref, ...rest } }) => (
+                  <DropdownState
+                    ref={ref}
+                    {...rest}
+                    initialState={state.title}
+                    states={states}
+                    onChange={handleStateChange}
+                  />
+                )}
+              />
+            </div>
+            <div className="w-217pxr mobile:w-287pxr">
+              <Controller
+                control={control}
+                name="manager"
+                render={({ field: { ref, ...rest } }) => (
+                  <DropdownManager
+                    ref={ref}
+                    {...rest}
+                    dashboardId={card.dashboardId}
+                  />
+                )}
+              />
+            </div>
           </div>
 
           <Controller
