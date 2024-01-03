@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import BoardEditMain from '@/components/boardEdit/BoardEditMain';
 import DashboardLayout from '@/page-layout/DashboardLayout';
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useDashboardList } from '@/store/memos';
 import { Dashboards } from '@/types/dashboards';
 
 function BoardEditPage() {

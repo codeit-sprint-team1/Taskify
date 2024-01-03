@@ -21,7 +21,7 @@ function ModalMain({ children, isOpen, onSubmit }: ModalMainProps) {
       <div className="fixed top-[0px] left-[0px] flex-center bg-black/50 w-screen h-screen">
         <form
           onSubmit={onSubmit}
-          className="fixed flex flex-col bg-white rounded-md gap-28pxr max-w-[730px] py-28pxr px-28pxr mobile:w-327pxr"
+          className="fixed flex flex-col bg-white rounded-md gap-28pxr max-w-[730px] py-28pxr px-28pxr mobile:w-327pxr mobile:px-20pxr"
         >
           {children}
         </form>

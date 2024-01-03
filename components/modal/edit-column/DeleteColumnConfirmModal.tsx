@@ -7,6 +7,7 @@ import { ModalProps } from '../create-dashboard/CreateDashboardModal';
 interface DeleteColumnConfirmModalProps extends ModalProps {
   columnId: number;
   onClose: () => void;
+  getColum: () => void;
 }
 
 export default function DeleteColumnConfirmModal({
@@ -14,6 +15,7 @@ export default function DeleteColumnConfirmModal({
   onCancel,
   columnId,
   onClose,
+  getColum,
 }: DeleteColumnConfirmModalProps) {
   const {
     execute: deleteColumns,
@@ -25,6 +27,7 @@ export default function DeleteColumnConfirmModal({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await deleteColumns();
+    getColum();
   };
 
   useEffect(() => {

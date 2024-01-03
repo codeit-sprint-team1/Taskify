@@ -72,6 +72,7 @@ export default function LoginForm() {
               placeholder={PLACEHOLDER.email}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
+              value={field.value}
               label="이메일"
               size="sm"
             />
@@ -95,6 +96,7 @@ export default function LoginForm() {
               hasEyeIcon
               label="비밀번호"
               size="sm"
+              value={field.value}
               placeholder={PLACEHOLDER.password}
               hasError={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
