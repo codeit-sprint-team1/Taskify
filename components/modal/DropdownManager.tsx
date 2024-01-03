@@ -41,7 +41,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setInternalValue(newValue);
-      setIsMemberNotFound(false);
+      if (selectedMember || e.target.value) setIsMemberNotFound(false);
     };
 
     const handleBlur = () => {
@@ -64,6 +64,11 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
 
     const handleOpenClick = () => {
       setIsOpen(!isOpen);
+    };
+
+    const handleFocus = () => {
+      setIsOpen(true);
+      setIsMemberNotFound(false);
     };
 
     const handleMemberClick = (member: Members) => {
@@ -95,7 +100,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
             value={internalValue}
             onChange={handleChange}
             onBlur={handleBlur}
-            onFocus={() => setIsOpen(true)}
+            onFocus={handleFocus}
             className={`block w-full rounded-md border border-solid border-gray30
               pr-16pxr ${
                 selectedMember === internalValue && internalValue
