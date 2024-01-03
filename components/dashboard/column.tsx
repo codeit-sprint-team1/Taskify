@@ -113,7 +113,6 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
     cards.filter((card) =>
       card.tags.some((item) => item.includes(searchValue))
     );
-  console.log(filterCards);
   return (
     <>
       <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-20pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
