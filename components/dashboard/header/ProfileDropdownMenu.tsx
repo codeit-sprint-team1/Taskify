@@ -1,10 +1,11 @@
-import { useDashboardList } from '@/store/memos';
-import useUserInfo from '@/store/memos/useUserInfo';
+import { useDashboardList, useUserInfo } from '@/store/memos';
 import { useRouter } from 'next/router';
 import { DropdownMenu } from '@/components';
 
 export default function ProfileDropdownMenu() {
   const router = useRouter();
+  const { clearDashboardList } = useDashboardList();
+  const { clearUserInfo } = useUserInfo();
   let options = [
     {
       key: 1,
@@ -24,10 +25,12 @@ export default function ProfileDropdownMenu() {
       key: 3,
       title: '로그아웃',
       handler: () => {
-        useUserInfo.persist.clearStorage();
-        useDashboardList.persist.clearStorage();
         localStorage.removeItem('user-info');
         localStorage.removeItem('accessToken');
+        clearDashboardList();
+        clearUserInfo();
+        useUserInfo.persist.clearStorage();
+        useDashboardList.persist.clearStorage();
         router.push('/');
       },
     },
