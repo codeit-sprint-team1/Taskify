@@ -12,24 +12,13 @@ import useGetMembers from '../boardEdit/data/useGetMembers';
 import { Members } from '@/types/members';
 
 interface DropdownManagerProps {
-  ProfileSrc: string | null;
   value?: string;
   onChange?: (value: number) => void;
   dashboardId: number;
-  columnId: number;
 }
 
 const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
-  (
-    {
-      ProfileSrc = '',
-      value: externalValue,
-      onChange: externalOnChange,
-      dashboardId,
-      columnId,
-    },
-    ref
-  ) => {
+  ({ value: externalValue, onChange: externalOnChange, dashboardId }, ref) => {
     const { execute: getMembers, data: members } = useGetMembers({
       boardid: dashboardId,
       page: 1,
@@ -45,12 +34,14 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
     const dropdownRef = useRef<HTMLUListElement>(null);
     const [selectedMember, setSelectedMember] = useState('');
     const [selectedMemberProfile, setSelectedMemberProfile] = useState('');
+    const [isMemberNotFound, setIsMemberNotFound] = useState(false);
     const filteredMembers = members.filter((member) =>
       member.nickname.includes(internalValue)
     );
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setInternalValue(newValue);
+      setIsMemberNotFound(false);
     };
 
     const handleBlur = () => {
@@ -64,6 +55,11 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
           setIsOpen(false);
         }
       }, 100);
+
+      const memberExists = members.some(
+        (member) => member.nickname === internalValue
+      );
+      setIsMemberNotFound(!memberExists && internalValue !== '');
     };
 
     const handleOpenClick = () => {
@@ -79,6 +75,13 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
         externalOnChange(member.id);
       }
     };
+
+    // useEffect(() => {
+    //   const memberExists = members.some(
+    //     (member) => member.nickname === internalValue
+    //   );
+    //   setIsMemberNotFound(!memberExists && internalValue !== '');
+    // }, [internalValue, members]);
 
     return (
       <div>
@@ -120,6 +123,11 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
             />
           </button>
         </div>
+        {isMemberNotFound && (
+          <p className="text-red text-14pxr mt-8pxr">
+            존재하지 않는 멤버입니다
+          </p>
+        )}
         <ul ref={dropdownRef} className="max-h-180pxr overflow-y-auto">
           {isOpen &&
             filteredMembers.map((member) => (

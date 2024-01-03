@@ -16,9 +16,9 @@ const usePostCard = ({
   const postCard = useCallback(
     () =>
       axiosAuthInstance.post<CreateCard>('cards', {
-        assigneeUserId: null,
-        dashboardId: null,
-        columnId: null,
+        assigneeUserId,
+        dashboardId,
+        columnId,
         title,
         description,
         dueDate,

@@ -32,7 +32,6 @@ export default function CreateCardModal({
   dashboardId,
   columnId,
 }: ModalProps) {
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>();
   const defaultValues = {
     title: '',
@@ -41,9 +40,9 @@ export default function CreateCardModal({
     dueDate: null,
     imageUrl: null,
     tags: [],
-    assigneeUserId: 1,
-    dashboardId: 1,
-    columnId: 1,
+    assigneeUserId: 0,
+    dashboardId: 0,
+    columnId: 0,
   };
   const {
     control,
@@ -56,20 +55,20 @@ export default function CreateCardModal({
     defaultValues,
     mode: 'onChange',
   });
+
+  const assigneeUserId = watch('manager');
   console.log([
-    // assigneeUserId: 1,
-    // dashboardId: 1,
-    // columnId: 1,
-    watch('title'),
     watch('manager'),
-    watch('description'),
-    watch('dueDate'),
-    selectedImageFile, // File 객체는 selectImageFile
-    watch('tags'),
+    // dashboardId,
+    // columnId,
+    // watch('title'),
+    // watch('description'),
+    // watch('dueDate'),
+    // selectedImageFile, // File 객체는 selectImageFile
+    // watch('tags'),
   ]);
 
   const handleImageSelect = (file: File) => {
-    setSelectedImageFile(file);
     setValue('imageUrl', file);
   };
 
@@ -101,9 +100,9 @@ export default function CreateCardModal({
     data: response,
     loading,
   } = usePostCard({
-    assigneeUserId: 1,
-    dashboardId: 1,
-    columnId: 1,
+    assigneeUserId: Number(watch('manager')),
+    dashboardId,
+    columnId,
     title: watch('title'),
     description: watch('description'),
     dueDate: watch('dueDate')?.toString(),
@@ -133,12 +132,7 @@ export default function CreateCardModal({
               name="manager"
               rules={{ required: true }}
               render={({ field }) => (
-                <DropdownManager
-                  {...field}
-                  ProfileSrc={null}
-                  dashboardId={dashboardId}
-                  columnId={columnId}
-                />
+                <DropdownManager {...field} dashboardId={dashboardId} />
               )}
             />
           </div>
