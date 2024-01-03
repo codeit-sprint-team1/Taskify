@@ -80,7 +80,7 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
               columnId={columnId}
               dashboardId={dashboardId}
             />
-            <CommentList />
+            <CommentList cardId={cardId} />
           </div>
           <AsigneeCard dueDate={dueDate} assignee={assignee} />
         </div>
