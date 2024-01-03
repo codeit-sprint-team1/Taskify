@@ -5,6 +5,7 @@ import logoSmall from '@/public/icons/logo_small-icon.svg';
 import crownIcon from '@/public/icons/crown-icon.svg';
 import CreateDashboardButton from './CreateDashboardButton';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface DashboardListItemsProps {
   dashboard: Dashboards;
