@@ -4,9 +4,9 @@ export interface CreateCard {
   columnId: number;
   title: string;
   description: string;
-  dueDate: string;
+  dueDate: string | undefined;
   tags: string[];
-  imageUrl: string;
+  imageUrl: File | null;
 }
 
 export interface Card {

@@ -1,7 +1,6 @@
 import { ImagePick, Input, Modal, SelectDate, TextArea } from '@/components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useDashboardList } from '@/store/memos/useDashboardList';
 import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
@@ -11,6 +10,8 @@ import usePostCard from './data/usePostCard';
 export interface ModalProps {
   isOpen: boolean;
   onCancel: () => void;
+  dashboardId: number;
+  columnId: number;
 }
 
 export interface CreateCardModalForm {
@@ -25,7 +26,12 @@ export interface CreateCardModalForm {
   columnId: number;
 }
 
-export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
+export default function CreateCardModal({
+  isOpen,
+  onCancel,
+  dashboardId,
+  columnId,
+}: ModalProps) {
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>();
   const defaultValues = {
@@ -54,8 +60,8 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
     // assigneeUserId: 1,
     // dashboardId: 1,
     // columnId: 1,
-    // watch('title'),
-    watch('manager'),
+    watch('title'),
+    // watch('manager'),
     watch('description'),
     watch('dueDate'),
     selectedImageFile, // File 객체는 selectImageFile
@@ -118,15 +124,20 @@ export default function CreateCardModal({ isOpen, onCancel }: ModalProps) {
 
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
-      <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-15pxr">
+      <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-20pxr">
         <Modal.Title>할 일 생성</Modal.Title>
-        <div className="flex flex-col gap-10pxr w-506pxr">
+        <div className="flex flex-col gap-32pxr w-506pxr">
           <Controller
             control={control}
             name="manager"
             rules={{ required: true }}
             render={({ field }) => (
-              <DropdownManager {...field} ProfileSrc={null} />
+              <DropdownManager
+                {...field}
+                ProfileSrc={null}
+                dashboardId={dashboardId}
+                columnId={columnId}
+              />
             )}
           />
           <Controller

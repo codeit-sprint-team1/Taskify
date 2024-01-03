@@ -5,6 +5,7 @@ export interface CreateColumns {
 
 export interface Columns {
   id: number;
+  dashboardId: number;
   title: string;
   teamId: string;
   createdAt: string;
