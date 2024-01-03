@@ -19,9 +19,10 @@ import CreateCardModal from '../modal/create-card/CreateCardModal';
 interface CardAddProps {
   dashboardId: number;
   columnId: number;
+  getCards: () => void;
 }
 
-function CardAdd({ dashboardId, columnId }: CardAddProps) {
+function CardAdd({ dashboardId, columnId, getCards }: CardAddProps) {
   const { isOn, toggle } = useToggle(false);
   return (
     <>
@@ -38,6 +39,7 @@ function CardAdd({ dashboardId, columnId }: CardAddProps) {
         onCancel={toggle}
         dashboardId={dashboardId}
         columnId={columnId}
+        getCards={getCards}
       />
     </>
   );
@@ -103,7 +105,7 @@ function ColumnTitle({
 }
 
 function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
-  const { cards, totalCount } = useGetCards(data.id);
+  const { cards, totalCount, execute: getCards } = useGetCards(data.id);
   const { isOn, toggle } = useToggle(false);
   const [searchValue, setSearchValue] = useState('');
   const filterCards =
@@ -129,7 +131,11 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
           />
         </div>
         <div className="flex flex-col gap-15pxr h-full overflow-scroll">
-          <CardAdd dashboardId={data?.dashboardId} columnId={data.id} />
+          <CardAdd
+            dashboardId={data?.dashboardId}
+            columnId={data.id}
+            getCards={getCards}
+          />
           {filterCards &&
             filterCards.map((card) => <Card card={card} key={card.id} />)}
         </div>
