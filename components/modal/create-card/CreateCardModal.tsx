@@ -32,7 +32,6 @@ export default function CreateCardModal({
   dashboardId,
   columnId,
 }: ModalProps) {
-  const [formData, setFormData] = useState<FormData>();
   const defaultValues = {
     title: '',
     manager: '',
@@ -40,9 +39,6 @@ export default function CreateCardModal({
     dueDate: '',
     imageUrl: '',
     tags: [],
-    assigneeUserId: 0,
-    dashboardId: 0,
-    columnId: 0,
   };
   const {
     control,
@@ -106,10 +102,14 @@ export default function CreateCardModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
+    <Modal
+      isOpen={isOpen}
+      onSubmit={handleSubmit(onSubmit)}
+      classNames="w-506pxr"
+    >
       <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-20pxr">
         <Modal.Title>할 일 생성</Modal.Title>
-        <div className="flex flex-col gap-32pxr w-506pxr">
+        <div className="flex flex-col gap-32pxr ">
           <div className="w-217pxr mobile:w-287pxr">
             <Controller
               control={control}

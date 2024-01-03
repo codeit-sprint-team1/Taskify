@@ -115,7 +115,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
                 selectedMember === internalValue && internalValue
                   ? 'pl-40pxr'
                   : 'pl-11pxr'
-              }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr `}
+              }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 h-50pxr`}
           />
           {selectedMember === internalValue && internalValue && (
             <div className="absolute pl-10pxr">
