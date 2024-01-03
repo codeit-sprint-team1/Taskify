@@ -28,7 +28,7 @@ export default function ProfileDropdownMenu() {
         useDashboardList.persist.clearStorage();
         localStorage.removeItem('user-info');
         localStorage.removeItem('accessToken');
-        router.reload();
+        router.push('/');
       },
     },
   ];
