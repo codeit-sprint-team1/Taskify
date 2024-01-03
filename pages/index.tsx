@@ -43,7 +43,7 @@ function Footer() {
           rel="noopener noreferrer"
           target="_blank"
         >
-          FAQ
+          의견 보내기
         </Link>
       </div>
       <div className="flex-center gap-14pxr mobile:mt-56pxr">
