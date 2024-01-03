@@ -38,5 +38,9 @@ export default function ProfileDropdownMenu() {
     options = options.splice(1);
   }
 
-  return <DropdownMenu options={options} />;
+  return (
+    <div className="absolute -right-15pxr top-15pxr">
+      <DropdownMenu options={options} />
+    </div>
+  );
 }
