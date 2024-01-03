@@ -1,8 +1,9 @@
-import Image from 'next/image';
 import React, { useEffect } from 'react';
-import sampleIcon from '@/public/icons/crown-icon.svg';
 import useGetComments from './data/useGetComments';
 import { DateTime } from 'ts-luxon';
+import useDeleteComments from './data/useDeleteComments';
+import { axiosAuthInstance } from '@/utils';
+import { notify } from '@/components/common/Toast';
 
 interface CommentListProps {
   cardId: number;
@@ -23,6 +24,14 @@ function CommentList({ cardId }: CommentListProps) {
   const comments = data?.comments;
   const formatTime = (date: string) => {
     return DateTime.fromISO(date).toFormat('yyyy-MM-dd');
+  };
+
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await axiosAuthInstance.delete(`comments/${commentId}`);
+    } catch (error) {
+      notify({ type: 'error', text: '삭제할 수 없습니다.' });
+    }
   };
   return (
     <div className="flex gap-10pxr flex-col overflow-scroll min-h-[160px]">
@@ -53,6 +62,7 @@ function CommentList({ cardId }: CommentListProps) {
               <button
                 className="text-gray40 text-12pxr underline mobile:text-10pxr"
                 type="button"
+                onClick={() => handleDeleteComment(comment.id)}
               >
                 삭제
               </button>
