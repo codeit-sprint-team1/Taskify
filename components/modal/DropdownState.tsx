@@ -54,7 +54,7 @@ export default function DropdownState({
           className={`block w-full rounded-md border border-solid border-gray30
            pr-16pxr ${
              selectedState && value ? 'pl-40pxr' : 'pl-11pxr'
-           }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 outline-0 h-50pxr cursor-pointer mobile:text-14pxr`}
+           }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 outline-0 h-50pxr cursor-pointer`}
         />
         <div
           className="absolute pl-10pxr cursor-pointer"

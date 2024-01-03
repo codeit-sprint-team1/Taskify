@@ -37,10 +37,15 @@ const ImagePick = forwardRef((props: ImagePickProps, ref) => {
         const imageFile = fileInput.current.files[0];
 
         try {
-          const res = await axiosAuthInstance.put(
+          const res = await axiosAuthInstance.post(
             `columns/${columnId}/card-image`,
             {
               image: imageFile,
+            },
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
             }
           );
           if (res.status === 201) {

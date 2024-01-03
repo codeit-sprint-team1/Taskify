@@ -1,5 +1,6 @@
 import React, {
   ChangeEvent,
+  KeyboardEvent,
   forwardRef,
   useEffect,
   useRef,
@@ -66,6 +67,19 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
       setIsOpen(!isOpen);
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        setTimeout(() => {
+          if (
+            dropdownRef.current &&
+            dropdownRef.current.contains(document.activeElement)
+          ) {
+            setIsMemberNotFound(false);
+          }
+        }, 0);
+      }
+    };
+
     const handleFocus = () => {
       setIsOpen(true);
       setIsMemberNotFound(false);
@@ -75,18 +89,12 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
       setInternalValue(member.nickname);
       setSelectedMember(member.nickname);
       setSelectedMemberProfile(member.profileImageUrl);
+      setIsMemberNotFound(false);
       setIsOpen(false);
       if (externalOnChange) {
         externalOnChange(member.id);
       }
     };
-
-    // useEffect(() => {
-    //   const memberExists = members.some(
-    //     (member) => member.nickname === internalValue
-    //   );
-    //   setIsMemberNotFound(!memberExists && internalValue !== '');
-    // }, [internalValue, members]);
 
     return (
       <div>
@@ -101,6 +109,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
             onChange={handleChange}
             onBlur={handleBlur}
             onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
             className={`block w-full rounded-md border border-solid border-gray30
               pr-16pxr ${
                 selectedMember === internalValue && internalValue
