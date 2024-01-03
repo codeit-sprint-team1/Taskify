@@ -21,11 +21,11 @@ const deleteBoard = (prevList: Dashboards[], boardId: number) => {
   return { dashboardList: newList };
 };
 
-export const useDashboardList = create(
+const useDashboardList = create(
   persist<DashboardListStoreType>(
     (set) => ({
       dashboardList: [],
-      setDashboardList: (newList) => {
+      setDashboardList: (newList: Dashboards[]) => {
         set({
           dashboardList: newList,
         });
@@ -40,3 +40,5 @@ export const useDashboardList = create(
     { name: 'dashboardList' }
   )
 );
+
+export default useDashboardList;
