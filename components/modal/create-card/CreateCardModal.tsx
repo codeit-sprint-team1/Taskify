@@ -57,16 +57,6 @@ export default function CreateCardModal({
   });
 
   const assigneeUserId = Number(watch('manager'));
-  console.log([
-    watch('manager'),
-    dashboardId,
-    columnId,
-    watch('title'),
-    watch('description'),
-    watch('dueDate'),
-    watch('imageUrl'), // File 객체는 selectImageFile
-    watch('tags'),
-  ]);
 
   const handleImageSelect = (imageUrl: string) => {
     setValue('imageUrl', imageUrl);
