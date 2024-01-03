@@ -40,7 +40,7 @@ export default function SelectDate({
   return (
     <div>
       <Label text={label} required={required} />
-      <div className=" border border-gray30 focus:border-violet flex items-center gap-10pxr w-full h-50pxr rounded-md ">
+      <div className=" border border-gray30 focus:border-violet flex items-center gap-10pxr w-full h-50pxr rounded-md  mobile:w-287pxr">
         <Image
           src={calendarImage}
           alt="달력 이미지"
@@ -53,7 +53,7 @@ export default function SelectDate({
           dateFormat="yyyy년 MM월 dd일 HH시 mm분"
           onChange={handleDateChange}
           locale={ko}
-          className="outline-0 cursor-pointer w-250pxr caret-transparent"
+          className="outline-0 cursor-pointer w-240pxr caret-transparent mobile:text-14pxr"
           placeholderText="날짜를 선택해주세요."
           showTimeSelect
           timeFormat="HH시 mm분"

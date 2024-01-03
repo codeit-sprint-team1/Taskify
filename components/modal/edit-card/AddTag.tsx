@@ -89,7 +89,7 @@ const AddTag = ({ onTagListChange }: AddTagProps) => {
       <div
         className={`flex items-center gap-x-8pxr flex-wrap border ${
           hasError ? 'border-red' : 'border-gray30'
-        } rounded-md px-5pxr`}
+        } rounded-md px-5pxr mobile:w-287pxr`}
       >
         {tagList.slice(0, 10).map((tag, index) => (
           <div key={index} className="h-50pxr flex items-center">
@@ -113,7 +113,7 @@ const AddTag = ({ onTagListChange }: AddTagProps) => {
                 onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
                   onKeyDown(field, e)
                 }
-                className=" w-full h-50pxr outline-none"
+                className=" w-full h-50pxr outline-none mobile:text-14pxr mobile:w-80pxr"
               />
             </div>
           )}

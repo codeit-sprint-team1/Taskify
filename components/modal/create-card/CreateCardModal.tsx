@@ -115,18 +115,12 @@ export default function CreateCardModal({
     handleCancel();
   };
 
-  // useEffect(() => {
-  //   if (response) {
-  //     addDashboard(response);
-  //   }
-  // }, [response]);
-
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
       <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-20pxr">
         <Modal.Title>할 일 생성</Modal.Title>
         <div className="flex flex-col gap-32pxr w-506pxr">
-          <div className="w-217pxr">
+          <div className="w-217pxr mobile:w-287pxr">
             <Controller
               control={control}
               name="manager"
@@ -146,7 +140,13 @@ export default function CreateCardModal({
             name="title"
             rules={{ required: true }}
             render={({ field: { ref, ...rest } }) => (
-              <Input ref={ref} {...rest} label="제목" required />
+              <Input
+                ref={ref}
+                {...rest}
+                label="제목"
+                required
+                classNames="mobile:w-287pxr"
+              />
             )}
           />
           <Controller

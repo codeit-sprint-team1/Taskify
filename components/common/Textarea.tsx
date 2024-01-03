@@ -19,7 +19,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <div className="mt-2.5">
           <textarea
             ref={ref}
-            className="selection:block w-full rounded-md border border-solid px-16pxr py-15pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0"
+            className="selection:block w-full rounded-md border border-solid px-16pxr py-15pxr tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 focus:border-violet outline-0 mobile:w-287pxr"
             maxLength={200}
             placeholder="200자 이내로 작성해주세요."
             value={value}
