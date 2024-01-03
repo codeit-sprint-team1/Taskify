@@ -11,7 +11,8 @@ const usePutCard = ({
   tags,
   imageUrl,
   cardId,
-}: CreateCard & { cardId: number }) => {
+  columnId,
+}: CreateCard & { cardId: number; columnId: number }) => {
   const putCard = useCallback(
     () =>
       axiosAuthInstance.put<CreateCard>(`cards/${cardId}`, {
@@ -21,8 +22,9 @@ const usePutCard = ({
         dueDate,
         tags,
         imageUrl,
+        columnId,
       }),
-    [title, description, dueDate, tags, imageUrl, cardId]
+    [title, description, dueDate, tags, imageUrl, cardId, columnId]
   );
 
   const { execute, loading, error, data } = useAsync(putCard, true);

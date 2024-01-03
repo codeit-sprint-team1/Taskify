@@ -38,7 +38,7 @@ export default function EditCardModal({
   states,
   state,
 }: ModalProps) {
-  const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
+  const [selectedStateId, setSelectedStateId] = useState<number>(0);
   const defaultValues = {
     title: card?.title,
     manager: card?.assignee.nickname,
@@ -52,9 +52,6 @@ export default function EditCardModal({
     cardId: card?.id,
   };
 
-  {
-    console.log(defaultValues.tags);
-  }
   const {
     control,
     handleSubmit,
@@ -96,6 +93,7 @@ export default function EditCardModal({
     imageUrl: watch('imageUrl'),
     tags: watch('tags'),
     cardId: card.id,
+    columnId: selectedStateId,
   });
 
   const onSubmit = async () => {
