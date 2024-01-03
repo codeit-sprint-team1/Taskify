@@ -8,6 +8,7 @@ import { ModalProps } from '../create-dashboard/CreateDashboardModal';
 
 export interface EditColumnModalProps extends ModalProps {
   columnId: number;
+  getColum: () => void;
 }
 
 interface EditColumnForm {
@@ -18,6 +19,7 @@ export default function EditColumnModal({
   isOpen,
   onCancel,
   columnId,
+  getColum,
 }: EditColumnModalProps) {
   const {
     control,
@@ -48,6 +50,7 @@ export default function EditColumnModal({
 
   const onSubmit = async () => {
     await putDashboards();
+    getColum();
   };
 
   const handleAllClose = () => {
@@ -106,6 +109,7 @@ export default function EditColumnModal({
         isOpen={isOn}
         onCancel={toggle}
         onClose={handleAllClose}
+        getColum={getColum}
       />
     </>
   );

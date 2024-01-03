@@ -12,7 +12,7 @@ import { CreateColumnModal } from '..';
 import { useEffect } from 'react';
 import { Columns } from '@/types/columns';
 import { DateTime } from 'ts-luxon';
-import testImg from '../../public/icons/boards/test-img.png';
+import { EditColumnModal } from '../index';
 
 function CardAdd() {
   return (
@@ -29,8 +29,7 @@ function Card({ card }: { card: Card }) {
   return (
     <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
       <div className="rounded-md tablet:w-90pxr">
-        {/* {card.imageUrl && <Image src={card.imageUrl} alt="cardImg" />} */}
-        <Image src={testImg} alt="testImg" />
+        {card.imageUrl && <Image src={card.imageUrl} alt="cardImg" />}
       </div>
       <div className="tablet: w-full flex flex-col gap-10pxr">
         <div className="text-gray70 font-medium">{card.title}</div>
@@ -60,9 +59,11 @@ function Card({ card }: { card: Card }) {
 function ColumnTitle({
   title,
   totalCount,
+  toggle,
 }: {
   title: string;
   totalCount: number;
+  toggle: () => void;
 }) {
   return (
     <div className="flex justify-between">
@@ -73,31 +74,40 @@ function ColumnTitle({
           {totalCount}
         </div>
       </div>
-      <div>
+      <button onClick={toggle}>
         <Image src={settingIcon} alt="settingIcon" />
-      </div>
+      </button>
     </div>
   );
 }
 
-function Column({ data }: { data: Columns }) {
+function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
   const { cards, totalCount } = useGetCards(data.id);
+  const { isOn, toggle } = useToggle(false);
   return (
-    <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
-      <ColumnTitle title={data.title} totalCount={totalCount} />
-      <div className="flex flex-col gap-15pxr h-full overflow-scroll">
-        <CardAdd />
-        {cards && cards.map((card) => <Card card={card} key={card.id} />)}
+    <>
+      <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
+        <ColumnTitle
+          title={data.title}
+          totalCount={totalCount}
+          toggle={toggle}
+        />
+        <div className="flex flex-col gap-15pxr h-full overflow-scroll">
+          <CardAdd />
+          {cards && cards.map((card) => <Card card={card} key={card.id} />)}
+        </div>
       </div>
-    </div>
+      <EditColumnModal
+        columnId={data.id}
+        isOpen={isOn}
+        onCancel={toggle}
+        getColum={getColum}
+      />
+    </>
   );
 }
 
-interface ColumnAddProps {
-  getColum: () => void;
-}
-
-function ColumnAdd({ getColum }: ColumnAddProps) {
+function ColumnAdd({ getColum }: { getColum: () => void }) {
   const { isOn, toggle } = useToggle(false);
   return (
     <>
@@ -130,7 +140,9 @@ export default function ColumnList() {
   return (
     <div className="bg-gray10 h-full w-full flex overflow-scroll tablet:flex-col mobile:flex-col">
       {columns &&
-        columns.map((items) => <Column data={items} key={items.id} />)}
+        columns.map((items) => (
+          <Column data={items} key={items.id} getColum={getColum} />
+        ))}
       <ColumnAdd getColum={getColum} />
     </div>
   );
