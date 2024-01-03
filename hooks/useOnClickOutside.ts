@@ -8,9 +8,17 @@ const useOnClickOutside = () => {
     setIsOn(!isOn);
   };
 
+  const close = () => {
+    setIsOn(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (e: Event) => {
-      if (ref.current !== null && !ref.current.contains(e.target as Node)) {
+      if (
+        isOn &&
+        ref.current !== null &&
+        !ref.current.contains(e.target as Node)
+      ) {
         setIsOn(false);
       }
     };
@@ -21,10 +29,9 @@ const useOnClickOutside = () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  }),
-    [ref];
+  }, [ref]);
 
-  return { isOn, ref, toggle };
+  return { isOn, ref, toggle, close };
 };
 
 export default useOnClickOutside;
