@@ -1,4 +1,4 @@
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useDashboardList } from '@/store/memos';
 import useUserInfo from '@/store/memos/useUserInfo';
 import { useRouter } from 'next/router';
 import { DropdownMenu } from '@/components';
@@ -28,7 +28,7 @@ export default function ProfileDropdownMenu() {
         useDashboardList.persist.clearStorage();
         localStorage.removeItem('user-info');
         localStorage.removeItem('accessToken');
-        router.reload();
+        router.push('/');
       },
     },
   ];

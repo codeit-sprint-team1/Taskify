@@ -10,15 +10,15 @@ export default function SignHeader() {
   const isLoginPage = router.pathname === '/login';
 
   return (
-    <div className="flex flex-col flex-initial gap-30pxr mb-38pxr">
-      <Link href="/" className="self-end">
+    <div className="flex flex-col items-center flex-initial gap-30pxr mb-38pxr">
+      <Link href="/" className="self-end mobile:self-center">
         <Image
           src={mainImage}
           alt="메인 이미지"
-          className="w-115px h-133pxr mobile:w-80pxr mobile:h-92pxr"
+          className="w-115px h-133pxr mobile:w-90pxr mobile:h-100pxr mobile:ml-15pxr"
         />
       </Link>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col flex-center">
         <Image
           src={logo}
           alt="로고 이미지"

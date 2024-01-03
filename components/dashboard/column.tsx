@@ -8,19 +8,40 @@ import { useRouter } from 'next/router';
 import useGetColum from './data/useGetColums';
 import useGetCards from './data/useGetCards';
 import useToggle from '@/hooks/useToggle';
-import { CreateColumnModal, TodoModal } from '..';
-import { useEffect } from 'react';
+import { CreateColumnModal } from '..';
+import { useEffect, useState } from 'react';
 import { Columns } from '@/types/columns';
 import { DateTime } from 'ts-luxon';
-import testImg from '../../public/icons/boards/test-img.png';
+import { EditColumnModal } from '../index';
+import searchIcon from '../../public/icons/search-icon.svg';
+import CreateCardModal from '../modal/create-card/CreateCardModal';
 
-function CardAdd() {
+interface CardAddProps {
+  dashboardId: number;
+  columnId: number;
+  getCards: () => void;
+}
+
+function CardAdd({ dashboardId, columnId, getCards }: CardAddProps) {
+  const { isOn, toggle } = useToggle(false);
   return (
-    <button className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md">
-      <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
-        <Image src={plusIcon} alt="plusIcon" />
-      </div>
-    </button>
+    <>
+      <button
+        className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md"
+        onClick={toggle}
+      >
+        <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
+          <Image src={plusIcon} alt="plusIcon" />
+        </div>
+      </button>
+      <CreateCardModal
+        isOpen={isOn}
+        onCancel={toggle}
+        dashboardId={dashboardId}
+        columnId={columnId}
+        getCards={getCards}
+      />
+    </>
   );
 }
 
@@ -28,10 +49,11 @@ function Card({ card }: { card: Card }) {
   const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
   return (
     <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
-      <div className="rounded-md tablet:w-90pxr">
-        {/* {card.imageUrl && <Image src={card.imageUrl} alt="cardImg" />} */}
-        <Image src={testImg} alt="testImg" />
-      </div>
+      {card.imageUrl && (
+        <div className="relative w-full h-160pxr tablet:w-90pxr bg-gray10 rounded-md">
+          <Image src={card.imageUrl} alt="cardImg" fill objectFit="contain" />
+        </div>
+      )}
       <div className="tablet: w-full flex flex-col gap-10pxr">
         <div className="text-gray70 font-medium">{card.title}</div>
         <div className="flex-center justify-between">
@@ -60,9 +82,11 @@ function Card({ card }: { card: Card }) {
 function ColumnTitle({
   title,
   totalCount,
+  toggle,
 }: {
   title: string;
   totalCount: number;
+  toggle: () => void;
 }) {
   return (
     <div className="flex justify-between">
@@ -73,35 +97,59 @@ function ColumnTitle({
           {totalCount}
         </div>
       </div>
-      <div>
+      <button onClick={toggle}>
         <Image src={settingIcon} alt="settingIcon" />
-      </div>
+      </button>
     </div>
   );
 }
 
-function Column({ data }: { data: Columns }) {
-  const { cards, totalCount } = useGetCards(data.id);
-  const { isOn, toggle } = useToggle();
+function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
+  const { cards, totalCount, execute: getCards } = useGetCards(data.id);
+  const { isOn, toggle } = useToggle(false);
+  const [searchValue, setSearchValue] = useState('');
+  const filterCards =
+    cards &&
+    cards.filter((card) =>
+      card.tags.some((item) => item.includes(searchValue))
+    );
   return (
-    <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-25pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
-      <ColumnTitle title={data.title} totalCount={totalCount} />
-      <div className="flex flex-col gap-15pxr h-full overflow-scroll">
-        <button onClick={toggle}>
-          <CardAdd />
-        </button>
-        <TodoModal isOpen={isOn} onCancel={toggle} />
-        {cards && cards.map((card) => <Card card={card} key={card.id} />)}
+    <>
+      <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-20pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
+        <ColumnTitle
+          title={data.title}
+          totalCount={totalCount}
+          toggle={toggle}
+        />
+        <div className="flex rounded-md border border-solid bg-white border-gray30 px-16pxr py-8pxr gap-8pxr">
+          <Image src={searchIcon} alt="searchIcon" />
+          <input
+            className="w-full placeholder:text-gray40 mobile:text-14pxr"
+            placeholder="검색"
+            onChange={(event) => setSearchValue(event.target.value)}
+          />
+        </div>
+        <div className="flex flex-col gap-15pxr h-full overflow-scroll">
+          <CardAdd
+            dashboardId={data?.dashboardId}
+            columnId={data.id}
+            getCards={getCards}
+          />
+          {filterCards &&
+            filterCards.map((card) => <Card card={card} key={card.id} />)}
+        </div>
       </div>
-    </div>
+      <EditColumnModal
+        columnId={data.id}
+        isOpen={isOn}
+        onCancel={toggle}
+        getColum={getColum}
+      />
+    </>
   );
 }
 
-interface ColumnAddProps {
-  getColum: () => void;
-}
-
-function ColumnAdd({ getColum }: ColumnAddProps) {
+function ColumnAdd({ getColum }: { getColum: () => void }) {
   const { isOn, toggle } = useToggle(false);
   return (
     <>
@@ -134,7 +182,9 @@ export default function ColumnList() {
   return (
     <div className="bg-gray10 h-full w-full flex overflow-scroll tablet:flex-col mobile:flex-col">
       {columns &&
-        columns.map((items) => <Column data={items} key={items.id} />)}
+        columns.map((items) => (
+          <Column data={items} key={items.id} getColum={getColum} />
+        ))}
       <ColumnAdd getColum={getColum} />
     </div>
   );
