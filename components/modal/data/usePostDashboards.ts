@@ -3,12 +3,12 @@ import { axiosAuthInstance } from '@/utils';
 import { useAsync } from '@/hooks/useAsync';
 import { Dashboards } from '@/types/dashboards';
 
-interface PostDashboardBody {
+interface PostDashboardProps {
   title: string;
   color: string;
 }
 
-const usePostDashboards = ({ title, color }: PostDashboardBody) => {
+const usePostDashboards = ({ title, color }: PostDashboardProps) => {
   const postDashboards = useCallback(
     () =>
       axiosAuthInstance.post<Dashboards>('dashboards', {

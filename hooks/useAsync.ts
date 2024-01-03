@@ -34,5 +34,5 @@ export const useAsync = <T>(
     }
   }, [lazyMode, deps]);
 
-  return { execute, loading, error, data, status };
+  return { execute, loading, error, data, status, setData };
 };
