@@ -12,7 +12,7 @@ export interface InviteModalForm {
 }
 
 export interface InviteModalProps extends ModalProps {
-  handler?: (data: Invitations) => void;
+  handler?: () => void;
 }
 
 export default function InviteModal({
@@ -64,7 +64,7 @@ export default function InviteModal({
 
   useEffect(() => {
     if (handler && response) {
-      handler(response);
+      handler();
     }
   }, [response]);
 

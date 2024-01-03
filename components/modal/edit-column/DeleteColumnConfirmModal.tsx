@@ -2,13 +2,19 @@ import { FormEvent, useEffect } from 'react';
 import { Modal, ModalButton } from '@/components';
 import useDeleteColumns from '@/components/dashboard/data/useDeleteColumns';
 import { notify } from '@/components/common/Toast';
-import { DeleteColumnModalProps } from './DeleteColumnModal';
+import { ModalProps } from '../create-dashboard/CreateDashboardModal';
+
+interface DeleteColumnConfirmModalProps extends ModalProps {
+  columnId: number;
+  onClose: () => void;
+}
 
 export default function DeleteColumnConfirmModal({
   isOpen,
   onCancel,
   columnId,
-}: DeleteColumnModalProps) {
+  onClose,
+}: DeleteColumnConfirmModalProps) {
   const {
     execute: deleteColumns,
     loading,
@@ -28,7 +34,7 @@ export default function DeleteColumnConfirmModal({
     } else if (status === 204) {
       notify({ type: 'success', text: '컬럼이 삭제됐습니다 🗑' });
     }
-    onCancel();
+    onClose();
   }, [loading]);
 
   return (

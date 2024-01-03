@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CreateDashboardModal } from '@/components';
 import useToggle from '@/hooks/useToggle';
-import useGetDashBoards from './data/useGetDashBoards';
 import { useDashboardList } from '@/store/memos/useDashboardList';
 import { useEffect, useState } from 'react';
 import { Dashboards } from '@/types/dashboards';
@@ -35,8 +34,8 @@ function Board({
   };
   const bg = colors[color];
   return (
-    <Link href={`board/${id}`}>
-      <div className="flex-center justify-between w-330pxr h-70pxr bg-white rounded-lg border border-solid border-gray30 gap-12pxr px-20pxr">
+    <Link href={`dashboard/${id}`}>
+      <div className="flex-center justify-between w-full h-70pxr bg-white rounded-lg border border-solid border-gray30 gap-12pxr px-20pxr">
         <div className="flex-center gap-16pxr">
           <div className={`w-8pxr h-8pxr rounded-full ${bg}`}></div>
           <div className="flex-center gap-8pxr">
@@ -58,7 +57,7 @@ function CreateBoard() {
     <>
       <button
         onClick={toggle}
-        className="flex-center w-330pxr h-70pxr bg-white rounded-lg border border-solid border-gray30 gap-12pxr"
+        className="flex-center bg-white h-70pxr rounded-lg border border-solid border-gray30 gap-12pxr"
       >
         <div className="font-semibold text-gray70">새로운 대시보드</div>
         <div className="bg-violet8">
@@ -85,7 +84,7 @@ export default function BoardList() {
 
   return (
     <div className="flex flex-col gap-12pxr">
-      <div className="grid grid-cols-3 gap-12pxr">
+      <div className="grid desktop:grid-cols-3 gap-12pxr tablet:grid-cols-2">
         <CreateBoard />
         {data &&
           data.length !== 0 &&
