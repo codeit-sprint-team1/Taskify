@@ -1,15 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import useGetComments from './data/useGetComments';
 import { DateTime } from 'ts-luxon';
-import useDeleteComments from './data/useDeleteComments';
 import { axiosAuthInstance } from '@/utils';
 import { notify } from '@/components/common/Toast';
+import { Controller, useForm } from 'react-hook-form';
+import { isAxiosError } from 'axios';
 
 interface CommentListProps {
   cardId: number;
 }
 
+interface CommentInputState {
+  [key: number]: boolean;
+}
+
 function CommentList({ cardId }: CommentListProps) {
+  const [isCommentInputOpen, setIsCommentInputOpen] =
+    useState<CommentInputState>({});
+  const { control, watch, setError } = useForm();
   const {
     execute: getComments,
     data,
@@ -33,6 +41,28 @@ function CommentList({ cardId }: CommentListProps) {
       notify({ type: 'error', text: '삭제할 수 없습니다.' });
     }
   };
+
+  const handleUpdateComment = async (commentId: number) => {
+    try {
+      const res = await axiosAuthInstance.put(`comments/${commentId}`, {
+        content: watch('commentInput'),
+      });
+      toggleCommentInput(commentId);
+      getComments();
+    } catch (error) {
+      if (isAxiosError(error)) {
+        setError('commentInput', error.response?.data.message);
+      }
+      console.error(error);
+    }
+  };
+
+  const toggleCommentInput = (commentId: number) => {
+    setIsCommentInputOpen((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
   return (
     <div className="flex gap-10pxr flex-col overflow-scroll min-h-[160px]">
       {comments?.map((comment) => (
@@ -51,11 +81,37 @@ function CommentList({ cardId }: CommentListProps) {
                 {formatTime(comment.createdAt)}
               </span>
             </div>
-            <p className="text-14pxr mobile:text-12pxr">{comment.content}</p>
+            {isCommentInputOpen[comment.id] ? (
+              <Controller
+                control={control}
+                name="commentInput"
+                render={({ field, fieldState }) => (
+                  <form className="space-x-6pxr flex">
+                    <input
+                      type="text"
+                      {...field}
+                      placeholder="댓글수정"
+                      className="border border-gray40 rounded-xl indent-8pxr placeholder:text-12pxr focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleUpdateComment(comment.id)}
+                      className="text-12pxr"
+                    >
+                      수정하기
+                    </button>
+                  </form>
+                )}
+              />
+            ) : (
+              <p className="text-14pxr mobile:text-12pxr">{comment.content}</p>
+            )}
+
             <div className="flex gap-12pxr">
               <button
                 className="text-gray40 text-12pxr underline mobile:text-10pxr"
                 type="button"
+                onClick={() => toggleCommentInput(comment.id)}
               >
                 수정
               </button>
