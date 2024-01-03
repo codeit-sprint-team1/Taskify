@@ -63,7 +63,7 @@ export default function DashboardSidebar({
   currentId,
 }: DashboardSidebarProps) {
   return (
-    <aside className="h-full overflow-x-hidden overflow-y-scroll duration-100 ease-in-out bg-white border-r group transition-width py-20pxr px-12pxr mobile:hover:w-160pxr mobile:w-67pxr w-160pxr desktop:w-300pxr border-r-gray30">
+    <aside className="h-full overflow-hidden duration-100 ease-in-out bg-white border-r basis-0pxr group transition-width py-20pxr px-12pxr mobile:hover:w-160pxr mobile:w-67pxr w-160pxr desktop:w-300pxr border-r-gray30">
       <Link href="/mydashboard">
         <div className="ml-12px mobile:flex-center">
           <Image
@@ -78,14 +78,14 @@ export default function DashboardSidebar({
           />
         </div>
       </Link>
-      <div className="mt-42pxr">
+      <div className="flex flex-col h-full pt-42pxr pb-30pxr">
         <div className="flex items-center justify-between px-12pxr mb-15pxr mobile:justify-center mobile:group-hover:justify-between">
           <p className="font-bold text-gray50 text-12pxr mobile:hidden mobile:group-hover:block">
             DashBoards
           </p>
           <CreateDashboardButton />
         </div>
-        <div className="flex flex-col w-full gap-3pxr">
+        <div className="flex flex-col w-full overflow-y-scroll gap-3pxr pb-5pxr">
           {dashboardList?.map((dashboard) => {
             return (
               <DashboardListItem
