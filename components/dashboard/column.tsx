@@ -14,14 +14,32 @@ import { Columns } from '@/types/columns';
 import { DateTime } from 'ts-luxon';
 import { EditColumnModal } from '../index';
 import searchIcon from '../../public/icons/search-icon.svg';
+import CreateCardModal from '../modal/create-card/CreateCardModal';
 
-function CardAdd() {
+interface CardAddProps {
+  dashboardId: number;
+  columnId: number;
+}
+
+function CardAdd({ dashboardId, columnId }: CardAddProps) {
+  const { isOn, toggle } = useToggle(false);
   return (
-    <button className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md">
-      <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
-        <Image src={plusIcon} alt="plusIcon" />
-      </div>
-    </button>
+    <>
+      <button
+        className="bg-white flex-center border-solid border border-gray30 w-full py-10pxr rounded-md"
+        onClick={toggle}
+      >
+        <div className="w-22pxr h-22xpr flex-center rounded bg-violet8 p-3pxr">
+          <Image src={plusIcon} alt="plusIcon" />
+        </div>
+      </button>
+      <CreateCardModal
+        isOpen={isOn}
+        onCancel={toggle}
+        dashboardId={dashboardId}
+        columnId={columnId}
+      />
+    </>
   );
 }
 
@@ -111,7 +129,7 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
           />
         </div>
         <div className="flex flex-col gap-15pxr h-full overflow-scroll">
-          <CardAdd />
+          <CardAdd dashboardId={data?.dashboardId} columnId={data.id} />
           {filterCards &&
             filterCards.map((card) => <Card card={card} key={card.id} />)}
         </div>

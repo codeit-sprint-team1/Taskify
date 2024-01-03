@@ -7,7 +7,11 @@ interface FormValues {
   tagInput: string;
 }
 
-const AddTag = () => {
+interface AddTagProps {
+  onTagListChange: (tags: string[]) => void;
+}
+
+const AddTag = ({ onTagListChange }: AddTagProps) => {
   const [tagList, setTagList] = useState<string[]>([]);
 
   const {
@@ -19,6 +23,11 @@ const AddTag = () => {
     formState: { errors },
   } = useForm({ defaultValues: { tagInput: '' }, mode: 'onBlur' });
   const hasError = Boolean(errors.tagInput);
+
+  const updateTagList = (newTags: string[]) => {
+    setTagList(newTags);
+    onTagListChange(newTags);
+  };
 
   const submitTagItem = (data: FormValues) => {
     if (tagList.length >= 10) {
@@ -44,13 +53,15 @@ const AddTag = () => {
       });
       return;
     }
+
     clearErrors('tagInput');
-    setTagList((prev) => [...prev, data.tagInput]);
+    updateTagList([...tagList, data.tagInput]);
     reset({ tagInput: '' });
   };
 
   const deleteTagItem = (tagToDelete: string) => {
-    setTagList(tagList.filter((tag) => tag !== tagToDelete));
+    const newTagList = tagList.filter((tag) => tag !== tagToDelete);
+    updateTagList(newTagList);
   };
 
   const onKeyDown = (
@@ -66,7 +77,8 @@ const AddTag = () => {
     if (e.key === 'Backspace' && !field.value) {
       e.preventDefault();
       if (tagList.length > 0) {
-        setTagList((prev) => prev.slice(0, prev.length - 1));
+        const newTagList = tagList.slice(0, tagList.length - 1);
+        updateTagList(newTagList);
       }
     }
   };
@@ -77,7 +89,7 @@ const AddTag = () => {
       <div
         className={`flex items-center gap-x-8pxr flex-wrap border ${
           hasError ? 'border-red' : 'border-gray30'
-        } rounded-md px-5pxr`}
+        } rounded-md px-5pxr mobile:w-287pxr`}
       >
         {tagList.slice(0, 10).map((tag, index) => (
           <div key={index} className="h-50pxr flex items-center">
@@ -101,7 +113,7 @@ const AddTag = () => {
                 onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
                   onKeyDown(field, e)
                 }
-                className=" w-full h-50pxr outline-none"
+                className=" w-full h-50pxr outline-none mobile:text-14pxr mobile:w-80pxr"
               />
             </div>
           )}
