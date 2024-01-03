@@ -1,9 +1,23 @@
 import { Button } from '@/components';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import usePostComments from './data/usePostComments';
 
-function CommentInput() {
+interface CommentInputProps {
+  cardId: number;
+  columnId: number;
+  dashboardId: number;
+}
+
+function CommentInput({ cardId, columnId, dashboardId }: CommentInputProps) {
   const { control, watch } = useForm();
+  const content = watch('comment');
+  const { execute: postComments, data } = usePostComments({
+    content,
+    cardId,
+    columnId,
+    dashboardId,
+  });
   return (
     <form className="flex flex-col gap-10pxr relative">
       <label className="text-16pxr font-medium mobile:text-14pxr">댓글</label>
@@ -23,6 +37,7 @@ function CommentInput() {
         variant="secondary"
         size="modal"
         className="absolute right-12pxr bottom-12pxr mobile:w-84pxr"
+        onClick={postComments}
       >
         입력
       </Button>

@@ -10,6 +10,7 @@ import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import AsigneeCard from './AsigneeCard';
 import { Card } from '@/types/cards';
+import { useRouter } from 'next/router';
 
 interface TodoModalProps extends ModalProps {
   tag?: string;
@@ -20,8 +21,19 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
   const handleSubmit = () => {
     console.log('submitted');
   };
+  const router = useRouter();
+  const dashboardId = Number(router.query['id']);
   if (!card) return;
-  const { id, title, description, tags, dueDate, assignee, imageUrl } = card;
+  const {
+    id: cardId,
+    title,
+    description,
+    tags,
+    dueDate,
+    assignee,
+    imageUrl,
+    columnId,
+  } = card;
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit}>
       <div className="flex flex-col gap-24pxr">
@@ -63,7 +75,11 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
               <p className="text-14pxr">{description}</p>
               <img src={imageUrl} alt="본문 이미지" className="w-screen" />
             </div>
-            <CommentInput />
+            <CommentInput
+              cardId={cardId}
+              columnId={columnId}
+              dashboardId={dashboardId}
+            />
             <CommentList />
           </div>
           <AsigneeCard dueDate={dueDate} assignee={assignee} />

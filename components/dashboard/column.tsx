@@ -49,10 +49,7 @@ function Card({ card }: { card: Card }) {
   const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
   const { isOn, toggle } = useToggle();
   return (
-    <div
-      onClick={toggle}
-      className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center"
-    >
+    <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
       <TodoModal isOpen={isOn} onCancel={() => toggle} card={card} />
       {card.imageUrl && (
         <div className="relative w-full h-160pxr tablet:w-90pxr bg-gray10 rounded-md">
@@ -68,7 +65,10 @@ function Card({ card }: { card: Card }) {
                 <div>{item}</div>
               ))}
             </div>
-            <div className="flex-center gap-6pxr text-gray50 text-12pxr font-medium">
+            <div
+              className="flex-center gap-6pxr text-gray50 text-12pxr font-medium"
+              onClick={toggle}
+            >
               <Image src={calIcon} alt="calIcon" />
               {date}
             </div>
