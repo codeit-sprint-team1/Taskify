@@ -14,8 +14,10 @@ function MypageProfile() {
   const { email, profileImageUrl, nickname: userNickname } = userInfo;
   const imageUploaderRef = useRef<HTMLInputElement>(null);
   const [imgUrl, setImgUrl] = useState<string | null>(profileImageUrl);
-
-  const { control, watch, setError } = useForm({ mode: 'onBlur' });
+  const { control, watch, setError } = useForm({
+    mode: 'onBlur',
+    defaultValues: { nickname: userNickname },
+  });
 
   const onClickInput = () => {
     if (imageUploaderRef.current) {
@@ -66,6 +68,10 @@ function MypageProfile() {
     }
   };
 
+  useEffect(() => {
+    setImgUrl(profileImageUrl);
+  }, [profileImageUrl]);
+
   return (
     <div className="max-w-[620px] space-y-32pxr p-28pxr">
       <h1 className="text-24pxr font-bold mobile:text-20pxr">프로필</h1>
@@ -81,9 +87,9 @@ function MypageProfile() {
             }}
           >
             <input
+              name="imageUploader"
               type="file"
               className="hidden"
-              name="imageUploader"
               ref={imageUploaderRef}
               onChange={onChangeImg}
               accept="image/*"
