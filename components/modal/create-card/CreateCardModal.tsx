@@ -19,7 +19,7 @@ export interface CreateCardModalForm {
   title: string;
   description: string;
   dueDate: string | null;
-  imageUrl: File | null;
+  imageUrl: string | null;
   tags: string[];
   assigneeUserId: number;
   dashboardId: number;
@@ -38,7 +38,7 @@ export default function CreateCardModal({
     manager: '',
     description: '',
     dueDate: '',
-    imageUrl: null,
+    imageUrl: '',
     tags: [],
     assigneeUserId: 0,
     dashboardId: 0,
@@ -68,8 +68,8 @@ export default function CreateCardModal({
     watch('tags'),
   ]);
 
-  const handleImageSelect = (file: File) => {
-    setValue('imageUrl', file);
+  const handleImageSelect = (imageUrl: string) => {
+    setValue('imageUrl', imageUrl);
   };
 
   const onTagListChange = (newTagList: string[]) => {
@@ -106,7 +106,7 @@ export default function CreateCardModal({
     title: watch('title'),
     description: watch('description'),
     dueDate: watch('dueDate')?.toString(),
-    imageUrl: watch('imageUrl'), // File 객체는 selectImageFile
+    imageUrl: watch('imageUrl'),
     tags: watch('tags'),
   });
 
@@ -131,8 +131,12 @@ export default function CreateCardModal({
               control={control}
               name="manager"
               rules={{ required: true }}
-              render={({ field }) => (
-                <DropdownManager {...field} dashboardId={dashboardId} />
+              render={({ field: { ref, ...rest } }) => (
+                <DropdownManager
+                  ref={ref}
+                  {...rest}
+                  dashboardId={dashboardId}
+                />
               )}
             />
           </div>
@@ -141,14 +145,16 @@ export default function CreateCardModal({
             control={control}
             name="title"
             rules={{ required: true }}
-            render={({ field }) => <Input {...field} label="제목" required />}
+            render={({ field: { ref, ...rest } }) => (
+              <Input ref={ref} {...rest} label="제목" required />
+            )}
           />
           <Controller
             control={control}
             name="description"
             rules={{ required: true }}
-            render={({ field }) => (
-              <TextArea {...field} label="설명" required />
+            render={({ field: { ref, ...rest } }) => (
+              <TextArea ref={ref} {...rest} label="설명" required />
             )}
           />
           <Controller
@@ -163,11 +169,13 @@ export default function CreateCardModal({
             control={control}
             name="imageUrl"
             rules={{ required: true }}
-            render={({ field }) => (
+            render={({ field: { ref, ...rest } }) => (
               <ImagePick
-                {...field}
+                ref={ref}
+                {...rest}
                 onSelectImage={handleImageSelect}
                 label="이미지"
+                columnId={columnId}
               />
             )}
           />
@@ -175,7 +183,7 @@ export default function CreateCardModal({
             control={control}
             name="tags"
             rules={{ required: true }}
-            render={({ field }) => <AddTag onTagListChange={onTagListChange} />}
+            render={() => <AddTag onTagListChange={onTagListChange} />}
           />
         </div>
         <ModalButton

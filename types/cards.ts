@@ -6,7 +6,7 @@ export interface CreateCard {
   description: string;
   dueDate: string | undefined;
   tags: string[];
-  imageUrl: File | null;
+  imageUrl: string | null;
 }
 
 export interface Card {

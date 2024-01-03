@@ -10,9 +10,11 @@ import AddImage from '@/public/icons/add-icon.svg';
 import Image from 'next/legacy/image';
 import { CardLabelProps } from '../common/Textarea';
 import { Label } from '..';
+import { axiosAuthInstance } from '@/utils';
 
 interface ImagePickProps extends CardLabelProps {
-  onSelectImage: (file: File) => void;
+  onSelectImage: (imageUrl: string) => void;
+  columnId: number;
 }
 
 const ImagePick = forwardRef((props: ImagePickProps, ref) => {
@@ -29,17 +31,28 @@ const ImagePick = forwardRef((props: ImagePickProps, ref) => {
     fileInput.current?.click();
   };
 
-  const handleProfileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (fileInput.current?.files && fileInput.current.files[0]) {
-      const imageFile = fileInput.current.files[0];
-      const imageURL = URL.createObjectURL(imageFile);
-      if (selectImageURL) {
-        URL.revokeObjectURL(selectImageURL);
+  const handleProfileChange =
+    (columnId: number) => async (e: ChangeEvent<HTMLInputElement>) => {
+      if (fileInput.current?.files && fileInput.current.files[0]) {
+        const imageFile = fileInput.current.files[0];
+
+        try {
+          const res = await axiosAuthInstance.put(
+            `columns/${columnId}/card-image`,
+            {
+              image: imageFile,
+            }
+          );
+          if (res.status === 201) {
+            const imageURL = res.data.imageUrl;
+            setSelectImageURL(imageURL);
+            props.onSelectImage(imageURL);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       }
-      setSelectImageURL(imageURL);
-      props.onSelectImage(imageFile);
-    }
-  };
+    };
 
   return (
     <div>
@@ -54,7 +67,7 @@ const ImagePick = forwardRef((props: ImagePickProps, ref) => {
             type="file"
             className="hidden"
             ref={fileInput}
-            onChange={handleProfileChange}
+            onChange={handleProfileChange(props.columnId)}
             accept="image/*"
           />
           {selectImageURL ? (
