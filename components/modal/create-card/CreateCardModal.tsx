@@ -12,6 +12,7 @@ export interface ModalProps {
   onCancel: () => void;
   dashboardId: number;
   columnId: number;
+  getCards: () => void;
 }
 
 export interface CreateCardModalForm {
@@ -31,6 +32,7 @@ export default function CreateCardModal({
   onCancel,
   dashboardId,
   columnId,
+  getCards,
 }: ModalProps) {
   const [formData, setFormData] = useState<FormData>();
   const defaultValues = {
@@ -102,6 +104,7 @@ export default function CreateCardModal({
 
   const onSubmit = async () => {
     await postCard();
+    getCards();
     handleCancel();
   };
 
