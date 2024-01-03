@@ -92,7 +92,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
       setIsMemberNotFound(false);
       setIsOpen(false);
       if (externalOnChange) {
-        externalOnChange(member.id);
+        externalOnChange(member.userId);
       }
     };
 
