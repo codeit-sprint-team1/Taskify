@@ -8,16 +8,26 @@ import 'react-toastify/dist/ReactToastify.css';
 import { notify } from '../common/Toast';
 import { Controller, useForm } from 'react-hook-form';
 import axios from 'axios';
+import useGetUser from './data/useGetUser';
 
 function MypageProfile() {
   const { userInfo, setUserInfo } = useUserInfo();
-  const { email, profileImageUrl, nickname: userNickname } = userInfo;
+  const { email, nickname: userNickname } = userInfo;
   const imageUploaderRef = useRef<HTMLInputElement>(null);
-  const [imgUrl, setImgUrl] = useState<string | null>(profileImageUrl);
+  const [imgUrl, setImgUrl] = useState<string | null>();
   const { control, watch, setError } = useForm({
     mode: 'onBlur',
     defaultValues: { nickname: userNickname },
   });
+
+  const { execute: getUser, data, loading } = useGetUser();
+
+  useEffect(() => {
+    if (!imgUrl) return;
+    getUser();
+  }, [imgUrl]);
+
+  const profileImageUrl = data?.profileImageUrl;
 
   const onClickInput = () => {
     if (imageUploaderRef.current) {
@@ -68,10 +78,6 @@ function MypageProfile() {
     }
   };
 
-  useEffect(() => {
-    setImgUrl(profileImageUrl);
-  }, [profileImageUrl]);
-
   return (
     <div className="max-w-[620px] space-y-32pxr p-28pxr">
       <h1 className="text-24pxr font-bold mobile:text-20pxr">프로필</h1>
@@ -80,7 +86,9 @@ function MypageProfile() {
           <div
             className="flex-center bg-gray10 w-190pxr h-190pxr border mobile:w-100pxr mobile:h-100pxr cursor-pointer"
             style={{
-              backgroundImage: imgUrl ? `url(${imgUrl})` : 'none',
+              backgroundImage: imgUrl
+                ? `url(${imgUrl})`
+                : `url(${profileImageUrl})`,
               backgroundRepeat: 'no-repeat',
               objectFit: 'cover',
               backgroundPosition: 'center',

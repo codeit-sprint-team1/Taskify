@@ -11,11 +11,12 @@ function Mypage() {
   };
 
   return (
-    <DashboardLayout
-      header={<Header dashboard={dashboard} />}
-      main={<MypageMain />}
-      sidebar={<DashboardSidebar dashboardList={dashboardList} />}
-    />
+    // <DashboardLayout
+    //   header={<Header dashboard={dashboard} />}
+    //   main={<MypageMain />}
+    //   sidebar={<DashboardSidebar dashboardList={dashboardList} />}
+    // />
+    <MypageMain />
   );
 }
 
