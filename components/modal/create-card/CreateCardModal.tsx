@@ -61,7 +61,7 @@ export default function CreateCardModal({
     // dashboardId: 1,
     // columnId: 1,
     watch('title'),
-    // watch('manager'),
+    watch('manager'),
     watch('description'),
     watch('dueDate'),
     selectedImageFile, // File 객체는 selectImageFile
@@ -127,19 +127,22 @@ export default function CreateCardModal({
       <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-20pxr">
         <Modal.Title>할 일 생성</Modal.Title>
         <div className="flex flex-col gap-32pxr w-506pxr">
-          <Controller
-            control={control}
-            name="manager"
-            rules={{ required: true }}
-            render={({ field }) => (
-              <DropdownManager
-                {...field}
-                ProfileSrc={null}
-                dashboardId={dashboardId}
-                columnId={columnId}
-              />
-            )}
-          />
+          <div className="w-217pxr">
+            <Controller
+              control={control}
+              name="manager"
+              rules={{ required: true }}
+              render={({ field }) => (
+                <DropdownManager
+                  {...field}
+                  ProfileSrc={null}
+                  dashboardId={dashboardId}
+                  columnId={columnId}
+                />
+              )}
+            />
+          </div>
+
           <Controller
             control={control}
             name="title"

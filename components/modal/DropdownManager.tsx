@@ -14,7 +14,7 @@ import { Members } from '@/types/members';
 interface DropdownManagerProps {
   ProfileSrc: string | null;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: number) => void;
   dashboardId: number;
   columnId: number;
 }
@@ -48,13 +48,9 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
     const filteredMembers = members.filter((member) =>
       member.nickname.includes(internalValue)
     );
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setInternalValue(newValue);
-      if (externalOnChange) {
-        externalOnChange(newValue);
-      }
     };
 
     const handleBlur = () => {
@@ -80,7 +76,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
       setSelectedMemberProfile(member.profileImageUrl);
       setIsOpen(false);
       if (externalOnChange) {
-        externalOnChange(member.nickname);
+        externalOnChange(member.id);
       }
     };
 
