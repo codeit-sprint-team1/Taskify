@@ -18,7 +18,7 @@ export interface CreateCardModalForm {
   manager: string;
   title: string;
   description: string;
-  dueDate: Date | null;
+  dueDate: string | null;
   imageUrl: File | null;
   tags: string[];
   assigneeUserId: number;
@@ -37,7 +37,7 @@ export default function CreateCardModal({
     title: '',
     manager: '',
     description: '',
-    dueDate: null,
+    dueDate: '',
     imageUrl: null,
     tags: [],
     assigneeUserId: 0,
@@ -56,16 +56,16 @@ export default function CreateCardModal({
     mode: 'onChange',
   });
 
-  const assigneeUserId = watch('manager');
+  const assigneeUserId = Number(watch('manager'));
   console.log([
     watch('manager'),
-    // dashboardId,
-    // columnId,
-    // watch('title'),
-    // watch('description'),
-    // watch('dueDate'),
-    // selectedImageFile, // File 객체는 selectImageFile
-    // watch('tags'),
+    dashboardId,
+    columnId,
+    watch('title'),
+    watch('description'),
+    watch('dueDate'),
+    watch('imageUrl'), // File 객체는 selectImageFile
+    watch('tags'),
   ]);
 
   const handleImageSelect = (file: File) => {
@@ -100,7 +100,7 @@ export default function CreateCardModal({
     data: response,
     loading,
   } = usePostCard({
-    assigneeUserId: Number(watch('manager')),
+    assigneeUserId: assigneeUserId,
     dashboardId,
     columnId,
     title: watch('title'),

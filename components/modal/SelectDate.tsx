@@ -6,10 +6,11 @@ import calendarImage from '@/public/icons/calendar-icon.svg';
 import Image from 'next/image';
 import { CardLabelProps } from '../common/Textarea';
 import { Label } from '..';
+import { DateTime } from 'ts-luxon';
 
 interface SelectDateProps extends CardLabelProps {
-  value?: Date | null;
-  onChange: (date: Date | null) => void;
+  value?: string | null;
+  onChange: (date: string | null) => void;
 }
 
 export default function SelectDate({
@@ -24,12 +25,15 @@ export default function SelectDate({
 
     return currentDate.getDate() <= selectedDate.getDate();
   };
+
   const handleDateChange = (
     date: Date | null,
     event: SyntheticEvent<any, Event> | undefined
   ) => {
-    if (onChange) {
-      onChange(date);
+    if (date && onChange) {
+      const formattedDate =
+        DateTime.fromJSDate(date).toFormat('yyyy-MM-dd HH:mm');
+      onChange(formattedDate);
     }
   };
 
@@ -45,7 +49,7 @@ export default function SelectDate({
           className="ml-10pxr"
         />
         <DatePicker
-          selected={value}
+          selected={value ? new Date(value) : null}
           dateFormat="yyyy년 MM월 dd일 HH시 mm분"
           onChange={handleDateChange}
           locale={ko}
