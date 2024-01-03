@@ -1,15 +1,14 @@
 import headerLogo from '../public/images/landing/header-logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
-import emailIcon from '../public/icons/landing/email-icon.svg';
-import facebookIcon from '../public/icons/landing/facebook-icon.svg';
-import instagramIcon from '../public/icons/landing/instagram-icon.svg';
 import topImg from '../public/images/landing/taskify-top-img.png';
 import point1Img from '../public/images/landing/point1-img.png';
 import point2Img from '../public/images/landing/point2-img.png';
 import card1Img from '../public/images/landing/card1-img.png';
 import card2Img from '../public/images/landing/card2-img.png';
 import card3Img from '../public/images/landing/card3-img.png';
+import kakaoIcon from '../public/icons/kakaotalk.svg';
+import gitHubIcon from '../public/icons/github.svg';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { StaticImageData } from 'next/image';
@@ -37,13 +36,31 @@ function Footer() {
     <div className="flex justify-around py-40pxr mobile:flex-col-center mobile:gap-12pxr">
       <div>@codeit - 2023 </div>
       <div className="flex-center gap-32pxr">
-        <div>Privacy Policy</div>
-        <div>FAQ</div>
+        <Link
+          href={
+            'https://docs.google.com/forms/d/e/1FAIpQLSfoQiedOsvCHaXgI2N3o0bB0kkRhENg7sLmRquCT7X9y6oOHA/viewform'
+          }
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          FAQ
+        </Link>
       </div>
       <div className="flex-center gap-14pxr mobile:mt-56pxr">
-        <Image src={emailIcon} alt="emailIcon" />
-        <Image src={facebookIcon} alt="facebookIcon" />
-        <Image src={instagramIcon} alt="instagramIcon" />
+        <Link
+          href={'https://github.com/codeit-sprint-team1/Taskify'}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Image src={gitHubIcon} alt="gitHubIcon" />
+        </Link>
+        <Link
+          href={'https://open.kakao.com/o/gWEvRt1f'}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Image src={kakaoIcon} alt="kakaoIcon" />
+        </Link>
       </div>
     </div>
   );
