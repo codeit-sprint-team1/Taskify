@@ -1,13 +1,6 @@
-import {
-  DashboardHeader,
-  DashboardSidebar,
-  Header,
-  MypageMain,
-} from '@/components';
+import { DashboardSidebar, Header, MypageMain } from '@/components';
 import DashboardLayout from '@/page-layout/DashboardLayout';
 import { useDashboardList } from '@/store/memos/useDashboardList';
-import { Dashboards } from '@/types/dashboards';
-import { useRouter } from 'next/router';
 import React from 'react';
 
 function Mypage() {
