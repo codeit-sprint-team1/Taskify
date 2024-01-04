@@ -1,18 +1,19 @@
 export interface CreateCard {
-  assigneeUserId: number;
-  dashboardId: number;
-  columnId: number;
+  assigneeUserId?: number | null;
+  dashboardId?: number;
+  columnId?: number;
   title: string;
   description: string;
-  dueDate: string | undefined;
-  tags: string[];
-  imageUrl: string | null;
+  dueDate?: string;
+  tags?: string[];
+  imageUrl?: string | null;
 }
 
 export interface Card {
   id: number;
   title: string;
   description: string;
+  dashboardId: number;
   tags: string[];
   dueDate: string;
   assignee: {

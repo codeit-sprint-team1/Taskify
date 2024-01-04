@@ -14,14 +14,16 @@ export default function DashboardHeader({ dashboard }: DashboardHeaderProps) {
     <Header dashboard={dashboard}>
       <div className="flex items-center desktop:gap-32pxr gap-24pxr mobile:gap-12pxr">
         <div className="flex">
-          <HeaderButton
-            onClick={handleSettingButtonClick}
-            src={settingIcon}
-            alt="관리 페이지로 이동하는 톱니 모양"
-          >
-            설정
-          </HeaderButton>
-          <InviteButton />
+          {dashboard.createdByMe && (
+            <HeaderButton
+              onClick={handleSettingButtonClick}
+              src={settingIcon}
+              alt="관리 페이지로 이동하는 톱니 모양"
+            >
+              설정
+            </HeaderButton>
+          )}
+          {dashboard.createdByMe && <InviteButton />}
         </div>
         <HeaderMembers dashboardId={dashboard.id} />
         <div className="w-1pxr h-38pxr desktop:mr-32pxr mr-24pxr mobile:mr-12pxr bg-gray30" />
