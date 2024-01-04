@@ -50,10 +50,14 @@ function Card({
   card,
   getCards,
   columnTitle,
+  columns,
+  column,
 }: {
   card: Card;
   getCards: () => void;
   columnTitle: string;
+  columns: Columns[];
+  column: Columns;
 }) {
   const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
   const { isOn, toggle } = useToggle();
@@ -107,7 +111,8 @@ function Card({
         onCancel={toggle}
         card={card}
         getCards={getCards}
-        columnTitle={columnTitle}
+        state={column}
+        states={columns}
       />
     </>
   );
@@ -138,7 +143,15 @@ function ColumnTitle({
   );
 }
 
-function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
+function Column({
+  data,
+  getColum,
+  columns,
+}: {
+  data: Columns;
+  getColum: () => void;
+  columns: Columns[];
+}) {
   const { cards, totalCount, execute: getCards } = useGetCards(data.id);
   const { isOn, toggle } = useToggle(false);
   const [searchValue, setSearchValue] = useState('');
@@ -184,6 +197,8 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
                 key={card.id}
                 getCards={getCards}
                 columnTitle={data.title}
+                columns={columns}
+                column={data}
               />
             ))}
         </div>
@@ -232,7 +247,12 @@ export default function ColumnList() {
     <div className="bg-gray10 h-full w-full flex overflow-scroll tablet:flex-col mobile:flex-col">
       {columns &&
         columns.map((items) => (
-          <Column data={items} key={items.id} getColum={getColum} />
+          <Column
+            data={items}
+            key={items.id}
+            getColum={getColum}
+            columns={columns}
+          />
         ))}
       <ColumnAdd getColum={getColum} />
     </div>

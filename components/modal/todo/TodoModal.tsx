@@ -17,12 +17,15 @@ import useToggle from '@/hooks/useToggle';
 import TodoDropDownMenu from './data/TodoDropDownMenu';
 import { axiosAuthInstance } from '@/utils';
 import { notify } from '@/components/common/Toast';
+import { Columns } from '@/types/columns';
+import EditCardModal from '../edit-card/EditCardModal';
 
 interface TodoModalProps extends ModalProps {
   tag?: string;
   card: Card;
   getCards: () => void;
-  columnTitle: string;
+  state: Columns;
+  states: Columns[];
 }
 
 function TodoModal({
@@ -30,7 +33,8 @@ function TodoModal({
   onCancel,
   card,
   getCards,
-  columnTitle,
+  state,
+  states,
 }: TodoModalProps) {
   const [comments, setComments] = useState<Comments[]>([]);
   const { isOn, toggle } = useToggle();
@@ -85,6 +89,13 @@ function TodoModal({
                   className="w-28pxr h-28pxr mobile:w-20pxr mobile:h-20pxr"
                 />
               </button>
+              <EditCardModal
+                isOpen={isOpen}
+                onCancel={toggle}
+                card={card}
+                state={state}
+                states={states}
+              />
               {isOn && <TodoDropDownMenu onDelete={handleDeleteCard} />}
             </div>
             <button type="button" onClick={onCancel}>
@@ -100,7 +111,7 @@ function TodoModal({
           <div className="flex flex-col gap-26pxr h-full w-full mobile:order-2">
             <div className="flex gap-20pxr">
               <div>
-                <Tag tag={columnTitle} />
+                <Tag tag={state.title} />
               </div>
               <Image
                 src={verticalLineIcon}
