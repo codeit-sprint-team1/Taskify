@@ -30,7 +30,7 @@ function InvitationsList({
     data.splice(index, 1);
     setData(data);
     const dashboards = await execute();
-    setDashboardList(dashboards.data.dashboards);
+    setDashboardList(dashboards?.data.dashboards);
   }
   function refuseInvitation() {
     Refuse();
