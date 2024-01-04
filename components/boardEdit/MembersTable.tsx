@@ -3,7 +3,6 @@ import { Button, ProfileImage } from '..';
 import useGetMembers from './data/useGetMembers';
 import { axiosAuthInstance } from '@/utils';
 import PagenationButton from '../common/PaginationButton';
-import { useStoreAccessToken } from '@/store/memos';
 
 interface MembersTableProps {
   boardid: number;
@@ -12,12 +11,14 @@ interface MembersTableProps {
 function MembersTable({ boardid }: MembersTableProps) {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(4);
-  const { accessToken: token } = useStoreAccessToken();
-  const { execute, members, totalCount } = useGetMembers({
+  const {
+    execute,
+    data: members,
+    totalCount,
+  } = useGetMembers({
     boardid,
     page,
     size,
-    token,
   });
   const totalPages = Math.floor(totalCount / size);
 

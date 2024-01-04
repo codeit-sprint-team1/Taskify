@@ -1,19 +1,12 @@
-import { axiosInstance } from '@/utils';
+import { axiosAuthInstance } from '@/utils';
 import { useAsync } from '@/hooks/useAsync';
 import { useCallback } from 'react';
 import { Invitations } from '@/types/invitations';
 
-export default function useGetInvitations(token: string | null) {
+export default function useGetInvitations() {
   const getDashBoards = useCallback(
-    () =>
-      axiosInstance.get('invitations?size=1000', {
-        baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-    [token]
+    () => axiosAuthInstance.get('invitations?size=1000'),
+    []
   );
   const { execute, loading, error, data } = useAsync(getDashBoards, false);
 

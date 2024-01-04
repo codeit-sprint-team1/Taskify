@@ -1,24 +1,12 @@
 import { useAsync } from '@/hooks/useAsync';
-import { axiosAuthInstance, axiosInstance } from '@/utils';
+import { axiosAuthInstance } from '@/utils';
 import { useCallback } from 'react';
 import { Columns } from '@/types/columns';
 
-interface useGetColumType {
-  id: number;
-  accessToken: string | null;
-}
-
-export default function useGetColum({ id, accessToken }: useGetColumType) {
+export default function useGetColum(id: number) {
   const getDashboards = useCallback(
-    () =>
-      axiosInstance.get(`columns?dashboardId=${id}`, {
-        baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }),
-    [id, accessToken]
+    () => axiosAuthInstance.get(`columns?dashboardId=${id}`),
+    [id]
   );
 
   const { execute, loading, error, data } = useAsync(getDashboards, true);

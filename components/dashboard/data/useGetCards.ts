@@ -1,24 +1,12 @@
 import { useAsync } from '@/hooks/useAsync';
-import { axiosInstance } from '@/utils';
+import { axiosAuthInstance } from '@/utils';
 import { useCallback } from 'react';
 import { Card } from '@/types/cards';
 
-interface useGetCardsType {
-  id: number;
-  accessToken: string | null;
-}
-
-export default function useGetCards({ id, accessToken }: useGetCardsType) {
+export default function useGetCards(id: number) {
   const getDashboards = useCallback(
-    () =>
-      axiosInstance.get(`cards?size=1000&columnId=${id}`, {
-        baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }),
-    [id, accessToken]
+    () => axiosAuthInstance.get(`cards?size=1000&columnId=${id}`),
+    []
   );
 
   const { execute, loading, error, data } = useAsync(getDashboards, false);

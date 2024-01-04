@@ -4,7 +4,6 @@ import { notify } from '@/components/common/Toast';
 import { ModalProps } from '../modal/create-dashboard/CreateDashboardModal';
 import useDeleteDashboard from './data/useDeleteDashboard';
 import { useRouter } from 'next/router';
-import { useStoreAccessToken } from '@/store/memos';
 
 export interface DeleteColumnConfirmModalProps extends ModalProps {
   boardid: number;
@@ -15,13 +14,12 @@ export default function DeleteDashboardConfirmModal({
   onCancel,
   boardid,
 }: DeleteColumnConfirmModalProps) {
-  const { accessToken: token } = useStoreAccessToken();
   const {
     execute: deleteDashboard,
     loading,
     error,
     status,
-  } = useDeleteDashboard({ boardid, token });
+  } = useDeleteDashboard({ boardid });
 
   const router = useRouter();
 
