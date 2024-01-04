@@ -3,14 +3,15 @@ import React from 'react';
 
 interface TodoDropDownMenuProps {
   onDelete: () => void;
+  onEdit: () => void;
 }
 
-function TodoDropDownMenu({ onDelete }: TodoDropDownMenuProps) {
+function TodoDropDownMenu({ onDelete, onEdit }: TodoDropDownMenuProps) {
   let options = [
     {
       key: 1,
       title: '수정하기',
-      handler: () => {},
+      handler: onEdit,
     },
     {
       key: 2,

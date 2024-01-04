@@ -14,7 +14,7 @@ interface DropdownStateProps {
 
 const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
   ({ initialState, onChange, states }: DropdownStateProps, ref) => {
-    const [value, setValue] = useState(initialState); //input에 보이는 값
+    const [title, setTitle] = useState(initialState); //input에 보이는 값
     const {
       isOn: isOpen,
       close,
@@ -23,7 +23,7 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
     } = useOnClickOutside();
 
     const handleStateClick = (state: Columns) => {
-      setValue(state.title);
+      setTitle(state.title);
       onChange(state.id);
       close();
     };
@@ -38,11 +38,11 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
               type="button"
               className={`block w-full rounded-md border border-solid border-gray30
            pr-16pxr ${
-             value ? 'pl-40pxr' : 'pl-11pxr'
+             title ? 'pl-40pxr' : 'pl-11pxr'
            }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 outline-0 h-50pxr cursor-pointer`}
             />
             <div className="absolute cursor-pointer pl-10pxr">
-              {value && <ColumnState state={value} />}
+              {title && <ColumnState state={title} />}
             </div>
 
             <button tabIndex={-1}>
@@ -55,22 +55,24 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
               />
             </button>
           </div>
-          {isOpen && (
-            <ul className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr">
-              {states?.map((state) => (
-                <li key={state.id}>
-                  <button
-                    className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8 tablet:text-16pxr mobile:text-14pxr"
-                    onClick={() => handleStateClick(state)}
-                  >
-                    <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-                      <ColumnState state={state.title} />
-                    </div>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+          <div className="relative">
+            {isOpen && (
+              <ul className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr z-10">
+                {states?.map((state) => (
+                  <li key={state.id}>
+                    <button
+                      className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8 tablet:text-16pxr mobile:text-14pxr"
+                      onClick={() => handleStateClick(state)}
+                    >
+                      <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
+                        <ColumnState state={state.title} />
+                      </div>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </>
     );

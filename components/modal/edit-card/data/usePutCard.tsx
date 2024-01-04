@@ -4,7 +4,7 @@ import { useAsync } from '@/hooks/useAsync';
 import { CreateCard } from '@/types/cards';
 
 const usePutCard = ({
-  assigneeUserId,
+  assigneeUserId = null,
   title,
   description,
   dueDate,
@@ -24,7 +24,16 @@ const usePutCard = ({
         imageUrl,
         columnId,
       }),
-    [title, description, dueDate, tags, imageUrl, cardId, columnId]
+    [
+      title,
+      description,
+      dueDate,
+      tags,
+      imageUrl,
+      cardId,
+      columnId,
+      assigneeUserId,
+    ]
   );
 
   const { execute, loading, error, data } = useAsync(putCard, true);

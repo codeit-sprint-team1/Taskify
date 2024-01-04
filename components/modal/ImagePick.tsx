@@ -5,6 +5,7 @@ import React, {
   useImperativeHandle,
   ChangeEvent,
   MouseEvent,
+  useEffect,
 } from 'react';
 import AddImage from '@/public/icons/add-icon.svg';
 import Image from 'next/legacy/image';
@@ -15,10 +16,13 @@ import { axiosAuthInstance } from '@/utils';
 interface ImagePickProps extends CardLabelProps {
   onSelectImage: (imageUrl: string) => void;
   columnId: number;
+  selectedImageUrl?: string;
 }
 
 const ImagePick = forwardRef((props: ImagePickProps, ref) => {
-  const [selectImageURL, setSelectImageURL] = useState<string | null>(null);
+  const [selectImageURL, setSelectImageURL] = useState(
+    props.selectedImageUrl ? props.selectedImageUrl : null
+  );
   const fileInput = useRef<HTMLInputElement>(null);
 
   useImperativeHandle(ref, () => ({
