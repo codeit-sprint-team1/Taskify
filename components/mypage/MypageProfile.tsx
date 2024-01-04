@@ -85,6 +85,7 @@ function MypageProfile() {
         <div className="flex gap-16pxr mobile:block mobile:space-y-24pxr">
           <div
             className="flex-center bg-gray10 w-190pxr h-190pxr border mobile:w-100pxr mobile:h-100pxr cursor-pointer"
+            onClick={onClickInput}
             style={{
               backgroundImage: imgUrl
                 ? `url(${imgUrl})`
@@ -103,7 +104,7 @@ function MypageProfile() {
               accept="image/*"
             />
             <label htmlFor="imageUploader">
-              <button onClick={onClickInput}>
+              <button>
                 <Image
                   src={addIcon}
                   alt="추가하기 아이콘"
