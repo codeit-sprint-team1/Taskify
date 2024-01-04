@@ -91,7 +91,7 @@ function MypageProfile() {
                 ? `url(${imgUrl})`
                 : `url(${profileImageUrl})`,
               backgroundRepeat: 'no-repeat',
-              objectFit: 'cover',
+              objectFit: 'contain',
               backgroundPosition: 'center',
             }}
           >
