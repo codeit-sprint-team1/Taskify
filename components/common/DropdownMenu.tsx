@@ -9,6 +9,7 @@ interface DropdownItem {
 function DropdownItem({ title, handler }: DropdownItem) {
   return (
     <button
+      type="button"
       onClick={handler}
       className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8"
     >
