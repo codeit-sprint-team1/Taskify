@@ -26,11 +26,14 @@ function InvitationsList({
   const { execute } = useGetDashBoards();
   const { setDashboardList } = useDashboardList();
   async function acceptInvitation() {
-    Accept();
+    await Accept();
     data.splice(index, 1);
     setData(data);
     const dashboards = await execute();
-    setDashboardList(dashboards?.data.dashboards);
+    console.log(dashboards);
+    if (dashboards) {
+      setDashboardList(dashboards?.data.dashboards);
+    }
   }
   function refuseInvitation() {
     Refuse();
