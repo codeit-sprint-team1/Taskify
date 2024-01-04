@@ -1,4 +1,4 @@
-import { MouseEvent, forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import dropdownImage from '@/public/icons/dropdown-icon.svg';
 import Image from 'next/image';
 import { Label } from '..';
@@ -56,11 +56,11 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
             </button>
           </div>
           {isOpen && (
-            <ul className="overflow-y-auto max-h-160pxr">
+            <ul className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr">
               {states?.map((state) => (
                 <li key={state.id}>
                   <button
-                    className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 "
+                    className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8 tablet:text-16pxr mobile:text-14pxr"
                     onClick={() => handleStateClick(state)}
                   >
                     <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
