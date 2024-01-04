@@ -59,8 +59,10 @@ export default function InviteModal({
         message: error.response.data.message,
       });
     } else {
-      notify({ type: 'success', text: '초대를 완료했습니다 💌' });
       handleCancel();
+    }
+    if (response) {
+      notify({ type: 'success', text: '초대를 완료했습니다 💌' });
     }
   }, [error, loading]);
 
