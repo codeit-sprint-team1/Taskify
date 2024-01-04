@@ -24,7 +24,7 @@ interface DropdownMenu {
 
 export default function DropdownMenu({ options }: DropdownMenu) {
   return (
-    <ul className="absolute top-28pxr right-0pxr mt-10pxr w-115pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white">
+    <ul className="absolute top-28pxr right-0pxr mt-10pxr w-115pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white z-10">
       {options.map((option) => {
         return (
           <li key={option.key}>
