@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import getRandomNum from '@/utils/getRandomNum';
+import { getIdToNum } from '@/utils/getRandomNum';
 
 export interface ProfileImageProps {
   userId: number | null;
@@ -34,7 +34,7 @@ export default function ProfileImage({
   textDiv,
 }: ProfileImageProps) {
   const divSize = size === 'sm' ? 'w-26pxr h-26pxr' : 'w-38pxr h-38pxr';
-  const num = getRandomNum(userId ?? 0);
+  const num = getIdToNum(userId ?? 0);
   const bg = RANDOM_COLORS[num];
   return (
     <div

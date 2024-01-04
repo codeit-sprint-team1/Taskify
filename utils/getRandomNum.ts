@@ -1,7 +1,13 @@
 //0~9 중 배정
-const getRandomNum = (userId: number) => {
+export const getIdToNum = (userId: number) => {
   const num = userId % 10;
   return num;
 };
 
-export default getRandomNum;
+export const getTextToNum = (text: string) => {
+  let num = 0;
+  for (let i = 0; i < text.length; i++) {
+    num += text.charCodeAt(i);
+  }
+  return num % 10;
+};
