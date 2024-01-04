@@ -17,12 +17,12 @@ const RANDOM_COLORS: RandomColors = {
   0: 'bg-lightgreen',
   1: 'bg-lightpurple',
   2: 'bg-lightorange',
-  3: 'bg-lightblue',
+  3: 'bg-pastelblue',
   4: 'bg-lightpink',
   5: 'bg-gray30',
   6: 'bg-lightbrown',
-  7: 'bg-lightyellow',
-  8: 'bg-pastelblue',
+  7: 'bg-yellow',
+  8: 'bg-pastelnavy',
   9: 'bg-lightred',
 };
 
