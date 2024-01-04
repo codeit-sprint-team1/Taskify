@@ -1,34 +1,18 @@
 import { useAsync } from '@/hooks/useAsync';
-import { axiosInstance } from '@/utils';
+import { axiosAuthInstance } from '@/utils';
 
 interface UsePutDashboardProps {
   title: string;
   color: string;
   boardid: number;
-  token: string | null;
 }
 
-function usePutDashboard({
-  title,
-  color,
-  boardid,
-  token,
-}: UsePutDashboardProps) {
+function usePutDashboard({ title, color, boardid }: UsePutDashboardProps) {
   const putDashboard = () =>
-    axiosInstance.put(
-      `dashboards/${boardid}`,
-      {
-        title,
-        color,
-      },
-      {
-        baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    axiosAuthInstance.put(`dashboards/${boardid}`, {
+      title,
+      color,
+    });
   const { execute, loading, error, data } = useAsync(putDashboard, true);
 
   return {

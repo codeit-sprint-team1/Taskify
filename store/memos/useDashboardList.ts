@@ -7,7 +7,6 @@ interface DashboardListStoreType {
   setDashboardList: (newList: Dashboards[]) => void;
   addDashboard: (newBoard: Dashboards) => void;
   deleteDashboard: (boardId: number) => void;
-  clearDashboardList: () => void;
 }
 
 const addBoard = (prevList: Dashboards[], newBoard: Dashboards) => {
@@ -36,9 +35,6 @@ const useDashboardList = create(
       },
       deleteDashboard: (boardId) => {
         set((prevState) => deleteBoard(prevState.dashboardList, boardId));
-      },
-      clearDashboardList: () => {
-        set({ dashboardList: [] });
       },
     }),
     { name: 'dashboardList' }
