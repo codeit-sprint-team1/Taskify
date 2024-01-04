@@ -56,7 +56,6 @@ function Card({
   columnTitle: string;
 }) {
   const date = card.dueDate && card.dueDate.split(' ')[0];
-  console.log(date);
   const { isOn, toggle } = useToggle();
   return (
     <>
@@ -79,8 +78,12 @@ function Card({
                 ))}
               </div>
               <div className="flex gap-6pxr text-gray50 text-12pxr font-medium">
-                <Image src={calIcon} alt="calIcon" />
-                {date}
+                {date && (
+                  <>
+                    <Image src={calIcon} alt="calIcon" />
+                    {date}
+                  </>
+                )}
               </div>
             </div>
             {card.assignee && (
