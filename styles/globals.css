@@ -32,7 +32,7 @@ body {
     @apply flex flex-col justify-between rounded-lg bg-violet8 pt-60pxr desktop:pt-100pxr w-1200pxr h-600pxr tablet:w-664pxr tablet:h-972pxr mobile:w-343pxr mobile:h-686pxr;
   }
   .react-datepicker {
-    @apply flex justify-center items-center;
+    @apply flex;
   }
 }
 

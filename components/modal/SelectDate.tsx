@@ -20,12 +20,9 @@ export default function SelectDate({
   onChange,
 }: SelectDateProps) {
   const isPossibleDay = (date: Date) => {
-    const currentDate = new Date();
-    const selectedDate = new Date(date);
-
-    return currentDate.getDate() <= selectedDate.getDate();
+    const currentDate = DateTime.local();
+    return DateTime.fromJSDate(date) >= currentDate.startOf('day');
   };
-
   const handleDateChange = (
     date: Date | null,
     event: SyntheticEvent<any, Event> | undefined

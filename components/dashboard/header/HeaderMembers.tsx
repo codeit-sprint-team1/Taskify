@@ -3,9 +3,6 @@ import useGetMembers from '@/components/boardEdit/data/useGetMembers';
 import { useEffect, useState } from 'react';
 import { Members } from '@/types/members';
 import MemberInfoItem from './MemberInfoItem';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-
 interface HeaderMembersProps {
   dashboardId: number;
 }
@@ -45,7 +42,7 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
   } = useGetMembers({
     boardid: dashboardId,
     page: 1,
-    size: 20,
+    size: 1000,
   });
 
   useEffect(() => {
@@ -99,8 +96,7 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
             <ProfileImage textDiv name={`${restMembers?.length}+`} src="" />
           </div>
         )}
-
-        <div className="absolute right-0pxr invisible group-hover:visible p-5pxr bg-violet8 rounded-md mt-1pxr">
+        <div className="absolute flex flex-col gap-5pxr -left-15pxr max-h-200pxr overflow-scroll invisible group-hover:visible p-5pxr bg-violet8 rounded-md mt-1pxr">
           {restMembers?.map((member) => {
             return (
               <MemberInfoItem
@@ -112,14 +108,6 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
               />
             );
           })}
-          {totalCount > 20 && (
-            <Link
-              href={`/dashboard/${dashboardId}/edit`}
-              className="block text-11pxr w-full py-5pxr text-gray50 text-center"
-            >
-              전체 멤버 보기
-            </Link>
-          )}
         </div>
       </div>
     </div>
