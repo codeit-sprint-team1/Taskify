@@ -19,7 +19,6 @@ const useOnClickOutside = () => {
         ref.current !== null &&
         !ref.current.contains(e.target as Node)
       ) {
-        console.log('닫힙니다');
         setIsOn(false);
       }
     };
