@@ -168,6 +168,7 @@ function TodoModal({
         card={card}
         state={state}
         states={states}
+        getCards={getCards}
       />
     </>
   );

@@ -16,6 +16,7 @@ export interface ModalProps {
   card: Card;
   state: Columns;
   states: Columns[];
+  getCards: () => void;
 }
 
 export interface EditCardModalForm {
@@ -37,6 +38,7 @@ export default function EditCardModal({
   card,
   states,
   state,
+  getCards,
 }: ModalProps) {
   const [selectedStateId, setSelectedStateId] = useState<number>(state.id);
   const defaultValues = {
@@ -102,6 +104,7 @@ export default function EditCardModal({
 
   const onSubmit = async () => {
     await putCard();
+    getCards();
     handleCancel();
   };
 

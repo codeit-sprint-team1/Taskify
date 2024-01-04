@@ -72,7 +72,9 @@ function Card({
           </div>
         )}
         <div className="tablet: w-full flex flex-col gap-10pxr">
-          <div className="flex text-gray70 font-medium">{card.title}</div>
+          <div className="flex text-left text-gray70 font-medium">
+            {card.title}
+          </div>
           <div className="flex-center justify-between">
             <div className="flex flex-col gap-10pxr w-full">
               <div className="flex gap-6pxr flex-wrap">
