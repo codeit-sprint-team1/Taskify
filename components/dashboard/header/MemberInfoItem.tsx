@@ -16,7 +16,9 @@ export default function MemberInfoItem({
   return (
     <div className="flex">
       <div className="shrink">
-        {showImage && <ProfileImage name={nickname} src={imageUrl ?? ''} />}
+        {showImage && (
+          <ProfileImage name={nickname} src={imageUrl ?? ''} userId={0} />
+        )}
       </div>
       <div className="w-full text-11pxr p-3pxr rounded-sm">
         <p>{nickname}</p>

@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import React from 'react';
 import { Card } from '@/types/cards';
+import { ProfileImage } from '@/components';
 
 type AsigneeCardProps = Partial<Card>;
 
@@ -11,19 +11,13 @@ function AsigneeCard({ dueDate, assignee }: AsigneeCardProps) {
         <p className="text-12pxr font-semibold mobile:text-10pxr">담당자</p>
         {assignee && (
           <div className="flex gap-8pxr items-center">
-            {assignee.profileImageUrl ? (
-              <div className="flex-center relative w-24pxr h-24pxr bg-gray20 rounded-full overflow-hidden">
-                <Image
-                  src={assignee.profileImageUrl as string}
-                  fill
-                  alt="프로필 아이콘"
-                />
-              </div>
-            ) : (
-              <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
-                {assignee.nickname.slice(0, 1)}
-              </div>
-            )}
+            (
+            <ProfileImage
+              src={assignee.profileImageUrl}
+              userId={assignee.id}
+              name={assignee.nickname}
+            />
+            )
             <span className="text-14pxr mobile:text-12pxr">
               {assignee?.nickname}
             </span>
