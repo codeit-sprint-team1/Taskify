@@ -59,7 +59,7 @@ function Card({
   const { isOn, toggle } = useToggle();
   return (
     <>
-      <div
+      <button
         onClick={toggle}
         className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center"
       >
@@ -101,7 +101,7 @@ function Card({
             )}
           </div>
         </div>
-      </div>
+      </button>
       <TodoModal
         isOpen={isOn}
         onCancel={toggle}
