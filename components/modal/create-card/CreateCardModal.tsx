@@ -5,7 +5,7 @@ import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
 import { DevTool } from '@hookform/devtools';
-import usePostCard from './data/usePostCard';
+import usePostCard from '../data/usePostCard';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -185,7 +185,6 @@ export default function CreateCardModal({
         >
           생성
         </ModalButton>
-        <DevTool control={control} />
       </div>
     </Modal>
   );

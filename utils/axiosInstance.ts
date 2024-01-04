@@ -3,7 +3,6 @@ import axios from 'axios';
 function getLocalItem() {
   if (typeof window !== 'undefined') return localStorage.getItem('accessToken');
 }
-
 const token = getLocalItem();
 
 export const axiosInstance = axios.create({

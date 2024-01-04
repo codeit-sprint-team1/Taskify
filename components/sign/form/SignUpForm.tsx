@@ -11,7 +11,8 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
-import { useSignUp, useTokenRedirect } from '../data';
+import { useSignUp } from '../data';
+import useTokenRedirect from '@/hooks/useTokenRedirect';
 import { notify } from '@/components/common/Toast';
 
 export default function SignUpForm() {

@@ -1,13 +1,20 @@
 import { useAsync } from '@/hooks/useAsync';
-import { axiosAuthInstance } from '@/utils';
+import { axiosInstance } from '@/utils';
 
 interface UseDeleteDashboardProps {
   boardid: number;
+  token: string | null;
 }
 
-function useDeleteDashboard({ boardid }: UseDeleteDashboardProps) {
+function useDeleteDashboard({ boardid, token }: UseDeleteDashboardProps) {
   const deleteDashboard = () =>
-    axiosAuthInstance.delete(`dashboards/${boardid}`);
+    axiosInstance.delete(`dashboards/${boardid}`, {
+      baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
   const { execute, error, loading, data, status } = useAsync(
     deleteDashboard,

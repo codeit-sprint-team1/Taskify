@@ -8,11 +8,13 @@ import {
 } from '../constants';
 import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
-import { useLogin, useTokenRedirect } from '../data';
-import { useUserInfo } from '@/store/memos';
+import { useLogin } from '../data';
+import { useUserInfo, useStoreAccessToken } from '@/store/memos';
+import { useRouter } from 'next/router';
 
 export default function LoginForm() {
   const { setUserInfo } = useUserInfo();
+  const { setAccessToken } = useStoreAccessToken();
   const {
     control,
     handleSubmit,
@@ -32,11 +34,22 @@ export default function LoginForm() {
     password: watch('password'),
   });
 
-  useTokenRedirect(data?.accessToken);
+  const router = useRouter();
+
+  //로그인상태면 내 대시보드로 이동
+  const isLogin = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (isLogin) {
+      router.replace('/mydashboard');
+    }
+  }, []);
 
   useEffect(() => {
     if (data?.user) {
       setUserInfo(data?.user);
+      setAccessToken(data?.accessToken);
+      localStorage.setItem('accessToken', data?.accessToken);
+      router.push('/mydashboard');
     }
   }, [data?.user, setUserInfo]);
 
@@ -53,7 +66,7 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit(login)}
-      className="w-520pxr flex flex-col gap-16pxr mobile:mx-12pxr mobile:w-350pxr "
+      className="flex flex-col w-520pxr gap-16pxr mobile:mx-12pxr mobile:w-350pxr "
     >
       <div>
         <Controller
