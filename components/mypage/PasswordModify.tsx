@@ -24,7 +24,7 @@ function PasswordModify() {
   const modifyPassword = async () => {
     let res;
     try {
-      res = await axiosAuthInstance.put(`auth/password`, {
+      res = await axiosAuthInstance('').put(`auth/password`, {
         password: watch('currentPassword'),
         newPassword: watch('newPassword'),
       });

@@ -11,7 +11,7 @@ interface PostColumnsProps {
 const usePostColumns = ({ title, dashboardId }: PostColumnsProps) => {
   const postColumns = useCallback(
     () =>
-      axiosAuthInstance.post<Columns>('columns', {
+      axiosAuthInstance('').post<Columns>('columns', {
         title,
         dashboardId,
       }),

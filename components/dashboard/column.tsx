@@ -11,7 +11,6 @@ import useToggle from '@/hooks/useToggle';
 import { CreateColumnModal, ProfileImage, TodoModal } from '..';
 import { useEffect, useState } from 'react';
 import { Columns } from '@/types/columns';
-import { DateTime } from 'ts-luxon';
 import { EditColumnModal } from '../index';
 import searchIcon from '../../public/icons/search-icon.svg';
 import CreateCardModal from '../modal/create-card/CreateCardModal';
@@ -69,7 +68,7 @@ function Card({
           </div>
         )}
         <div className="tablet: w-full flex flex-col gap-10pxr">
-          <div className="text-gray70 font-medium">{card.title}</div>
+          <div className="flex text-gray70 font-medium">{card.title}</div>
           <div className="flex-center justify-between">
             <div className="flex flex-col gap-10pxr w-full">
               <div className="flex gap-6pxr flex-wrap">

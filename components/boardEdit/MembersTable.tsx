@@ -3,6 +3,7 @@ import { Button, ProfileImage } from '..';
 import useGetMembers from './data/useGetMembers';
 import { axiosAuthInstance } from '@/utils';
 import PagenationButton from '../common/PaginationButton';
+import { notify } from '../common/Toast';
 
 interface MembersTableProps {
   boardid: number;
@@ -24,8 +25,10 @@ function MembersTable({ boardid }: MembersTableProps) {
 
   const handleDeleteMember = async (memberId: number) => {
     try {
-      const res = await axiosAuthInstance.delete(`members/${memberId}`);
-      if (res?.status === 204) alert('성공적으로 삭제 되었습니다.');
+      const res = await axiosAuthInstance('').delete(`members/${memberId}`);
+      if (res?.status === 204) {
+        notify({ type: 'success', text: '멤버를 삭제했습니다!' });
+      }
       execute();
     } catch (error) {
       console.error(error);

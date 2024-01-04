@@ -43,7 +43,9 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (data?.accessToken) {
-      axiosAuthInstance.defaults.headers.Authorization = `Bearer ${data.accessToken}`;
+      axiosAuthInstance(
+        ''
+      ).defaults.headers.Authorization = `Bearer ${data.accessToken}`;
     }
   }, [data?.accessToken]);
 

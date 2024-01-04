@@ -15,7 +15,7 @@ const usePutCard = ({
 }: CreateCard & { cardId: number; columnId: number }) => {
   const putCard = useCallback(
     () =>
-      axiosAuthInstance.put<CreateCard>(`cards/${cardId}`, {
+      axiosAuthInstance('').put<CreateCard>(`cards/${cardId}`, {
         assigneeUserId,
         title,
         description,
