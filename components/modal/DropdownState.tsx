@@ -55,22 +55,24 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
               />
             </button>
           </div>
-          {isOpen && (
-            <ul className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr">
-              {states?.map((state) => (
-                <li key={state.id}>
-                  <button
-                    className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8 tablet:text-16pxr mobile:text-14pxr"
-                    onClick={() => handleStateClick(state)}
-                  >
-                    <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-                      <ColumnState state={state.title} />
-                    </div>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+          <div className="relative">
+            {isOpen && (
+              <ul className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr">
+                {states?.map((state) => (
+                  <li key={state.id}>
+                    <button
+                      className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8 tablet:text-16pxr mobile:text-14pxr"
+                      onClick={() => handleStateClick(state)}
+                    >
+                      <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
+                        <ColumnState state={state.title} />
+                      </div>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </>
     );

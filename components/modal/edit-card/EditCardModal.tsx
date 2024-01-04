@@ -8,6 +8,7 @@ import usePutCard from './data/usePutCard';
 import DropdownState from '../DropdownState';
 import { Columns } from '@/types/columns';
 import { Card } from '@/types/cards';
+import { DevTool } from '@hookform/devtools';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -80,12 +81,16 @@ export default function EditCardModal({
     onCancel();
   };
 
+  const assigneeUserId = watch('manager')
+    ? Number(watch('manager'))
+    : undefined;
+
   const {
     execute: putCard,
     data,
     loading,
   } = usePutCard({
-    assigneeUserId: watch('assigneeUserId'),
+    assigneeUserId,
     title: watch('title'),
     description: watch('description'),
     dueDate: watch('dueDate')?.toString(),
@@ -194,6 +199,7 @@ export default function EditCardModal({
         <ModalButton disabled={!isValid || loading} onCancel={handleCancel}>
           수정
         </ModalButton>
+        <DevTool control={control} />
       </div>
     </Modal>
   );
