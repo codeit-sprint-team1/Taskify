@@ -129,7 +129,7 @@ function PasswordModify() {
         </Button>
       </form>
       <Modal isOpen={isOn} onSubmit={toggle}>
-        <div className="flex-center flex-col space-y-20pxr">
+        <div className="flex-center flex-col space-y-20pxr w-450pxr mobile:full">
           <p className="pt-70pxr pb-25pxr">{axiosErrorMessage}</p>
           <Button
             variant="primary"

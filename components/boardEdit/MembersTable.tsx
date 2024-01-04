@@ -4,6 +4,8 @@ import useGetMembers from './data/useGetMembers';
 import { axiosAuthInstance } from '@/utils';
 import PagenationButton from '../common/PaginationButton';
 import { notify } from '../common/Toast';
+import Image from 'next/image';
+import CrownIcon from '@/public/icons/crown-icon.svg';
 
 interface MembersTableProps {
   boardid: number;
@@ -71,15 +73,18 @@ function MembersTable({ boardid }: MembersTableProps) {
                   userId={item.userId}
                 />
                 <p>{item.nickname}</p>
+                <Image src={CrownIcon} alt="왕관 아이콘" />
               </div>
-              <Button
-                onClick={() => handleDeleteMember(item.id)}
-                variant="secondary"
-                size="small"
-                className="mobile:py-7pxr mobile:px-9pxr mobile:w-52pxr"
-              >
-                삭제
-              </Button>
+              {item.isOwner ? null : (
+                <Button
+                  onClick={() => handleDeleteMember(item.id)}
+                  variant="secondary"
+                  size="small"
+                  className="mobile:py-7pxr mobile:px-9pxr mobile:w-52pxr"
+                >
+                  삭제
+                </Button>
+              )}
             </div>
           );
         })}

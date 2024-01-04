@@ -160,7 +160,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
           {isOpen && filteredMembers.length !== 0 && (
             <ul
               ref={dropdownRef}
-              className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr"
+              className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr z-10"
             >
               {filteredMembers.map((member) => (
                 <li key={member.id}>
