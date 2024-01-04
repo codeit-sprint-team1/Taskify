@@ -1,12 +1,15 @@
-import MypageProfile from '@/components/mypage/MypageProfile';
-import PasswordModify from '@/components/mypage/PasswordModify';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-function MyPageLayout() {
+interface MyPageLayoutProps {
+  mypageProfile: ReactNode;
+  passwordModify: ReactNode;
+}
+
+function MyPageLayout({ mypageProfile, passwordModify }: MyPageLayoutProps) {
   return (
     <div className="mx-20pxr mobile:mx-12pxr ">
-      <MypageProfile />
-      <PasswordModify />
+      {mypageProfile}
+      {passwordModify}
     </div>
   );
 }
