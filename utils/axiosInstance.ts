@@ -4,13 +4,6 @@ export const axiosInstance = axios.create({
   baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
 });
 
-// export const axiosAuthInstance = axios.create({
-//   baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// });
-
 export const axiosAuthInstance = (options: any) => {
   const instance = axios.create({
     baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
@@ -25,7 +18,6 @@ export const axiosAuthInstance = (options: any) => {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
-      console.log('interceptor>request', config);
       return config;
     },
     (error) => {
@@ -35,7 +27,6 @@ export const axiosAuthInstance = (options: any) => {
   );
   instance.interceptors.response.use(
     (response) => {
-      console.log('interceptor>response', response);
       return response;
     },
     (error) => {
