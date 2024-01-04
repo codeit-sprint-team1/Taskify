@@ -55,7 +55,8 @@ function Card({
   getCards: () => void;
   columnTitle: string;
 }) {
-  const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
+  const date = card.dueDate && card.dueDate.split(' ')[0];
+  console.log(date);
   const { isOn, toggle } = useToggle();
   return (
     <>
