@@ -39,7 +39,7 @@ export default function ProfileDropdownMenu() {
   }
 
   return (
-    <div className="absolute -right-15pxr top-15pxr">
+    <div className="absolute -right-25pxr top-5pxr">
       <DropdownMenu options={options} />
     </div>
   );
