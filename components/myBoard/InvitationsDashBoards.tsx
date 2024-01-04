@@ -51,7 +51,7 @@ function InvitationsList({
         <span className="pr-16pxr hidden mobile:inline text-gray40">
           초대자
         </span>
-        {item.invitee.nickname}
+        {item.inviter.nickname}
       </div>
       <div className="flex gap-10pxr">
         <Button variant="primary" size="xsmall" onClick={acceptInvitation}>
