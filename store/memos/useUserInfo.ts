@@ -1,21 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export interface userInfoType {
-  id: number | null;
-  email: string;
-  nickname: string;
-  profileImageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-}
-
+import { LoginData } from '@/types/auth';
 interface UserInfoState {
-  userInfo: userInfoType;
+  userInfo: LoginData;
 }
 
 interface UserInfoActions {
-  setUserInfo: (userinfo: userInfoType) => void;
+  setUserInfo: (userinfo: LoginData) => void;
 }
 
 const defaultState = {
@@ -31,7 +22,7 @@ const useUserInfo = create(
   persist<UserInfoState & UserInfoActions>(
     (set) => ({
       userInfo: defaultState,
-      setUserInfo: (newUserInfo: userInfoType) => {
+      setUserInfo: (newUserInfo: LoginData) => {
         set({
           userInfo: newUserInfo,
         });

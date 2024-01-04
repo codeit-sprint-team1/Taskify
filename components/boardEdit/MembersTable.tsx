@@ -67,7 +67,11 @@ function MembersTable({ boardid }: MembersTableProps) {
           return (
             <div key={item.id} className="flex justify-between">
               <div className="flex items-center space-x-12pxr">
-                <ProfileImage name={item.nickname} src={item.profileImageUrl} />
+                <ProfileImage
+                  name={item.nickname}
+                  src={item.profileImageUrl}
+                  userId={item.userId}
+                />
                 <p>{item.nickname}</p>
                 <Image src={CrownIcon} alt="왕관 아이콘" />
               </div>

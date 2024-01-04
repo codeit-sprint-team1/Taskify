@@ -6,6 +6,7 @@ import { notify } from '@/components/common/Toast';
 import { Controller, useForm } from 'react-hook-form';
 import { isAxiosError } from 'axios';
 import { Comments, CommentsRawData } from '@/types/comments';
+import { ProfileImage } from '@/components';
 
 interface CommentListProps {
   cardId: number;
@@ -76,10 +77,10 @@ function CommentList({ cardId, comments, setComments }: CommentListProps) {
     <div className="flex gap-10pxr flex-col overflow-scroll h-160pxr">
       {data?.comments.map((comment) => (
         <div key={comment?.id} className="flex gap-10pxr">
-          <img
-            src={comment?.author.profileImageUrl}
-            alt="프로필아이콘"
-            className="w-34pxr h-34pxr rounded-full bg-green flex-center mobile:w-26pxr mobile:h-26pxr"
+          <ProfileImage
+            name={comment?.author.nickname}
+            src={comment.author.profileImageUrl}
+            userId={comment.author.id}
           />
           <div className="flex flex-col gap-6pxr">
             <div className="space-x-8pxr">
