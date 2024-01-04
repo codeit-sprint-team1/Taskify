@@ -41,3 +41,4 @@ export { default as InvitationsDashBoards } from './myBoard/InvitationsDashBoard
 export { default as Tag } from '@/components/common/Tag';
 export { default as DeleteDashboardConfirmModal } from './boardEdit/DeleteDashboardConfirmModal';
 export { default as MypageMain } from './mypage/MypageMain';
+export { default as TodoModal } from './modal/todo/TodoModal';

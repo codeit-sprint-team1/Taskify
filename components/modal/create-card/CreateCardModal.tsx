@@ -1,10 +1,8 @@
 import { ImagePick, Input, Modal, SelectDate, TextArea } from '@/components';
-import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
-import { DevTool } from '@hookform/devtools';
 import usePostCard from './data/usePostCard';
 
 export interface ModalProps {
@@ -34,27 +32,20 @@ export default function CreateCardModal({
   columnId,
   getCards,
 }: ModalProps) {
-  const defaultValues = {
-    title: '',
-    manager: '',
-    description: '',
-    dueDate: '',
-    imageUrl: '',
-    tags: [],
-  };
   const {
     control,
     handleSubmit,
     watch,
     reset,
     setValue,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm<CreateCardModalForm>({
-    defaultValues,
     mode: 'onChange',
   });
 
-  const assigneeUserId = Number(watch('manager'));
+  const assigneeUserId = watch('manager')
+    ? Number(watch('manager'))
+    : undefined;
 
   const handleImageSelect = (imageUrl: string) => {
     setValue('imageUrl', imageUrl);
@@ -69,26 +60,8 @@ export default function CreateCardModal({
     onCancel();
   };
 
-  const isFormFullyFilled = () => {
-    const formValues = watch();
-    return (
-      Object.keys(defaultValues) as Array<keyof CreateCardModalForm>
-    ).every((key) => {
-      const value = formValues[key];
-      if (Array.isArray(value)) {
-        return value.length > 0;
-      } else {
-        return value !== null && value !== '';
-      }
-    });
-  };
-
-  const {
-    execute: postCard,
-    data: response,
-    loading,
-  } = usePostCard({
-    assigneeUserId: assigneeUserId,
+  const { execute: postCard, loading } = usePostCard({
+    assigneeUserId,
     dashboardId,
     columnId,
     title: watch('title'),
@@ -117,7 +90,6 @@ export default function CreateCardModal({
             <Controller
               control={control}
               name="manager"
-              rules={{ required: true }}
               render={({ field: { ref, ...rest } }) => (
                 <DropdownManager
                   ref={ref}
@@ -153,7 +125,6 @@ export default function CreateCardModal({
           <Controller
             control={control}
             name="dueDate"
-            rules={{ required: true }}
             render={({ field: { ref, ...rest } }) => (
               <SelectDate {...rest} label="마감일" />
             )}
@@ -161,7 +132,6 @@ export default function CreateCardModal({
           <Controller
             control={control}
             name="imageUrl"
-            rules={{ required: true }}
             render={({ field: { ref, ...rest } }) => (
               <ImagePick
                 ref={ref}
@@ -175,14 +145,12 @@ export default function CreateCardModal({
           <Controller
             control={control}
             name="tags"
-            rules={{ required: true }}
-            render={() => <AddTag onTagListChange={onTagListChange} />}
+            render={({ field: { ref, ...rest } }) => (
+              <AddTag {...rest} onTagListChange={onTagListChange} />
+            )}
           />
         </div>
-        <ModalButton
-          disabled={Object.keys(errors).length !== 0 || !isFormFullyFilled()}
-          onCancel={handleCancel}
-        >
+        <ModalButton disabled={!isValid || loading} onCancel={handleCancel}>
           생성
         </ModalButton>
       </div>
