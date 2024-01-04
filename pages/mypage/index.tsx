@@ -2,7 +2,7 @@ import { DashboardSidebar, Header, MypageMain } from '@/components';
 import useGetDashboards from '@/components/dashboard/data/useGetDashboards';
 import useRedirectToMain from '@/hooks/useRedirectToHome';
 import DashboardLayout from '@/page-layout/DashboardLayout';
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import useDashboardList from '@/store/memos/useDashboardList';
 import React, { useEffect } from 'react';
 
 function Mypage() {
