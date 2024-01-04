@@ -39,9 +39,14 @@ function CommentList({ cardId, comments, setComments }: CommentListProps) {
 
   const handleDeleteComment = async (commentId: number) => {
     try {
-      await axiosAuthInstance.delete(`comments/${commentId}`);
+      const res = await axiosAuthInstance.delete(`comments/${commentId}`);
+      if (res.status === 204) {
+        notify({ type: 'success', text: '댓글을 삭제했습니다.' });
+      }
     } catch (error) {
       notify({ type: 'error', text: '삭제할 수 없습니다.' });
+    } finally {
+      getComments();
     }
   };
 
