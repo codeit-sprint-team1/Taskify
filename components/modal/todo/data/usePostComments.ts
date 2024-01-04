@@ -15,7 +15,7 @@ function usePostComments({
   dashboardId,
 }: UsePostCommentsProps) {
   const postComments = () =>
-    axiosAuthInstance.post(`comments`, {
+    axiosAuthInstance('').post(`comments`, {
       content,
       cardId,
       columnId,

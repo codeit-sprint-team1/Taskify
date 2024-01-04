@@ -5,7 +5,7 @@ import { axiosAuthInstance } from '@/utils';
 import { notify } from '@/components/common/Toast';
 import { Controller, useForm } from 'react-hook-form';
 import { isAxiosError } from 'axios';
-import { Comments } from '@/types/comments';
+import { Comments, CommentsRawData } from '@/types/comments';
 
 interface CommentListProps {
   cardId: number;
@@ -39,7 +39,7 @@ function CommentList({ cardId, comments, setComments }: CommentListProps) {
 
   const handleDeleteComment = async (commentId: number) => {
     try {
-      const res = await axiosAuthInstance.delete(`comments/${commentId}`);
+      const res = await axiosAuthInstance('').delete(`comments/${commentId}`);
       if (res.status === 204) {
         notify({ type: 'success', text: '댓글을 삭제했습니다.' });
       }
@@ -52,7 +52,7 @@ function CommentList({ cardId, comments, setComments }: CommentListProps) {
 
   const handleUpdateComment = async (commentId: number) => {
     try {
-      const res = await axiosAuthInstance.put(`comments/${commentId}`, {
+      const res = await axiosAuthInstance('').put(`comments/${commentId}`, {
         content: watch('commentInput'),
       });
       toggleCommentInput(commentId);

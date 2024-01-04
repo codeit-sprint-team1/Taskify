@@ -11,7 +11,7 @@ interface UsePutColumnsProps {
 const usePutColumns = ({ title, columnId }: UsePutColumnsProps) => {
   const putColumns = useCallback(
     () =>
-      axiosAuthInstance.put<Columns>(`columns/${columnId}`, {
+      axiosAuthInstance('').put<Columns>(`columns/${columnId}`, {
         title,
       }),
     [title, columnId]

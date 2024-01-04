@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 
 const useDeleteColumns = (columnId: number) => {
   const deleteColumns = useCallback(
-    () => axiosAuthInstance.delete(`columns/${columnId}`),
+    () => axiosAuthInstance('').delete(`columns/${columnId}`),
     [columnId]
   );
 

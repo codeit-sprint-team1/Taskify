@@ -6,7 +6,8 @@ interface useDeleteMemberProps {
 }
 
 function useDeleteMember({ memberId }: useDeleteMemberProps) {
-  const deleteMember = () => axiosAuthInstance.delete(`members/${memberId}`);
+  const deleteMember = () =>
+    axiosAuthInstance('').delete(`members/${memberId}`);
 
   const { execute, loading, error, data } = useAsync(deleteMember, true);
 

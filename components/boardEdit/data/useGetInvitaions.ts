@@ -27,7 +27,7 @@ function useGetInvitaions({ boardid, page, size }: useGetInvitationsProps) {
   };
 
   const getInvitaions = () =>
-    axiosAuthInstance.get<DashboardsInvitation>(
+    axiosAuthInstance('').get<DashboardsInvitation>(
       `dashboards/${boardid}/invitations?page=${page}&size=${size}`
     );
 

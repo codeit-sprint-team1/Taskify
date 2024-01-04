@@ -9,7 +9,7 @@ interface UsePutDashboardProps {
 
 function usePutDashboard({ title, color, boardid }: UsePutDashboardProps) {
   const putDashboard = () =>
-    axiosAuthInstance.put(`dashboards/${boardid}`, {
+    axiosAuthInstance('').put(`dashboards/${boardid}`, {
       title,
       color,
     });
