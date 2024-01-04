@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import useGetInvitations from './data/useGetInvitations';
 import usePutInvitations from './data/usePutInvitations';
-import { useStoreAccessToken } from '@/store/memos';
+import useGetDashboards from '@/components/dashboard/data/useGetDashboards';
+import { useDashboardList, useStoreAccessToken } from '@/store/memos';
 
 function InvitationsList({
   item,
@@ -31,16 +32,22 @@ function InvitationsList({
     id: item.id,
     token,
   });
-  function acceptInvitation() {
-    data.splice(index, 1);
-    setData(data);
+  const { execute } = useGetDashboards(token);
+  const { setDashboardList } = useDashboardList();
+  async function acceptInvitation() {
     Accept();
-  }
-  function refuseInvitation() {
     data.splice(index, 1);
     setData(data);
-    Refuse();
+    const dashboards = await execute();
+    setDashboardList(dashboards.data.dashboards);
   }
+
+  function refuseInvitation() {
+    Refuse();
+    data.splice(index, 1);
+    setData(data);
+  }
+
   return (
     <div className="grid desktop:grid-cols-3 tablet:grid-cols-3 mobile:grid-rows-3 justify-center items-center mobile:text-14pxr">
       <div className="pl-32pxr mobile:pl-0pxr">
@@ -124,8 +131,8 @@ function InvitationsNotValid() {
 }
 
 export default function InvitationsDashBoards() {
-  const { accessToken } = useStoreAccessToken();
-  const { invitations } = useGetInvitations(accessToken);
+  const { accessToken: token } = useStoreAccessToken();
+  const { invitations } = useGetInvitations(token);
   const [data, setData] = useState(invitations);
 
   useEffect(() => setData(invitations), [invitations]);

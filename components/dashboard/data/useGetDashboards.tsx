@@ -7,7 +7,7 @@ const useGetDashboards = (token: string | null) => {
   const getDashboards = useCallback(
     () =>
       axiosInstance.get(
-        `dashboards?navigationMethod=infiniteScroll&page=1&size=100`,
+        `dashboards?navigationMethod=pagination&page=1&size=10000`,
         {
           baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
           headers: {
@@ -23,6 +23,7 @@ const useGetDashboards = (token: string | null) => {
 
   const totalCount: number = data?.totalCount;
   const dashboards: Dashboards[] = data?.dashboards;
+  const totalPage = Math.ceil(totalCount / 5);
 
   return {
     execute,
@@ -30,6 +31,7 @@ const useGetDashboards = (token: string | null) => {
     error,
     totalCount,
     dashboards,
+    totalPage,
   };
 };
 

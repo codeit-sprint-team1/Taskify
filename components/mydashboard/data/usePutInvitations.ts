@@ -1,6 +1,7 @@
-import { axiosAuthInstance, axiosInstance } from '@/utils';
+import { axiosInstance } from '@/utils';
 import { useAsync } from '@/hooks/useAsync';
 import { useCallback } from 'react';
+import { useDashboardList } from '@/store/memos';
 
 interface usePutInvitationsParams {
   inviteAccepted: boolean;
@@ -12,6 +13,7 @@ export default function usePutInvitations({
   id,
   token,
 }: usePutInvitationsParams) {
+  const { addDashboard } = useDashboardList();
   const putInvitations = useCallback(
     () =>
       axiosInstance.put(
@@ -28,6 +30,9 @@ export default function usePutInvitations({
     [inviteAccepted]
   );
   const { execute, loading, error, data } = useAsync(putInvitations, true);
+  if (inviteAccepted && data) {
+    addDashboard(data);
+  }
 
   return {
     execute,
