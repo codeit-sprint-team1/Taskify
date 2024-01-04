@@ -14,7 +14,7 @@ interface DropdownStateProps {
 
 const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
   ({ initialState, onChange, states }: DropdownStateProps, ref) => {
-    const [value, setValue] = useState(initialState); //input에 보이는 값
+    const [title, setTitle] = useState(initialState); //input에 보이는 값
     const {
       isOn: isOpen,
       close,
@@ -23,7 +23,7 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
     } = useOnClickOutside();
 
     const handleStateClick = (state: Columns) => {
-      setValue(state.title);
+      setTitle(state.title);
       onChange(state.id);
       close();
     };
@@ -38,11 +38,11 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
               type="button"
               className={`block w-full rounded-md border border-solid border-gray30
            pr-16pxr ${
-             value ? 'pl-40pxr' : 'pl-11pxr'
+             title ? 'pl-40pxr' : 'pl-11pxr'
            }  tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40 outline-0 h-50pxr cursor-pointer`}
             />
             <div className="absolute cursor-pointer pl-10pxr">
-              {value && <ColumnState state={value} />}
+              {title && <ColumnState state={title} />}
             </div>
 
             <button tabIndex={-1}>

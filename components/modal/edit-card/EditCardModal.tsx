@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
-import { DevTool } from '@hookform/devtools';
 import usePutCard from './data/usePutCard';
 import DropdownState from '../DropdownState';
 import { Columns } from '@/types/columns';
@@ -38,10 +37,10 @@ export default function EditCardModal({
   states,
   state,
 }: ModalProps) {
-  const [selectedStateId, setSelectedStateId] = useState<number>(0);
+  const [selectedStateId, setSelectedStateId] = useState<number>(state.id);
   const defaultValues = {
     title: card?.title,
-    manager: card?.assignee.nickname,
+    manager: card?.assignee?.nickname,
     description: card?.description,
     dueDate: card?.dueDate,
     imageUrl: card?.imageUrl,
@@ -92,7 +91,7 @@ export default function EditCardModal({
     dueDate: watch('dueDate')?.toString(),
     imageUrl: watch('imageUrl'),
     tags: watch('tags'),
-    cardId: card.id,
+    cardId: card?.id,
     columnId: selectedStateId,
   });
 
