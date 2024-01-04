@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import useGetColum from './data/useGetColums';
 import useGetCards from './data/useGetCards';
 import useToggle from '@/hooks/useToggle';
-import { CreateColumnModal, TodoModal } from '..';
+import { CreateColumnModal, ProfileImage, TodoModal } from '..';
 import { useEffect, useState } from 'react';
 import { Columns } from '@/types/columns';
 import { EditColumnModal } from '../index';
@@ -92,20 +92,13 @@ function Card({
               </div>
             </div>
             {card.assignee && (
-              <div className="flex justify-end items-end h-full">
-                {card.assignee.profileImageUrl ? (
-                  <div className="flex-center relative w-24pxr h-24pxr bg-gray20 rounded-full overflow-hidden">
-                    <Image
-                      src={card.assignee.profileImageUrl as string}
-                      fill
-                      alt="프로필 아이콘"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
-                    {card.assignee.nickname.slice(0, 1)}
-                  </div>
-                )}
+              <div className="shrink-0">
+                <ProfileImage
+                  name={card.assignee.nickname}
+                  src={card.assignee.profileImageUrl}
+                  userId={card.assignee.id}
+                  size="sm"
+                />
               </div>
             )}
           </div>

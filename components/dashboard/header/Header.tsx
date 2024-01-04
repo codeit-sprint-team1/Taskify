@@ -54,7 +54,7 @@ export default function Header({ dashboard, children }: HeaderProps) {
         {children}
         <div ref={ref} className="relative flex">
           <button type="button" onClick={toggle}>
-            <Profile name={nickname} src={profileImage} />
+            <Profile name={nickname} src={profileImage} userId={userInfo.id} />
           </button>
           {isOn && <ProfileDropdownMenu />}
         </div>

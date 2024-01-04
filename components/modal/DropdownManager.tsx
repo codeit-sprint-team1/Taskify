@@ -35,6 +35,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
     const dropdownRef = useRef<HTMLUListElement>(null);
     const [selectedMember, setSelectedMember] = useState('');
     const [selectedMemberProfile, setSelectedMemberProfile] = useState('');
+    const [selectedMemberId, setSelectedMemberId] = useState(0);
     const [isMemberNotFound, setIsMemberNotFound] = useState(false);
     const filteredMembers = members.filter((member) =>
       member.nickname.includes(internalValue)
@@ -134,6 +135,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
               <ProfileImage
                 src={selectedMemberProfile}
                 name={selectedMember}
+                userId={selectedMemberId}
                 size="sm"
               />
             </div>
@@ -171,6 +173,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
                       <ProfileImage
                         src={member.profileImageUrl}
                         name={member.nickname}
+                        userId={member.userId}
                         size="sm"
                       />
                       {member.nickname}
