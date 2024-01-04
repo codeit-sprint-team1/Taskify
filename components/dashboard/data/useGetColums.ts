@@ -5,7 +5,7 @@ import { Columns } from '@/types/columns';
 
 export default function useGetColum(id: number) {
   const getDashboards = useCallback(
-    () => axiosAuthInstance.get(`columns?dashboardId=${id}`),
+    () => axiosAuthInstance('').get(`columns?dashboardId=${id}`),
     [id]
   );
 

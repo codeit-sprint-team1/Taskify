@@ -37,7 +37,7 @@ function MypageProfile() {
 
   const postProfileImage = async (imgFile: File | undefined) => {
     if (!imgFile) return;
-    const res = await axiosAuthInstance.post(
+    const res = await axiosAuthInstance('').post(
       `users/me/image`,
       {
         image: imgFile,
@@ -63,7 +63,7 @@ function MypageProfile() {
 
   const modifyMydata = async () => {
     try {
-      const res = await axiosAuthInstance.put(`users/me`, {
+      const res = await axiosAuthInstance('').put(`users/me`, {
         nickname: watch('nickname'),
         profileImageUrl: imgUrl,
       });

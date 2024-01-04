@@ -8,7 +8,7 @@ interface UseGetCommentsProps {
 
 function useGetComments({ cardId }: UseGetCommentsProps) {
   const getComments = () =>
-    axiosAuthInstance.get<CommentsRawData>(`comments?cardId=${cardId}`);
+    axiosAuthInstance('').get<CommentsRawData>(`comments?cardId=${cardId}`);
 
   const { execute, loading, error, data } = useAsync(getComments);
 
