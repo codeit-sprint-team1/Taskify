@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import addIcon from '@/public/icons/add-icon.svg';
 import Image from 'next/image';
 import { Button, Input } from '..';
@@ -6,13 +6,29 @@ import { axiosAuthInstance } from '@/utils';
 import { useUserInfo } from '@/store/memos';
 import 'react-toastify/dist/ReactToastify.css';
 import { notify } from '../common/Toast';
+import { Controller, useForm } from 'react-hook-form';
+import axios from 'axios';
+import useGetUser from './data/useGetUser';
 
 function MypageProfile() {
+  const { userInfo, setUserInfo } = useUserInfo();
+  const { email, nickname: userNickname } = userInfo;
   const imageUploaderRef = useRef<HTMLInputElement>(null);
-  const [imgUrl, setImgUrl] = useState<string>('');
-  const [nickname, setNickname] = useState('');
-  const { userInfo } = useUserInfo();
-  const email = userInfo?.email;
+  const [imgUrl, setImgUrl] = useState<string | null>();
+  const { control, watch, setError } = useForm({
+    mode: 'onBlur',
+    defaultValues: { nickname: userNickname },
+  });
+
+  const { execute: getUser, data, loading } = useGetUser();
+
+  useEffect(() => {
+    if (!imgUrl) return;
+    getUser();
+  }, [imgUrl]);
+
+  const profileImageUrl = data?.profileImageUrl;
+
   const onClickInput = () => {
     if (imageUploaderRef.current) {
       imageUploaderRef.current.click();
@@ -45,21 +61,20 @@ function MypageProfile() {
     }
   };
 
-  const handleChangeNickname = (event: ChangeEvent<HTMLInputElement>) => {
-    setNickname(event.target.value);
-  };
-
   const modifyMydata = async () => {
     try {
       const res = await axiosAuthInstance.put(`users/me`, {
-        nickname,
+        nickname: watch('nickname'),
         profileImageUrl: imgUrl,
       });
       if (res.status === 200) {
         notify({ type: 'success', text: '회원정보가 수정되었습니다 😊' });
+        setUserInfo(res?.data);
       }
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        setError('nickname', { message: error.response?.data.message });
+      }
     }
   };
 
@@ -70,23 +85,26 @@ function MypageProfile() {
         <div className="flex gap-16pxr mobile:block mobile:space-y-24pxr">
           <div
             className="flex-center bg-gray10 w-190pxr h-190pxr border mobile:w-100pxr mobile:h-100pxr cursor-pointer"
+            onClick={onClickInput}
             style={{
-              backgroundImage: imgUrl ? `url(${imgUrl})` : 'none',
+              backgroundImage: imgUrl
+                ? `url(${imgUrl})`
+                : `url(${profileImageUrl})`,
               backgroundRepeat: 'no-repeat',
               objectFit: 'cover',
               backgroundPosition: 'center',
             }}
           >
             <input
+              name="imageUploader"
               type="file"
               className="hidden"
-              name="imageUploader"
               ref={imageUploaderRef}
               onChange={onChangeImg}
               accept="image/*"
             />
             <label htmlFor="imageUploader">
-              <button onClick={onClickInput}>
+              <button>
                 <Image
                   src={addIcon}
                   alt="추가하기 아이콘"
@@ -102,11 +120,18 @@ function MypageProfile() {
               disabled
               classNames="text-gray30"
             />
-            <Input
-              label="닉네임"
-              value={nickname}
-              onChange={handleChangeNickname}
-            />
+            <Controller
+              name="nickname"
+              control={control}
+              render={({ field, fieldState }) => (
+                <Input
+                  {...field}
+                  label="닉네임"
+                  hasError={Boolean(fieldState.error)}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            ></Controller>
           </div>
         </div>
         <Button

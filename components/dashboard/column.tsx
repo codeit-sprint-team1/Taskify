@@ -59,11 +59,11 @@ function Card({
   columns: Columns[];
   column: Columns;
 }) {
-  const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
+  const date = card.dueDate && card.dueDate.split(' ')[0];
   const { isOn, toggle } = useToggle();
   return (
     <>
-      <div
+      <button
         onClick={toggle}
         className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center"
       >
@@ -82,8 +82,12 @@ function Card({
                 ))}
               </div>
               <div className="flex gap-6pxr text-gray50 text-12pxr font-medium">
-                <Image src={calIcon} alt="calIcon" />
-                {date}
+                {date && (
+                  <>
+                    <Image src={calIcon} alt="calIcon" />
+                    {date}
+                  </>
+                )}
               </div>
             </div>
             {card.assignee && (
@@ -105,7 +109,7 @@ function Card({
             )}
           </div>
         </div>
-      </div>
+      </button>
       <TodoModal
         isOpen={isOn}
         onCancel={toggle}
