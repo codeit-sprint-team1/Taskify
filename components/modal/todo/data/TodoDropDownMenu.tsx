@@ -1,30 +1,23 @@
 import { DropdownMenu } from '@/components';
-import { useRouter } from 'next/router';
 import React from 'react';
 
-function TodoDropDownMenu() {
-  const router = useRouter();
+interface TodoDropDownMenuProps {
+  onDelete: () => void;
+}
+
+function TodoDropDownMenu({ onDelete }: TodoDropDownMenuProps) {
   let options = [
     {
       key: 1,
       title: '수정하기',
-      handler: () => {
-        router.push('/mydashboard');
-      },
+      handler: () => {},
     },
     {
       key: 2,
       title: '삭제하기',
-      handler: () => {
-        router.push('/mypage');
-      },
+      handler: onDelete,
     },
   ];
-
-  const isMydashboard = router.pathname === '/mydashboard';
-  if (isMydashboard) {
-    options = options.splice(1);
-  }
 
   return <DropdownMenu options={options} />;
 }

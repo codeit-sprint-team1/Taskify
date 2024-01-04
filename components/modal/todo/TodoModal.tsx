@@ -15,13 +15,17 @@ import { Comments } from '@/types/comments';
 import useGetComments from './data/useGetComments';
 import useToggle from '@/hooks/useToggle';
 import TodoDropDownMenu from './data/TodoDropDownMenu';
+import EditCardModal from '../edit-card/EditCardModal';
+import { axiosAuthInstance } from '@/utils';
+import { notify } from '@/components/common/Toast';
 
 interface TodoModalProps extends ModalProps {
   tag?: string;
   card: Card;
+  getCards: () => void;
 }
 
-function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
+function TodoModal({ isOpen, onCancel, card, getCards }: TodoModalProps) {
   const [comments, setComments] = useState<Comments[]>([]);
   const { isOn, toggle } = useToggle();
   const handleSubmit = () => {
@@ -47,13 +51,24 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
     error,
   } = useGetComments({ cardId });
 
-  // const initComments = data?.comments;
-
   useEffect(() => {
     getComments();
     if (!data) return;
     setComments(data?.comments);
   }, []);
+
+  const handleDeleteCard = async () => {
+    try {
+      const res = await axiosAuthInstance.delete(`cards/${cardId}`);
+      if (res.status === 204) {
+        notify({ type: 'success', text: '카드가 삭제되었습니다!' });
+      }
+      toggle();
+      getCards();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit}>
@@ -61,14 +76,16 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
         <div className="flex justify-between items-center mobile:flex-col-reverse">
           <Modal.Title>{title}</Modal.Title>
           <div className="flex gap-24pxr mobile:self-end">
-            <button type="button" onClick={toggle}>
-              <Image
-                src={kekbabIcon}
-                alt="케밥 아이콘"
-                className="w-28pxr h-28pxr mobile:w-20pxr mobile:h-20pxr"
-              />
-            </button>
-            {isOn && <TodoDropDownMenu />}
+            <div className="relative">
+              <button type="button" onClick={toggle}>
+                <Image
+                  src={kekbabIcon}
+                  alt="케밥 아이콘"
+                  className="w-28pxr h-28pxr mobile:w-20pxr mobile:h-20pxr"
+                />
+              </button>
+              {isOn && <TodoDropDownMenu onDelete={handleDeleteCard} />}
+            </div>
             <button type="button" onClick={onCancel}>
               <Image
                 src={closeIcon}
@@ -93,7 +110,7 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
                 ))}
               </div>
             </div>
-            <div className=" h-full overflow-scroll space-y-16pxr ">
+            <div className=" max-h-[470px] overflow-scroll space-y-16pxr ">
               <p className="text-14pxr">{description}</p>
               <img src={imageUrl} alt="본문 이미지" className="w-screen" />
             </div>

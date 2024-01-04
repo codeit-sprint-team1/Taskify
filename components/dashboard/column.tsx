@@ -46,13 +46,16 @@ function CardAdd({ dashboardId, columnId, getCards }: CardAddProps) {
   );
 }
 
-function Card({ card }: { card: Card }) {
+function Card({ card, getCards }: { card: Card; getCards: () => void }) {
   const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
   const { isOn, toggle } = useToggle();
   return (
     <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
       {card.imageUrl && (
-        <div className="relative w-full h-160pxr tablet:h-53pxr tablet:w-90pxr bg-gray10 rounded-md">
+        <div
+          className="relative w-full h-160pxr tablet:h-53pxr tablet:w-90pxr bg-gray10 rounded-md"
+          onClick={toggle}
+        >
           <Image src={card.imageUrl} alt="cardImg" fill objectFit="contain" />
         </div>
       )}
@@ -77,7 +80,12 @@ function Card({ card }: { card: Card }) {
           </div>
         </div>
       </div>
-      <TodoModal isOpen={isOn} onCancel={toggle} card={card} />
+      <TodoModal
+        isOpen={isOn}
+        onCancel={toggle}
+        card={card}
+        getCards={getCards}
+      />
     </div>
   );
 }
@@ -147,7 +155,9 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
             getCards={getCards}
           />
           {filterCards &&
-            filterCards.map((card) => <Card card={card} key={card.id} />)}
+            filterCards.map((card) => (
+              <Card card={card} key={card.id} getCards={getCards} />
+            ))}
         </div>
       </div>
       <EditColumnModal
