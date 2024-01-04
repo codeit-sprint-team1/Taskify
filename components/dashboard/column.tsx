@@ -15,6 +15,7 @@ import { EditColumnModal } from '../index';
 import searchIcon from '../../public/icons/search-icon.svg';
 import CreateCardModal from '../modal/create-card/CreateCardModal';
 import { Tag } from '../index';
+import { getTextToNum } from '@/utils/getRandomNum';
 
 interface CardAddProps {
   dashboardId: number;
@@ -116,6 +117,44 @@ function Card({
   );
 }
 
+interface ColumnStateProps {
+  state: string;
+}
+
+interface RandomColors {
+  [key: number]: string;
+}
+
+const RANDOM_COLORS: RandomColors = {
+  0: 'bg-lightgreen',
+  1: 'bg-lightpurple',
+  2: 'bg-lightorange',
+  3: 'bg-pastelblue',
+  4: 'bg-lightpink',
+  5: 'bg-gray30',
+  6: 'bg-lightbrown',
+  7: 'bg-yellow',
+  8: 'bg-pastelnavy',
+  9: 'bg-pastelred',
+};
+
+interface RandomColorComb {
+  [key: string]: string;
+}
+
+export const RANDOM_COLOR_CIRCLE: RandomColorComb = {
+  'bg-lightgreen': 'bg-green',
+  'bg-lightpurple': 'bg-purple',
+  'bg-lightorange': 'bg-orange',
+  'bg-pastelblue': 'bg-blue',
+  'bg-lightpink': 'bg-pink',
+  'bg-gray30': 'bg-gray60',
+  'bg-lightbrown': 'bg-brown',
+  'bg-yellow': 'bg-greenyellow',
+  'bg-pastelnavy': 'bg-lightblue',
+  'bg-pastelred': 'bg-lightred',
+};
+
 function ColumnTitle({
   title,
   totalCount,
@@ -125,10 +164,13 @@ function ColumnTitle({
   totalCount: number;
   toggle: () => void;
 }) {
+  const num = getTextToNum(title);
+  const bg = RANDOM_COLORS[num + 1];
+  const circle = RANDOM_COLOR_CIRCLE[bg];
   return (
     <div className="flex justify-between">
       <div className="flex-center gap-10pxr">
-        <Image src={dotIcon} alt="dotIcon" />
+        <div className={`w-8pxr h-8pxr rounded-full ${circle}`} />
         <div className="text-gray70 text-18pxr font-bold">{title}</div>
         <div className="bg-gray20 rounded px-6pxr py-3pxr text-12pxr text-gray50 font-medium">
           {totalCount}

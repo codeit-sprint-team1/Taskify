@@ -42,7 +42,7 @@ export default function DeleteColumnConfirmModal({
 
   return (
     <Modal onSubmit={handleSubmit} isOpen={isOpen}>
-      <div className="pt-80pxr pb-17pxr text-center text-18pxr font-medium">
+      <div className="pt-80pxr pb-17pxr text-center text-18pxr font-medium w-484pxr mobile:w-287pxr">
         컬럼의 모든 카드가 삭제됩니다.
       </div>
       <ModalButton disabled={loading} onCancel={onCancel}>

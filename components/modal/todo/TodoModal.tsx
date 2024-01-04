@@ -126,7 +126,7 @@ function TodoModal({
             <div className="flex flex-col gap-26pxr h-full w-full mobile:order-2">
               <div className="flex gap-20pxr">
                 <div>
-                  <Tag tag={state.title} />
+                  <Tag tag={'● ' + state.title} />
                 </div>
                 <Image
                   src={verticalLineIcon}

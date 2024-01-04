@@ -11,13 +11,11 @@ function AsigneeCard({ dueDate, assignee }: AsigneeCardProps) {
         <p className="text-12pxr font-semibold mobile:text-10pxr">담당자</p>
         {assignee && (
           <div className="flex gap-8pxr items-center">
-            (
             <ProfileImage
               src={assignee.profileImageUrl}
               userId={assignee.id}
               name={assignee.nickname}
             />
-            )
             <span className="text-14pxr mobile:text-12pxr">
               {assignee?.nickname}
             </span>

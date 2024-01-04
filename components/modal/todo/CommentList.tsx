@@ -101,14 +101,14 @@ function CommentList({ cardId, comments, setComments }: CommentListProps) {
                       type="text"
                       {...field}
                       placeholder="댓글수정"
-                      className="border border-gray40 rounded-xl indent-8pxr placeholder:text-12pxr focus:outline-none"
+                      className="border border-gray30 rounded-md indent-8pxr placeholder:text-12pxr focus:outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => handleUpdateComment(comment?.id)}
                       className="text-12pxr"
                     >
-                      수정하기
+                      완료
                     </button>
                   </form>
                 )}
@@ -123,7 +123,7 @@ function CommentList({ cardId, comments, setComments }: CommentListProps) {
                 type="button"
                 onClick={() => toggleCommentInput(comment?.id)}
               >
-                수정
+                {isCommentInputOpen[comment.id] ? '취소' : '수정'}
               </button>
               <button
                 className="text-gray40 text-12pxr underline mobile:text-10pxr"
