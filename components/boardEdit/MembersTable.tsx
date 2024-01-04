@@ -73,7 +73,9 @@ function MembersTable({ boardid }: MembersTableProps) {
                   userId={item.userId}
                 />
                 <p>{item.nickname}</p>
-                <Image src={CrownIcon} alt="왕관 아이콘" />
+                {item.isOwner ? (
+                  <Image src={CrownIcon} alt="왕관 아이콘" />
+                ) : null}
               </div>
               {item.isOwner ? null : (
                 <Button
