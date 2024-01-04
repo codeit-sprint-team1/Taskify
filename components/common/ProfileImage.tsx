@@ -38,7 +38,9 @@ export default function ProfileImage({
   const bg = RANDOM_COLORS[num];
   return (
     <div
-      className={`rounded-full flex-center  border-2 border-white relative overflow-hidden ${bg} ${divSize}`}
+      className={`rounded-full flex-center  border-2 border-white relative overflow-hidden ${
+        src ? `bg-gray20` : bg
+      } ${divSize}`}
     >
       {src ? (
         <Image src={src} alt="프로필 이미지" fill />
