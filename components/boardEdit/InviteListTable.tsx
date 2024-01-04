@@ -2,27 +2,20 @@ import React, { useState } from 'react';
 import { Button, InviteModal } from '..';
 import Image from 'next/image';
 import inviteIcon from '@/public/icons/inviteIcon.svg';
-import useGetDashboardInvitaions from './data/useGetDashboardInvitaions';
+import useGetInvitaions from './data/useGetInvitaions';
 import { axiosAuthInstance } from '@/utils';
 import PagenationButton from '../common/PaginationButton';
 import useToggle from '@/hooks/useToggle';
 import InviteList from './InviteList';
-import { useStoreAccessToken } from '@/store/memos';
 
 interface InviteListTableProps {
   boardid: number;
 }
 
 function InviteListTable({ boardid }: InviteListTableProps) {
-  const { accessToken: token } = useStoreAccessToken();
   const [page, setPage] = useState(1);
-  const SIZE = 4;
-  const { execute, data } = useGetDashboardInvitaions({
-    boardid,
-    page,
-    size: SIZE,
-    token,
-  });
+  const [size, setSize] = useState(4);
+  const { execute, data, loading } = useGetInvitaions({ boardid, page, size });
   const totalCount = data?.totalCount as number;
   const invitations = data?.invitations;
 
@@ -37,7 +30,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
     }
   };
   const { isOn, toggle } = useToggle();
-  const totalPages = Math.ceil(totalCount / SIZE);
+  const totalPages = Math.ceil(totalCount / size);
 
   const handleClickRight = () => {
     setPage(page + 1);

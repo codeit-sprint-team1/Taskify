@@ -7,7 +7,7 @@ export default function MyDashBoards() {
   const { userInfo } = useUserInfo();
   const router = useRouter();
   useEffect(() => {
-    if (!userInfo?.id) router.push('/login');
+    if (!userInfo.id) router.push('/login');
   }, []);
   return (
     <div className="w-full h-full py-40pxr pl-40pxr bg-gray10 mobile:py-20pxr mobile:pl-20pxr">

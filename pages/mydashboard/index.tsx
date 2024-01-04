@@ -1,29 +1,19 @@
 import { useEffect } from 'react';
-import { useDashboardList, useStoreAccessToken } from '@/store/memos';
+import { useDashboardList } from '@/store/memos';
 import DashboardLayout from '@/page-layout/DashboardLayout';
 import { Header, DashboardSidebar } from '@/components';
 import useGetDashboards from '@/components/dashboard/data/useGetDashboards';
-import MyDashBoards from '@/components/mydashboard/MyDashBoards';
+import MyDashBoards from '@/components/myBoard/MyDashBoards';
 import useRedirectToMain from '@/hooks/useRedirectToHome';
 
 export default function MyDashboardPage() {
-  const { accessToken: token } = useStoreAccessToken();
+  const { dashboards } = useGetDashboards();
   const { dashboardList, setDashboardList } = useDashboardList();
 
   useRedirectToMain('accessToken');
 
   useEffect(() => {
-    setDashboardList([]);
-  }, []);
-
-  const { execute: getDashboard, dashboards } = useGetDashboards(token);
-
-  useEffect(() => {
-    getDashboard();
-  }, [token]);
-
-  useEffect(() => {
-    if (dashboards !== null) setDashboardList(dashboards);
+    setDashboardList(dashboards);
   }, [dashboards]);
 
   const dashboard = {
@@ -31,7 +21,7 @@ export default function MyDashboardPage() {
     createdByMe: false,
   };
 
-  if (!dashboards || dashboardList === null) return;
+  if (dashboards === undefined) return;
 
   return (
     <>

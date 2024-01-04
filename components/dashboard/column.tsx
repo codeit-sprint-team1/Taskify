@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { DateTime } from 'ts-luxon';
-import { Card } from '@/types/cards';
-import { Columns } from '@/types/columns';
-import useToggle from '@/hooks/useToggle';
 import calIcon from '../../public/icons/boards/calendar.svg';
 import dotIcon from '../../public/icons/boards/card-dot.svg';
 import settingIcon from '../../public/icons/boards/card-desktop-settings.svg';
 import plusIcon from '../../public/icons/boards/plus.svg';
-import searchIcon from '../../public/icons/search-icon.svg';
+import Image from 'next/image';
+import { Card } from '@/types/cards';
+import { useRouter } from 'next/router';
 import useGetColum from './data/useGetColums';
 import useGetCards from './data/useGetCards';
+import useToggle from '@/hooks/useToggle';
 import { CreateColumnModal } from '..';
+import { useEffect, useState } from 'react';
+import { Columns } from '@/types/columns';
+import { DateTime } from 'ts-luxon';
+import { EditColumnModal } from '../index';
+import searchIcon from '../../public/icons/search-icon.svg';
 import CreateCardModal from '../modal/create-card/CreateCardModal';
-import { Tag, EditColumnModal } from '../index';
-import { useStoreAccessToken } from '@/store/memos';
+import { Tag } from '../index';
+
 interface CardAddProps {
   dashboardId: number;
   columnId: number;
@@ -105,12 +106,7 @@ function ColumnTitle({
 }
 
 function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
-  const { accessToken } = useStoreAccessToken();
-  const {
-    cards,
-    totalCount,
-    execute: getCards,
-  } = useGetCards({ id: data.id, accessToken });
+  const { cards, totalCount, execute: getCards } = useGetCards(data.id);
   const { isOn, toggle } = useToggle(false);
   const [searchValue, setSearchValue] = useState('');
   let filterCards = filter();
@@ -183,15 +179,14 @@ function ColumnAdd({ getColum }: { getColum: () => void }) {
 }
 
 export default function ColumnList() {
-  const { accessToken } = useStoreAccessToken();
   const router = useRouter();
   const currentId = router.query['id'] as string | undefined;
   const id = Number(currentId);
-  const { execute: getColum, columns } = useGetColum({ id, accessToken });
+  const { execute: getColum, columns } = useGetColum(id);
 
   useEffect(() => {
     getColum();
-  }, [id, accessToken]);
+  }, [id]);
 
   return (
     <div className="bg-gray10 h-full w-full flex overflow-scroll tablet:flex-col mobile:flex-col">

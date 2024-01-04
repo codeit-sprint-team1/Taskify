@@ -3,7 +3,7 @@ import ColorChips from '../common/ColorChips';
 import { Button, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
 import { Dashboards } from '@/types/dashboards';
-import { useDashboardList, useStoreAccessToken } from '@/store/memos';
+import { useDashboardList } from '@/store/memos';
 
 interface NameEditFormProps {
   boardInfo: Dashboards;
@@ -21,9 +21,9 @@ function NameEditForm({
   const onSelect = (color: string) => {
     setColor(color);
   };
-  const { accessToken: token } = useStoreAccessToken();
   const boardid = boardInfo?.id;
   const { setDashboardList, dashboardList } = useDashboardList();
+
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
@@ -32,7 +32,7 @@ function NameEditForm({
     loading,
     error,
     data,
-  } = usePutDashboard({ title, color, boardid, token });
+  } = usePutDashboard({ title, color, boardid });
 
   const handlePutDashboard = async () => {
     await putDashboard();
