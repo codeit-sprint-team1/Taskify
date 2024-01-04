@@ -42,7 +42,6 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setInternalValue(newValue);
-      if (selectedMember || e.target.value) setIsMemberNotFound(false);
     };
 
     const handleBlur = () => {
@@ -60,7 +59,9 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
       const memberExists = members.some(
         (member) => member.nickname === internalValue
       );
-      setIsMemberNotFound(!memberExists && internalValue !== '');
+      setIsMemberNotFound(
+        !memberExists && internalValue !== '' && filteredMembers.length === 0
+      );
     };
 
     const handleOpenClick = () => {
@@ -143,7 +144,7 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
           </p>
         )}
         <div className="relative">
-          {isOpen && (
+          {isOpen && filteredMembers.length !== 0 && (
             <ul
               ref={dropdownRef}
               className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr"
