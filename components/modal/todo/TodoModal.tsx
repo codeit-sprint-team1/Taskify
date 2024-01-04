@@ -15,7 +15,6 @@ import { Comments } from '@/types/comments';
 import useGetComments from './data/useGetComments';
 import useToggle from '@/hooks/useToggle';
 import TodoDropDownMenu from './data/TodoDropDownMenu';
-import EditCardModal from '../edit-card/EditCardModal';
 import { axiosAuthInstance } from '@/utils';
 import { notify } from '@/components/common/Toast';
 
@@ -23,9 +22,16 @@ interface TodoModalProps extends ModalProps {
   tag?: string;
   card: Card;
   getCards: () => void;
+  columnTitle: string;
 }
 
-function TodoModal({ isOpen, onCancel, card, getCards }: TodoModalProps) {
+function TodoModal({
+  isOpen,
+  onCancel,
+  card,
+  getCards,
+  columnTitle,
+}: TodoModalProps) {
   const [comments, setComments] = useState<Comments[]>([]);
   const { isOn, toggle } = useToggle();
   const handleSubmit = () => {
@@ -44,12 +50,7 @@ function TodoModal({ isOpen, onCancel, card, getCards }: TodoModalProps) {
     imageUrl,
     columnId,
   } = card;
-  const {
-    execute: getComments,
-    data,
-    loading,
-    error,
-  } = useGetComments({ cardId });
+  const { execute: getComments, data } = useGetComments({ cardId });
 
   useEffect(() => {
     getComments();
@@ -72,7 +73,7 @@ function TodoModal({ isOpen, onCancel, card, getCards }: TodoModalProps) {
 
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-24pxr">
+      <div className="flex flex-col gap-24pxr max-h-[calc(100vh-100px)] mobile:h-700pxr  overflow-scroll">
         <div className="flex justify-between items-center mobile:flex-col-reverse">
           <Modal.Title>{title}</Modal.Title>
           <div className="flex gap-24pxr mobile:self-end">
@@ -96,23 +97,27 @@ function TodoModal({ isOpen, onCancel, card, getCards }: TodoModalProps) {
           </div>
         </div>
         <div className="flex gap-24pxr mobile:flex-col">
-          <div className="flex flex-col gap-26pxr max-w-[450px] mobile:order-2">
+          <div className="flex flex-col gap-26pxr h-full w-full mobile:order-2">
             <div className="flex gap-20pxr">
-              <Tag tag="To Do" />
+              <div>
+                <Tag tag={columnTitle} />
+              </div>
               <Image
                 src={verticalLineIcon}
                 alt="수직선"
                 className="w-1pxr h-20pxr"
               />
-              <div className="flex gap-6pxr">
-                {tags.map((tag) => (
-                  <Tag tag={tag} />
+              <div className="flex gap-6pxr flex-wrap">
+                {tags.map((tag, index) => (
+                  <Tag tag={tag} key={index} />
                 ))}
               </div>
             </div>
-            <div className=" max-h-[470px] overflow-scroll space-y-16pxr ">
+            <div className="h-auto space-y-16pxr">
               <p className="text-14pxr">{description}</p>
-              <img src={imageUrl} alt="본문 이미지" className="w-screen" />
+              {imageUrl && (
+                <img src={imageUrl} alt="본문 이미지" className="w-full" />
+              )}
             </div>
             <CommentInput
               cardId={cardId}

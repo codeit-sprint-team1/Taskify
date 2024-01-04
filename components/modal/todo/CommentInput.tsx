@@ -20,7 +20,7 @@ function CommentInput({
   comments,
   setComments,
 }: CommentInputProps) {
-  const { control, watch } = useForm();
+  const { control, watch, setValue } = useForm();
   const content = watch('comment');
   const { execute: postComments, data: updatedComments } = usePostComments({
     content,
@@ -43,8 +43,13 @@ function CommentInput({
     }
   }, [updatedComments]);
 
+  const handlePostComment = () => {
+    postComments();
+    setValue('comment', '');
+  };
+
   return (
-    <form className="flex flex-col gap-10pxr relative">
+    <div className="flex flex-col gap-10pxr relative">
       <label className="text-16pxr font-medium mobile:text-14pxr">댓글</label>
       <Controller
         name="comment"
@@ -62,11 +67,11 @@ function CommentInput({
         variant="secondary"
         size="modal"
         className="absolute right-12pxr bottom-12pxr mobile:w-84pxr"
-        onClick={postComments}
+        onClick={handlePostComment}
       >
         입력
       </Button>
-    </form>
+    </div>
   );
 }
 

@@ -11,6 +11,7 @@ import {
 import BoardEditLayout from '@/page-layout/BoardEditLayout';
 import useGetDashboard from './data/useGetDashboard';
 import useToggle from '@/hooks/useToggle';
+import { useRouter } from 'next/router';
 
 interface BoardEditMainProps {
   boardid: number;
@@ -25,12 +26,16 @@ function BoardEditMain({ boardid }: BoardEditMainProps) {
   const handleCancel = () => {
     toggle();
   };
+  const router = useRouter();
   return (
     <div className="m-20pxr">
       <div className="w-100pxr">
-        <Link href={`/dashboard/${boardid}`}>
+        <div
+          className="curosr-pointer"
+          onClick={() => router.push('/mydashboard')}
+        >
           <ArrowBackButton />
-        </Link>
+        </div>
       </div>
       <BoardEditLayout
         nameEditForm={

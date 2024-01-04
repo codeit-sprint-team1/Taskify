@@ -46,47 +46,74 @@ function CardAdd({ dashboardId, columnId, getCards }: CardAddProps) {
   );
 }
 
-function Card({ card, getCards }: { card: Card; getCards: () => void }) {
-  const date = DateTime.fromISO(card.createdAt).toFormat('yyyy-MM-dd');
+function Card({
+  card,
+  getCards,
+  columnTitle,
+}: {
+  card: Card;
+  getCards: () => void;
+  columnTitle: string;
+}) {
+  const date = card.dueDate && card.dueDate.split(' ')[0];
   const { isOn, toggle } = useToggle();
   return (
-    <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
-      {card.imageUrl && (
-        <div
-          className="relative w-full h-160pxr tablet:h-53pxr tablet:w-90pxr bg-gray10 rounded-md"
-          onClick={toggle}
-        >
-          <Image src={card.imageUrl} alt="cardImg" fill objectFit="contain" />
-        </div>
-      )}
-      <div className="tablet: w-full flex flex-col gap-10pxr">
-        <div className="text-gray70 font-medium">{card.title}</div>
-        <div className="flex-center justify-between">
-          <div className="flex flex-col gap-10pxr tablet:flex-row">
-            <div className="flex gap-6pxr">
-              {card.tags.map((item, index) => (
-                <Tag tag={item} />
-              ))}
-            </div>
-            <div className="flex-center gap-6pxr text-gray50 text-12pxr font-medium">
-              <Image src={calIcon} alt="calIcon" />
-              {date}
-            </div>
+    <>
+      <button
+        onClick={toggle}
+        className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center"
+      >
+        {card.imageUrl && (
+          <div className="relative w-full h-160pxr tablet:h-53pxr tablet:w-90pxr bg-gray10 rounded-md">
+            <Image src={card.imageUrl} alt="cardImg" fill objectFit="contain" />
           </div>
-          <div className="flex justify-end items-end h-full">
-            <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
-              {card.assignee.nickname.slice(0, 1)}
+        )}
+        <div className="tablet: w-full flex flex-col gap-10pxr">
+          <div className="text-gray70 font-medium">{card.title}</div>
+          <div className="flex-center justify-between">
+            <div className="flex flex-col gap-10pxr w-full">
+              <div className="flex gap-6pxr flex-wrap">
+                {card.tags.map((item, index) => (
+                  <Tag tag={item} key={index} />
+                ))}
+              </div>
+              <div className="flex gap-6pxr text-gray50 text-12pxr font-medium">
+                {date && (
+                  <>
+                    <Image src={calIcon} alt="calIcon" />
+                    {date}
+                  </>
+                )}
+              </div>
             </div>
+            {card.assignee && (
+              <div className="flex justify-end items-end h-full">
+                {card.assignee.profileImageUrl ? (
+                  <div className="flex-center relative w-24pxr h-24pxr bg-gray20 rounded-full overflow-hidden">
+                    <Image
+                      src={card.assignee.profileImageUrl as string}
+                      fill
+                      alt="프로필 아이콘"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
+                    {card.assignee.nickname.slice(0, 1)}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      </button>
       <TodoModal
         isOpen={isOn}
         onCancel={toggle}
         card={card}
         getCards={getCards}
+        columnTitle={columnTitle}
       />
-    </div>
+    </>
   );
 }
 
@@ -156,7 +183,12 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
           />
           {filterCards &&
             filterCards.map((card) => (
-              <Card card={card} key={card.id} getCards={getCards} />
+              <Card
+                card={card}
+                key={card.id}
+                getCards={getCards}
+                columnTitle={data.title}
+              />
             ))}
         </div>
       </div>
