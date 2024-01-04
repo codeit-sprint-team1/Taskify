@@ -50,9 +50,11 @@ function Card({ card }: { card: Card }) {
   const { isOn, toggle } = useToggle();
   return (
     <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
-      <TodoModal isOpen={isOn} onCancel={() => toggle} card={card} />
       {card.imageUrl && (
-        <div className="relative w-full h-160pxr tablet:w-90pxr bg-gray10 rounded-md">
+        <div
+          className="relative w-full h-160pxr tablet:w-90pxr bg-gray10 rounded-md"
+          onClick={toggle}
+        >
           <Image src={card.imageUrl} alt="cardImg" fill objectFit="contain" />
         </div>
       )}
@@ -65,10 +67,7 @@ function Card({ card }: { card: Card }) {
                 <div>{item}</div>
               ))}
             </div>
-            <div
-              className="flex-center gap-6pxr text-gray50 text-12pxr font-medium"
-              onClick={toggle}
-            >
+            <div className="flex-center gap-6pxr text-gray50 text-12pxr font-medium">
               <Image src={calIcon} alt="calIcon" />
               {date}
             </div>
@@ -80,6 +79,7 @@ function Card({ card }: { card: Card }) {
           </div>
         </div>
       </div>
+      <TodoModal isOpen={isOn} onCancel={toggle} card={card} />
     </div>
   );
 }

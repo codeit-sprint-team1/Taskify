@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../Modal';
 import Image from 'next/image';
 import kekbabIcon from '@/public/icons/kebabIcon.svg';
@@ -11,6 +11,8 @@ import CommentList from './CommentList';
 import AsigneeCard from './AsigneeCard';
 import { Card } from '@/types/cards';
 import { useRouter } from 'next/router';
+import { Comments } from '@/types/comments';
+import useGetComments from './data/useGetComments';
 
 interface TodoModalProps extends ModalProps {
   tag?: string;
@@ -18,6 +20,7 @@ interface TodoModalProps extends ModalProps {
 }
 
 function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
+  const [comments, setComments] = useState<Comments[]>([]);
   const handleSubmit = () => {
     console.log('submitted');
   };
@@ -34,6 +37,21 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
     imageUrl,
     columnId,
   } = card;
+  const {
+    execute: getComments,
+    data,
+    loading,
+    error,
+  } = useGetComments({ cardId });
+
+  // const initComments = data?.comments;
+
+  useEffect(() => {
+    getComments();
+    if (!data) return;
+    setComments(data?.comments);
+  }, []);
+
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit}>
       <div className="flex flex-col gap-24pxr">
@@ -79,8 +97,14 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
               cardId={cardId}
               columnId={columnId}
               dashboardId={dashboardId}
+              comments={comments}
+              setComments={setComments}
             />
-            <CommentList cardId={cardId} />
+            <CommentList
+              cardId={cardId}
+              comments={comments}
+              setComments={setComments}
+            />
           </div>
           <AsigneeCard dueDate={dueDate} assignee={assignee} />
         </div>

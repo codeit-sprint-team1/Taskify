@@ -5,16 +5,19 @@ import { axiosAuthInstance } from '@/utils';
 import { notify } from '@/components/common/Toast';
 import { Controller, useForm } from 'react-hook-form';
 import { isAxiosError } from 'axios';
+import { Comments } from '@/types/comments';
 
 interface CommentListProps {
   cardId: number;
+  comments: Comments[];
+  setComments: React.Dispatch<React.SetStateAction<Comments[]>>;
 }
 
 interface CommentInputState {
   [key: number]: boolean;
 }
 
-function CommentList({ cardId }: CommentListProps) {
+function CommentList({ cardId, comments, setComments }: CommentListProps) {
   const [isCommentInputOpen, setIsCommentInputOpen] =
     useState<CommentInputState>({});
   const { control, watch, setError } = useForm();
@@ -27,9 +30,9 @@ function CommentList({ cardId }: CommentListProps) {
 
   useEffect(() => {
     getComments();
-  }, []);
-
-  const comments = data?.comments;
+    if (!data) return;
+    setComments(data?.comments);
+  }, [comments]);
   const formatTime = (date: string) => {
     return DateTime.fromISO(date).toFormat('yyyy-MM-dd');
   };
@@ -63,25 +66,26 @@ function CommentList({ cardId }: CommentListProps) {
       [commentId]: !prev[commentId],
     }));
   };
+
   return (
-    <div className="flex gap-10pxr flex-col overflow-scroll min-h-[160px]">
-      {comments?.map((comment) => (
-        <div key={comment.id} className="flex gap-10pxr">
+    <div className="flex gap-10pxr flex-col overflow-scroll max-h-[160px]">
+      {data?.comments.map((comment) => (
+        <div key={comment?.id} className="flex gap-10pxr">
           <img
-            src={comment.author.profileImageUrl}
+            src={comment?.author.profileImageUrl}
             alt="프로필아이콘"
             className="w-34pxr h-34pxr rounded-full bg-green flex-center mobile:w-26pxr mobile:h-26pxr"
           />
           <div className="flex flex-col gap-6pxr">
             <div className="space-x-8pxr">
               <span className="font-semibold text-14pxr mobile:text-12pxr">
-                {comment.author.nickname}
+                {comment?.author.nickname}
               </span>
               <span className="text-gray40 text-12pxr mobile:text-10pxr">
-                {formatTime(comment.createdAt)}
+                {formatTime(comment?.createdAt)}
               </span>
             </div>
-            {isCommentInputOpen[comment.id] ? (
+            {isCommentInputOpen[comment?.id] ? (
               <Controller
                 control={control}
                 name="commentInput"
@@ -95,7 +99,7 @@ function CommentList({ cardId }: CommentListProps) {
                     />
                     <button
                       type="button"
-                      onClick={() => handleUpdateComment(comment.id)}
+                      onClick={() => handleUpdateComment(comment?.id)}
                       className="text-12pxr"
                     >
                       수정하기
@@ -104,21 +108,21 @@ function CommentList({ cardId }: CommentListProps) {
                 )}
               />
             ) : (
-              <p className="text-14pxr mobile:text-12pxr">{comment.content}</p>
+              <p className="text-14pxr mobile:text-12pxr">{comment?.content}</p>
             )}
 
             <div className="flex gap-12pxr">
               <button
                 className="text-gray40 text-12pxr underline mobile:text-10pxr"
                 type="button"
-                onClick={() => toggleCommentInput(comment.id)}
+                onClick={() => toggleCommentInput(comment?.id)}
               >
                 수정
               </button>
               <button
                 className="text-gray40 text-12pxr underline mobile:text-10pxr"
                 type="button"
-                onClick={() => handleDeleteComment(comment.id)}
+                onClick={() => handleDeleteComment(comment?.id)}
               >
                 삭제
               </button>
