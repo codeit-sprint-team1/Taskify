@@ -73,7 +73,7 @@ function CommentList({ cardId, comments, setComments }: CommentListProps) {
   };
 
   return (
-    <div className="flex gap-10pxr flex-col overflow-scroll max-h-[160px] min-h-[100px]">
+    <div className="flex gap-10pxr flex-col overflow-scroll h-160pxr">
       {data?.comments.map((comment) => (
         <div key={comment?.id} className="flex gap-10pxr">
           <img

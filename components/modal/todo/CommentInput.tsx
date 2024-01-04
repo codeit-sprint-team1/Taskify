@@ -44,7 +44,7 @@ function CommentInput({
   }, [updatedComments]);
 
   return (
-    <form className="flex flex-col gap-10pxr relative">
+    <div className="flex flex-col gap-10pxr relative">
       <label className="text-16pxr font-medium mobile:text-14pxr">댓글</label>
       <Controller
         name="comment"
@@ -66,7 +66,7 @@ function CommentInput({
       >
         입력
       </Button>
-    </form>
+    </div>
   );
 }
 
