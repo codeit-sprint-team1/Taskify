@@ -11,7 +11,7 @@ function usePostProfileImage({ imgFile }: usePostProfileImageProps) {
     if (imgFile) {
       formData.append('image', imgFile);
     }
-    axiosAuthInstance.post(
+    axiosAuthInstance('').post(
       `users/me/image`,
       {
         formData,
