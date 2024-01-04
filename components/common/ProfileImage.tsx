@@ -23,7 +23,7 @@ const RANDOM_COLORS: RandomColors = {
   6: 'bg-lightbrown',
   7: 'bg-yellow',
   8: 'bg-pastelnavy',
-  9: 'bg-lightred',
+  9: 'bg-pastelred',
 };
 
 export default function ProfileImage({

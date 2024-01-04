@@ -21,7 +21,7 @@ function Member({ member, index }: MemberProps) {
           index !== 0 && '-ml-8pxr mobile:-ml-12pxr'
         }`}
       >
-        <ProfileImage name={nickname} src={profileImageUrl} userId={userId}  />
+        <ProfileImage name={nickname} src={profileImageUrl} userId={userId} />
         <div className="absolute invisible group-hover:visible p-5pxr bg-violet8 rounded-md mt-5pxr">
           <MemberInfoItem nickname={nickname} email={email} />
         </div>
@@ -93,7 +93,12 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
       <div className="relative group">
         {restMembers?.length !== 0 && (
           <div className={`relative -ml-8pxr mobile:-ml-12pxr`}>
-            <ProfileImage textDiv name={`${restMembers?.length}+`} src="" userId={9} />
+            <ProfileImage
+              textDiv
+              name={`${restMembers?.length}+`}
+              src=""
+              userId={9}
+            />
           </div>
         )}
         <div className="absolute flex flex-col gap-5pxr -left-15pxr max-h-200pxr overflow-scroll invisible group-hover:visible p-5pxr bg-violet8 rounded-md mt-1pxr">
@@ -102,6 +107,7 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
               <MemberInfoItem
                 showImage
                 key={member.id}
+                userId={member.id}
                 nickname={member.nickname}
                 email={member.email}
                 imageUrl={member.profileImageUrl}

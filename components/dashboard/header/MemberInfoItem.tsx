@@ -1,6 +1,7 @@
 import { ProfileImage } from '@/components';
 
 interface MemberInfoItemProps {
+  userId?: number;
   showImage?: boolean;
   imageUrl?: string;
   nickname: string;
@@ -8,6 +9,7 @@ interface MemberInfoItemProps {
 }
 
 export default function MemberInfoItem({
+  userId,
   showImage,
   imageUrl,
   nickname,
@@ -17,7 +19,11 @@ export default function MemberInfoItem({
     <div className="flex">
       <div className="shrink">
         {showImage && (
-          <ProfileImage name={nickname} src={imageUrl ?? ''} userId={0} />
+          <ProfileImage
+            name={nickname}
+            src={imageUrl ?? ''}
+            userId={userId ?? 0}
+          />
         )}
       </div>
       <div className="w-full text-11pxr p-3pxr rounded-sm">

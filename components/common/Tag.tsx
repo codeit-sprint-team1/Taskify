@@ -22,7 +22,7 @@ const RANDOM_COLORS: RandomColors = {
   6: 'bg-lightbrown',
   7: 'bg-yellow',
   8: 'bg-pastelnavy',
-  9: 'bg-lightred',
+  9: 'bg-pastelred',
 };
 
 interface RandomColorComb {
@@ -36,9 +36,9 @@ export const RANDOM_COLOR_COMB: RandomColorComb = {
   'bg-lightpink': 'text-pink',
   'bg-gray30': 'text-gray60',
   'bg-lightbrown': 'text-brown',
-  'bg-yellow': 'text-lightyellow',
+  'bg-yellow': 'text-greenyellow',
   'bg-pastelnavy': 'text-lightblue',
-  'bg-lightred': 'text-pastelred',
+  'bg-pastelred': 'text-lightred',
 };
 
 export default function Tag({ tag, onClick, isEdit = false }: TagProps) {
