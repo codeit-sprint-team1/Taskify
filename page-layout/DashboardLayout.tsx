@@ -16,7 +16,7 @@ export default function DashboardLayout({
       <div>{sidebar}</div>
       <div className="flex flex-col grow shrink-0 overflow-hidden w-full basis-0pxr">
         <div>{header}</div>
-        <div className="flex-1 overflow-hidden">{main}</div>
+        <div className="flex-1 overflow-scroll">{main}</div>
       </div>
     </div>
   );

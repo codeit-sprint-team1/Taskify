@@ -13,7 +13,7 @@ export default function Label({ text, required, htmlFor, size }: LabelProps) {
       className={`font-medium mb-10pxr ${textSize} text-gray70 mobile:text-16pxr `}
     >
       <label htmlFor={htmlFor}>{text}</label>
-      {required && <span className="text-violet">*</span>}
+      {required && <span className="text-violet ml-5pxr">*</span>}
     </div>
   );
 }

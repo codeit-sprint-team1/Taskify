@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useDashboardList } from '@/store/memos';
 import { Dashboards } from '@/types/dashboards';
 import DashboardLayout from '@/page-layout/DashboardLayout';
 import { DashboardHeader, DashboardSidebar } from '@/components';
-import Columns from '@/components/dashboard/column';
+import ColumnList from '@/components/dashboard/column';
 
 export default function DashboardPage() {
   const { dashboardList } = useDashboardList();
@@ -23,7 +23,7 @@ export default function DashboardPage() {
     <div>
       <DashboardLayout
         header={<DashboardHeader dashboard={dashboard} />}
-        main={<Columns />}
+        main={<ColumnList />}
         sidebar={
           <DashboardSidebar
             dashboardList={dashboardList}

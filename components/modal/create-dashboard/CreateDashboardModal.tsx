@@ -2,14 +2,14 @@ import { Modal } from '@/components';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostDashboards from '../data/usePostDashboards';
-import { useDashboardList } from '@/store/memos/useDashboardList';
+import { useDashboardList } from '@/store/memos';
 import { ColorChips, ModalButton } from '@/components';
 export interface ModalProps {
   isOpen: boolean;
   onCancel: () => void;
 }
 
-export interface CreateDashboardModalForm {
+export interface CreateDashboardForm {
   title: string;
 }
 
@@ -21,8 +21,8 @@ export default function CreateDashboardModal({ isOpen, onCancel }: ModalProps) {
     handleSubmit,
     watch,
     reset,
-    formState: { isValid, errors },
-  } = useForm<CreateDashboardModalForm>();
+    formState: { isValid },
+  } = useForm<CreateDashboardForm>();
 
   const watchInput = watch('title');
 

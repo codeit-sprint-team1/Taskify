@@ -6,13 +6,14 @@ import usePostInvitations from '../data/usePostInvitations';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Invitations } from '@/types/invitations';
+import { notify } from '@/components/common/Toast';
 
 export interface InviteModalForm {
   email: string;
 }
 
 export interface InviteModalProps extends ModalProps {
-  handler?: (data: Invitations) => void;
+  handler?: () => void;
 }
 
 export default function InviteModal({
@@ -60,11 +61,14 @@ export default function InviteModal({
     } else {
       handleCancel();
     }
+    if (response) {
+      notify({ type: 'success', text: '초대를 완료했습니다 💌' });
+    }
   }, [error, loading]);
 
   useEffect(() => {
     if (handler && response) {
-      handler(response);
+      handler();
     }
   }, [response]);
 

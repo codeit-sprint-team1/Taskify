@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import useGetInvitations from './data/useGetInvitations';
 import usePutInvitations from './data/usePutInvitations';
+import useGetDashBoards from './data/useGetDashBoards';
+import { useDashboardList } from '@/store/memos';
 
 function InvitationsList({
   item,
@@ -21,16 +23,21 @@ function InvitationsList({
 }) {
   const { execute: Accept } = usePutInvitations(true, item.id);
   const { execute: Refuse } = usePutInvitations(false, item.id);
-  function acceptInvitation() {
+  const { execute } = useGetDashBoards();
+  const { setDashboardList } = useDashboardList();
+  async function acceptInvitation() {
+    Accept();
     data.splice(index, 1);
     setData(data);
-    Accept();
+    const dashboards = await execute();
+    setDashboardList(dashboards.data.dashboards);
   }
   function refuseInvitation() {
+    Refuse();
     data.splice(index, 1);
     setData(data);
-    Refuse();
   }
+
   return (
     <div className="grid desktop:grid-cols-3 tablet:grid-cols-3 mobile:grid-rows-3 justify-center items-center mobile:text-14pxr">
       <div className="pl-32pxr mobile:pl-0pxr">

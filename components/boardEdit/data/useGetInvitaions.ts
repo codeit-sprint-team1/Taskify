@@ -31,7 +31,7 @@ function useGetInvitaions({ boardid, page, size }: useGetInvitationsProps) {
       `dashboards/${boardid}/invitations?page=${page}&size=${size}`
     );
 
-  const { execute, error, loading, data } = useAsync(
+  const { execute, error, loading, data, setData } = useAsync(
     getInvitaions,
     false,
     page
@@ -41,6 +41,7 @@ function useGetInvitaions({ boardid, page, size }: useGetInvitationsProps) {
     error,
     loading,
     data,
+    setData,
   };
 }
 

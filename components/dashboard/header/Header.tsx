@@ -1,8 +1,9 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { Profile } from '@/components';
-import crownIcon from '@/public/icons/crown-icon.svg';
 import { useUserInfo } from '@/store/memos';
+import { Profile, ProfileDropdownMenu } from '@/components';
+import crownIcon from '@/public/icons/crown-icon.svg';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 export interface DashboardHeaderProps {
   dashboard: {
@@ -24,10 +25,11 @@ type HeaderProps = {
 export default function Header({ dashboard, children }: HeaderProps) {
   const [nickname, setNickname] = useState('');
   const [profileImage, setProfileImage] = useState<string | null>('');
-
   const { userInfo } = useUserInfo();
+  const { isOn, ref, toggle } = useOnClickOutside();
 
   useEffect(() => {
+    if (userInfo === null) return;
     setNickname(userInfo.nickname);
     setProfileImage(userInfo.profileImageUrl);
   }, []);
@@ -50,7 +52,12 @@ export default function Header({ dashboard, children }: HeaderProps) {
       </div>
       <div className="flex items-center">
         {children}
-        <Profile name={nickname} src={profileImage} userId={userInfo.id} />
+        <div ref={ref} className="relative flex">
+          <button type="button" onClick={toggle}>
+            <Profile name={nickname} src={profileImage} userId={userInfo.id} />
+          </button>
+          {isOn && <ProfileDropdownMenu />}
+        </div>
       </div>
     </header>
   );

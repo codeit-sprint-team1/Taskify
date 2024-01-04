@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import ColorChips from '../common/ColorChips';
 import { Button, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
 import { Dashboards } from '@/types/dashboards';
+import { useDashboardList } from '@/store/memos';
 
 interface NameEditFormProps {
   boardInfo: Dashboards;
@@ -21,6 +22,7 @@ function NameEditForm({
     setColor(color);
   };
   const boardid = boardInfo?.id;
+  const { setDashboardList, dashboardList } = useDashboardList();
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -34,8 +36,22 @@ function NameEditForm({
 
   const handlePutDashboard = async () => {
     await putDashboard();
-    getDashboard();
   };
+
+  useEffect(() => {
+    if (!data) return;
+    getDashboard();
+    const updatedDashboards = dashboardList.map((dashboard) =>
+      dashboard.id === boardid
+        ? {
+            ...dashboard,
+            title: data?.title,
+            color: data?.color,
+          }
+        : dashboard
+    );
+    setDashboardList(updatedDashboards);
+  }, [data]);
 
   return (
     <div className="space-y-24pxr p-30pxr">

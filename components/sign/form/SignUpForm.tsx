@@ -51,14 +51,14 @@ export default function SignUpForm() {
   useEffect(() => {
     if (data) {
       notify({ type: 'success', text: SUCCESS_JOIN_MESSAGE });
-      router.replace('login');
+      router.push('login');
     }
   }, [data]);
 
   return (
     <form
       onSubmit={handleSubmit(signUp)}
-      className="w-520pxr flex flex-col gap-16pxr mobile:mx-12pxr mobile:w-350pxr"
+      className="flex flex-col w-520pxr gap-16pxr mobile:mx-12pxr mobile:w-350pxr"
     >
       <div>
         <Controller
