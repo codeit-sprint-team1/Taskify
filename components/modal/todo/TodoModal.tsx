@@ -13,6 +13,8 @@ import { Card } from '@/types/cards';
 import { useRouter } from 'next/router';
 import { Comments } from '@/types/comments';
 import useGetComments from './data/useGetComments';
+import useToggle from '@/hooks/useToggle';
+import TodoDropDownMenu from './data/TodoDropDownMenu';
 
 interface TodoModalProps extends ModalProps {
   tag?: string;
@@ -21,6 +23,7 @@ interface TodoModalProps extends ModalProps {
 
 function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
   const [comments, setComments] = useState<Comments[]>([]);
+  const { isOn, toggle } = useToggle();
   const handleSubmit = () => {
     console.log('submitted');
   };
@@ -58,13 +61,14 @@ function TodoModal({ isOpen, onCancel, card }: TodoModalProps) {
         <div className="flex justify-between items-center mobile:flex-col-reverse">
           <Modal.Title>{title}</Modal.Title>
           <div className="flex gap-24pxr mobile:self-end">
-            <button type="button">
+            <button type="button" onClick={toggle}>
               <Image
                 src={kekbabIcon}
                 alt="케밥 아이콘"
                 className="w-28pxr h-28pxr mobile:w-20pxr mobile:h-20pxr"
               />
             </button>
+            {isOn && <TodoDropDownMenu />}
             <button type="button" onClick={onCancel}>
               <Image
                 src={closeIcon}
