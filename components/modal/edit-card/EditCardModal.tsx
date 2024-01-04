@@ -192,7 +192,6 @@ export default function EditCardModal({
         <ModalButton disabled={!isValid || loading} onCancel={handleCancel}>
           수정
         </ModalButton>
-        <DevTool control={control} />
       </div>
     </Modal>
   );

@@ -185,7 +185,6 @@ export default function CreateCardModal({
         >
           생성
         </ModalButton>
-        <DevTool control={control} />
       </div>
     </Modal>
   );
