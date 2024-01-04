@@ -61,7 +61,7 @@ function Card({ card }: { card: Card }) {
           <div className="flex flex-col gap-10pxr tablet:flex-row">
             <div className="flex gap-6pxr">
               {card.tags.map((item, index) => (
-                <Tag tag={item} />
+                <Tag tag={item} key={index} />
               ))}
             </div>
             <div className="flex-center gap-6pxr text-gray50 text-12pxr font-medium">
@@ -69,11 +69,13 @@ function Card({ card }: { card: Card }) {
               {date}
             </div>
           </div>
-          <div className="flex justify-end items-end h-full">
-            <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
-              {card.assignee.nickname.slice(0, 1)}
+          {card.assignee && (
+            <div className="flex justify-end items-end h-full">
+              <div className="flex-center w-24pxr h-24pxr bg-pink rounded-full text-12pxr text-white font-semibold">
+                {card.assignee.nickname.slice(0, 1)}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
