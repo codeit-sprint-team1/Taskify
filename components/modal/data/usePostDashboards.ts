@@ -11,7 +11,7 @@ interface PostDashboardProps {
 const usePostDashboards = ({ title, color }: PostDashboardProps) => {
   const postDashboards = useCallback(
     () =>
-      axiosAuthInstance.post<Dashboards>('dashboards', {
+      axiosAuthInstance('').post<Dashboards>('dashboards', {
         title,
         color,
       }),

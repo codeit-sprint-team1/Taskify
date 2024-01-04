@@ -21,7 +21,7 @@ function InviteListTable({ boardid }: InviteListTableProps) {
 
   const handleDeleteInvitation = async (invitationId: number) => {
     try {
-      const res = await axiosAuthInstance.delete(
+      const res = await axiosAuthInstance('').delete(
         `dashboards/${boardid}/invitations/${invitationId}`
       );
       execute();

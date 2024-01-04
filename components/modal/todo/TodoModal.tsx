@@ -65,7 +65,7 @@ function TodoModal({
 
   const handleDeleteCard = async () => {
     try {
-      const res = await axiosAuthInstance.delete(`cards/${cardId}`);
+      const res = await axiosAuthInstance('').delete(`cards/${cardId}`);
       if (res.status === 204) {
         notify({ type: 'success', text: '카드가 삭제되었습니다!' });
       }

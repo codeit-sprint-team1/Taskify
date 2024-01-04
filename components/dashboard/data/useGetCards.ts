@@ -5,7 +5,7 @@ import { Card } from '@/types/cards';
 
 export default function useGetCards(id: number) {
   const getDashboards = useCallback(
-    () => axiosAuthInstance.get(`cards?size=1000&columnId=${id}`),
+    () => axiosAuthInstance('').get(`cards?size=1000&columnId=${id}`),
     []
   );
 

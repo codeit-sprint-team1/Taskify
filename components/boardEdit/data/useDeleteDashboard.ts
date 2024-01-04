@@ -7,7 +7,7 @@ interface UseDeleteDashboardProps {
 
 function useDeleteDashboard({ boardid }: UseDeleteDashboardProps) {
   const deleteDashboard = () =>
-    axiosAuthInstance.delete(`dashboards/${boardid}`);
+    axiosAuthInstance('').delete(`dashboards/${boardid}`);
 
   const { execute, error, loading, data, status } = useAsync(
     deleteDashboard,

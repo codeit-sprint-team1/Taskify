@@ -6,7 +6,7 @@ import { Invitations } from '@/types/invitations';
 const usePostInvitations = (dashboardId: string, email: string) => {
   const postDashboards = useCallback(
     () =>
-      axiosAuthInstance.post<Invitations>(
+      axiosAuthInstance('').post<Invitations>(
         `dashboards/${dashboardId}/invitations`,
         {
           email,

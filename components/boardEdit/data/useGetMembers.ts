@@ -38,7 +38,7 @@ function useGetMembers({ boardid, page, size }: useGetMembersProps) {
   };
 
   const getMembers = () =>
-    axiosAuthInstance.get(
+    axiosAuthInstance('').get(
       `members?page=${page}&size=${size}&dashboardId=${boardid}`
     );
   const { execute, error, loading, data } = useAsync(getMembers, false, page);

@@ -6,7 +6,7 @@ interface UseGetDashboardProps {
 }
 
 function useGetDashboard({ boardid }: UseGetDashboardProps) {
-  const getDashboard = () => axiosAuthInstance.get(`dashboards/${boardid}`);
+  const getDashboard = () => axiosAuthInstance('').get(`dashboards/${boardid}`);
 
   const { execute, loading, error, data } = useAsync(getDashboard);
 
