@@ -73,7 +73,7 @@ function TodoModal({
 
   return (
     <Modal isOpen={isOpen} onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-24pxr max-h-760pxr mobile:h-700pxr  overflow-scroll">
+      <div className="flex flex-col gap-24pxr max-h-[calc(100vh-100px)] mobile:h-700pxr  overflow-scroll">
         <div className="flex justify-between items-center mobile:flex-col-reverse">
           <Modal.Title>{title}</Modal.Title>
           <div className="flex gap-24pxr mobile:self-end">
