@@ -14,7 +14,7 @@ import { Members } from '@/types/members';
 
 interface DropdownManagerProps {
   value?: string;
-  onChange?: (value: number) => void;
+  onChange?: (value: number | null) => void;
   dashboardId: number;
 }
 
@@ -42,6 +42,17 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setInternalValue(newValue);
+
+      if (newValue === '') {
+        if (externalOnChange) externalOnChange(null);
+      } else {
+        const selectedMember = members.find(
+          (member) => member.nickname === newValue
+        );
+        if (selectedMember && externalOnChange) {
+          externalOnChange(selectedMember.userId);
+        }
+      }
     };
 
     const handleBlur = () => {
