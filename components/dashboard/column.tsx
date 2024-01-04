@@ -109,7 +109,6 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
   const { cards, totalCount, execute: getCards } = useGetCards(data.id);
   const { isOn, toggle } = useToggle(false);
   const [searchValue, setSearchValue] = useState('');
-  console.log(cards);
   let filterCards = filter();
 
   function filter() {
