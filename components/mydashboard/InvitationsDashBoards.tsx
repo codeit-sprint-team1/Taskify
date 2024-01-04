@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import useGetInvitations from './data/useGetInvitations';
 import usePutInvitations from './data/usePutInvitations';
+import { useStoreAccessToken } from '@/store/memos';
 
 function InvitationsList({
   item,
@@ -19,8 +20,17 @@ function InvitationsList({
   data: Invitations[];
   index: number;
 }) {
-  const { execute: Accept } = usePutInvitations(true, item.id);
-  const { execute: Refuse } = usePutInvitations(false, item.id);
+  const { accessToken: token } = useStoreAccessToken();
+  const { execute: Accept } = usePutInvitations({
+    inviteAccepted: true,
+    id: item.id,
+    token,
+  });
+  const { execute: Refuse } = usePutInvitations({
+    inviteAccepted: false,
+    id: item.id,
+    token,
+  });
   function acceptInvitation() {
     data.splice(index, 1);
     setData(data);
@@ -114,7 +124,8 @@ function InvitationsNotValid() {
 }
 
 export default function InvitationsDashBoards() {
-  const { invitations } = useGetInvitations();
+  const { accessToken } = useStoreAccessToken();
+  const { invitations } = useGetInvitations(accessToken);
   const [data, setData] = useState(invitations);
 
   useEffect(() => setData(invitations), [invitations]);

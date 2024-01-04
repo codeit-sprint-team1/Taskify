@@ -9,11 +9,12 @@ import {
 import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin } from '../data';
-import { useUserInfo } from '@/store/memos';
+import { useUserInfo, useStoreAccessToken } from '@/store/memos';
 import { useRouter } from 'next/router';
 
 export default function LoginForm() {
   const { setUserInfo } = useUserInfo();
+  const { setAccessToken } = useStoreAccessToken();
   const {
     control,
     handleSubmit,
@@ -46,6 +47,7 @@ export default function LoginForm() {
   useEffect(() => {
     if (data?.user) {
       setUserInfo(data?.user);
+      setAccessToken(data?.accessToken);
       localStorage.setItem('accessToken', data?.accessToken);
       router.push('/mydashboard');
     }

@@ -1,14 +1,16 @@
+import { axiosInstance } from '@/utils';
+import { useCallback } from 'react';
 import { useAsync } from '@/hooks/useAsync';
 import { Members } from '@/types/members';
-import { axiosAuthInstance } from '@/utils';
 
 interface useGetMembersProps {
-  boardid: number;
   page: number;
   size: number;
+  boardid: number;
+  token: string | null;
 }
 
-function useGetMembers({ boardid, page, size }: useGetMembersProps) {
+const useGetMembers = ({ page, size, boardid, token }: useGetMembersProps) => {
   const mapMembersData = (members?: Members[]): Members[] => {
     if (!members) return [];
 
@@ -37,21 +39,27 @@ function useGetMembers({ boardid, page, size }: useGetMembersProps) {
     });
   };
 
-  const getMembers = () =>
-    axiosAuthInstance.get(
-      `members?page=${page}&size=${size}&dashboardId=${boardid}`
-    );
-  const { execute, error, loading, data } = useAsync(getMembers, false, page);
+  const getMembers = useCallback(
+    () =>
+      axiosInstance.get(
+        `members?page=${page}&size=${size}&dashboardId=${boardid}`,
+        {
+          baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ),
+    [token, boardid]
+  );
+
+  const { execute, loading, error, data, status } = useAsync(getMembers, false);
+
   const members = mapMembersData(data?.members);
   const totalCount = data?.totalCount;
 
-  return {
-    execute,
-    error,
-    loading,
-    data: members,
-    totalCount,
-  };
-}
+  return { execute, loading, error, members, totalCount, status };
+};
 
 export default useGetMembers;
