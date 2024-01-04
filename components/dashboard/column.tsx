@@ -1,21 +1,21 @@
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { DateTime } from 'ts-luxon';
+import { Card } from '@/types/cards';
+import { Columns } from '@/types/columns';
+import useToggle from '@/hooks/useToggle';
 import calIcon from '../../public/icons/boards/calendar.svg';
 import dotIcon from '../../public/icons/boards/card-dot.svg';
 import settingIcon from '../../public/icons/boards/card-desktop-settings.svg';
 import plusIcon from '../../public/icons/boards/plus.svg';
-import Image from 'next/image';
-import { Card } from '@/types/cards';
-import { useRouter } from 'next/router';
+import searchIcon from '../../public/icons/search-icon.svg';
 import useGetColum from './data/useGetColums';
 import useGetCards from './data/useGetCards';
-import useToggle from '@/hooks/useToggle';
 import { CreateColumnModal } from '..';
-import { useEffect, useState } from 'react';
-import { Columns } from '@/types/columns';
-import { DateTime } from 'ts-luxon';
-import { EditColumnModal } from '../index';
-import searchIcon from '../../public/icons/search-icon.svg';
 import CreateCardModal from '../modal/create-card/CreateCardModal';
-
+import { Tag, EditColumnModal } from '../index';
+import { useStoreAccessToken } from '@/store/memos';
 interface CardAddProps {
   dashboardId: number;
   columnId: number;
@@ -50,7 +50,7 @@ function Card({ card }: { card: Card }) {
   return (
     <div className=" bg-white flex flex-col p-20pxr rounded-md gap-10pxr tablet:gap-20pxr border-solid border border-gray30 tablet:flex-row tablet:justify-center tablet:items-center">
       {card.imageUrl && (
-        <div className="relative w-full h-160pxr tablet:w-90pxr bg-gray10 rounded-md">
+        <div className="relative w-full h-160pxr tablet:h-53pxr tablet:w-90pxr bg-gray10 rounded-md">
           <Image src={card.imageUrl} alt="cardImg" fill objectFit="contain" />
         </div>
       )}
@@ -58,9 +58,9 @@ function Card({ card }: { card: Card }) {
         <div className="text-gray70 font-medium">{card.title}</div>
         <div className="flex-center justify-between">
           <div className="flex flex-col gap-10pxr tablet:flex-row">
-            <div className="flex">
-              {card.tags.map((item) => (
-                <div>{item}</div>
+            <div className="flex gap-6pxr">
+              {card.tags.map((item, index) => (
+                <Tag tag={item} />
               ))}
             </div>
             <div className="flex-center gap-6pxr text-gray50 text-12pxr font-medium">
@@ -105,17 +105,30 @@ function ColumnTitle({
 }
 
 function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
-  const { cards, totalCount, execute: getCards } = useGetCards(data.id);
+  const { accessToken } = useStoreAccessToken();
+  const {
+    cards,
+    totalCount,
+    execute: getCards,
+  } = useGetCards({ id: data.id, accessToken });
   const { isOn, toggle } = useToggle(false);
   const [searchValue, setSearchValue] = useState('');
-  const filterCards =
-    cards &&
-    cards.filter((card) =>
-      card.tags.some((item) => item.includes(searchValue))
-    );
+  let filterCards = filter();
+
+  function filter() {
+    if (searchValue === '') {
+      return cards;
+    }
+    if (cards) {
+      return cards.filter((card) =>
+        card.tags.some((item) => item.includes(searchValue))
+      );
+    }
+  }
+
   return (
     <>
-      <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr pt-20pxr bg-gray10 gap-20pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
+      <div className="flex flex-col shrink-0 w-354pxr h-full overflow-scroll px-20pxr py-20pxr bg-gray10 gap-20pxr border-solid border border-gray20 tablet:w-full tablet:h-auto mobile:w-full mobile:h-auto">
         <ColumnTitle
           title={data.title}
           totalCount={totalCount}
@@ -129,7 +142,7 @@ function Column({ data, getColum }: { data: Columns; getColum: () => void }) {
             onChange={(event) => setSearchValue(event.target.value)}
           />
         </div>
-        <div className="flex flex-col gap-15pxr h-full overflow-scroll">
+        <div className="flex flex-col gap-15pxr h-full overflow-scroll rounded-md">
           <CardAdd
             dashboardId={data?.dashboardId}
             columnId={data.id}
@@ -170,14 +183,15 @@ function ColumnAdd({ getColum }: { getColum: () => void }) {
 }
 
 export default function ColumnList() {
+  const { accessToken } = useStoreAccessToken();
   const router = useRouter();
   const currentId = router.query['id'] as string | undefined;
   const id = Number(currentId);
-  const { execute: getColum, columns } = useGetColum(id);
+  const { execute: getColum, columns } = useGetColum({ id, accessToken });
 
   useEffect(() => {
     getColum();
-  }, [id]);
+  }, [id, accessToken]);
 
   return (
     <div className="bg-gray10 h-full w-full flex overflow-scroll tablet:flex-col mobile:flex-col">

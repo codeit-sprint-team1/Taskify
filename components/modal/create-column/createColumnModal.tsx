@@ -1,5 +1,5 @@
 import { Modal } from '@/components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import usePostColumns from '../data/usePostColumns';
 import { useRouter } from 'next/router';

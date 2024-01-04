@@ -1,28 +1,37 @@
 import { useAsync } from '@/hooks/useAsync';
-import { axiosAuthInstance } from '@/utils';
+import { axiosInstance } from '@/utils';
 import { useCallback } from 'react';
 import { Dashboards } from '@/types/dashboards';
 
-const useGetDashboards = () => {
+const useGetDashboards = (token: string | null) => {
   const getDashboards = useCallback(
     () =>
-      axiosAuthInstance.get(
-        `dashboards?navigationMethod=infiniteScroll&page=1&size=100`
-        //불러오는 목록 size, 무한스크롤 구현하면서 바꾸기
+      axiosInstance.get(
+        `dashboards?navigationMethod=pagination&page=1&size=10000`,
+        {
+          baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
       ),
-    []
+    [token]
   );
 
   const { execute, loading, error, data } = useAsync(getDashboards, false);
 
   const totalCount: number = data?.totalCount;
   const dashboards: Dashboards[] = data?.dashboards;
+  const totalPage = Math.ceil(totalCount / 5);
 
   return {
+    execute,
     loading,
     error,
     totalCount,
     dashboards,
+    totalPage,
   };
 };
 

@@ -1,60 +1,68 @@
 import { ImagePick, Input, Modal, SelectDate, TextArea } from '@/components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
 import { DevTool } from '@hookform/devtools';
-import usePostCard from '../data/usePostCard';
+import usePutCard from './data/usePutCard';
+import DropdownState from '../DropdownState';
+import { Columns } from '@/types/columns';
+import { Card } from '@/types/cards';
 
 export interface ModalProps {
   isOpen: boolean;
   onCancel: () => void;
-  dashboardId: number;
-  columnId: number;
-  getCards: () => void;
+  card: Card;
+  state: Columns;
+  states: Columns[];
 }
 
-export interface CreateCardModalForm {
+export interface EditCardModalForm {
   manager: string;
   title: string;
   description: string;
   dueDate: string | null;
   imageUrl: string | null;
   tags: string[];
-  assigneeUserId: number;
+  assigneeUserId: number | null;
   dashboardId: number;
   columnId: number;
+  states: Columns[];
 }
 
-export default function CreateCardModal({
+export default function EditCardModal({
   isOpen,
   onCancel,
-  dashboardId,
-  columnId,
-  getCards,
+  card,
+  states,
+  state,
 }: ModalProps) {
+  const [selectedStateId, setSelectedStateId] = useState<number>(0);
   const defaultValues = {
-    title: '',
-    manager: '',
-    description: '',
-    dueDate: '',
-    imageUrl: '',
-    tags: [],
+    title: card?.title,
+    manager: card?.assignee.nickname,
+    description: card?.description,
+    dueDate: card?.dueDate,
+    imageUrl: card?.imageUrl,
+    tags: card?.tags,
+    assigneeUserId: card?.assignee?.id,
+    dashboardId: card?.dashboardId,
+    columnId: state?.id,
+    cardId: card?.id,
   };
+
   const {
     control,
     handleSubmit,
     watch,
     reset,
     setValue,
-    formState: { errors },
-  } = useForm<CreateCardModalForm>({
+    formState: { isValid, errors },
+  } = useForm<EditCardModalForm>({
     defaultValues,
     mode: 'onChange',
   });
-
-  const assigneeUserId = Number(watch('manager'));
 
   const handleImageSelect = (imageUrl: string) => {
     setValue('imageUrl', imageUrl);
@@ -64,43 +72,32 @@ export default function CreateCardModal({
     setValue('tags', newTagList);
   };
 
+  const handleStateChange = (newStateId: number) => {
+    setSelectedStateId(newStateId);
+  };
+
   const handleCancel = () => {
     reset();
     onCancel();
   };
 
-  const isFormFullyFilled = () => {
-    const formValues = watch();
-    return (
-      Object.keys(defaultValues) as Array<keyof CreateCardModalForm>
-    ).every((key) => {
-      const value = formValues[key];
-      if (Array.isArray(value)) {
-        return value.length > 0;
-      } else {
-        return value !== null && value !== '';
-      }
-    });
-  };
-
   const {
-    execute: postCard,
-    data: response,
+    execute: putCard,
+    data,
     loading,
-  } = usePostCard({
-    assigneeUserId: assigneeUserId,
-    dashboardId,
-    columnId,
+  } = usePutCard({
+    assigneeUserId: watch('assigneeUserId'),
     title: watch('title'),
     description: watch('description'),
     dueDate: watch('dueDate')?.toString(),
     imageUrl: watch('imageUrl'),
     tags: watch('tags'),
+    cardId: card.id,
+    columnId: selectedStateId,
   });
 
   const onSubmit = async () => {
-    await postCard();
-    getCards();
+    await putCard();
     handleCancel();
   };
 
@@ -111,21 +108,37 @@ export default function CreateCardModal({
       classNames="w-506pxr"
     >
       <div className="max-h-[90vh] overflow-y-auto flex flex-col gap-20pxr">
-        <Modal.Title>할 일 생성</Modal.Title>
+        <Modal.Title>할 일 수정</Modal.Title>
         <div className="flex flex-col gap-32pxr ">
-          <div className="w-217pxr mobile:w-287pxr">
-            <Controller
-              control={control}
-              name="manager"
-              rules={{ required: true }}
-              render={({ field: { ref, ...rest } }) => (
-                <DropdownManager
-                  ref={ref}
-                  {...rest}
-                  dashboardId={dashboardId}
-                />
-              )}
-            />
+          <div className="flex flex-row justify-between mobile:flex-col mobile:gap-24pxr">
+            <div className="w-217pxr mobile:w-287pxr">
+              <Controller
+                control={control}
+                name="states"
+                render={({ field: { ref, ...rest } }) => (
+                  <DropdownState
+                    ref={ref}
+                    {...rest}
+                    initialState={state.title}
+                    states={states}
+                    onChange={handleStateChange}
+                  />
+                )}
+              />
+            </div>
+            <div className="w-217pxr mobile:w-287pxr">
+              <Controller
+                control={control}
+                name="manager"
+                render={({ field: { ref, ...rest } }) => (
+                  <DropdownManager
+                    ref={ref}
+                    {...rest}
+                    dashboardId={card.dashboardId}
+                  />
+                )}
+              />
+            </div>
           </div>
 
           <Controller
@@ -153,7 +166,6 @@ export default function CreateCardModal({
           <Controller
             control={control}
             name="dueDate"
-            rules={{ required: true }}
             render={({ field: { ref, ...rest } }) => (
               <SelectDate {...rest} label="마감일" />
             )}
@@ -161,29 +173,24 @@ export default function CreateCardModal({
           <Controller
             control={control}
             name="imageUrl"
-            rules={{ required: true }}
             render={({ field: { ref, ...rest } }) => (
               <ImagePick
                 ref={ref}
                 {...rest}
                 onSelectImage={handleImageSelect}
                 label="이미지"
-                columnId={columnId}
+                columnId={state?.id}
               />
             )}
           />
           <Controller
             control={control}
             name="tags"
-            rules={{ required: true }}
             render={() => <AddTag onTagListChange={onTagListChange} />}
           />
         </div>
-        <ModalButton
-          disabled={Object.keys(errors).length !== 0 || !isFormFullyFilled()}
-          onCancel={handleCancel}
-        >
-          생성
+        <ModalButton disabled={!isValid || loading} onCancel={handleCancel}>
+          수정
         </ModalButton>
       </div>
     </Modal>

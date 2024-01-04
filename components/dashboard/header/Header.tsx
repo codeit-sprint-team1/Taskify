@@ -29,6 +29,7 @@ export default function Header({ dashboard, children }: HeaderProps) {
   const { isOn, ref, toggle } = useOnClickOutside();
 
   useEffect(() => {
+    if (userInfo === null) return;
     setNickname(userInfo.nickname);
     setProfileImage(userInfo.profileImageUrl);
   }, []);
