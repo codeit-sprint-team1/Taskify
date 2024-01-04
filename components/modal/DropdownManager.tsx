@@ -142,27 +142,33 @@ const DropdownManager = forwardRef<HTMLInputElement, DropdownManagerProps>(
             존재하지 않는 멤버입니다
           </p>
         )}
-        <ul ref={dropdownRef} className="max-h-180pxr overflow-y-auto">
-          {isOpen &&
-            filteredMembers.map((member) => (
-              <li key={member.id}>
-                <button
-                  className="block w-full hover:border hover:border-gray40 hover:rounded-md tablet:text-16pxr mobile:text-14pxr text-gray70 placeholder:text-gray40  "
-                  onClick={() => handleMemberClick(member)}
-                  tabIndex={0}
-                >
-                  <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
-                    <ProfileImage
-                      src={member.profileImageUrl}
-                      name={member.nickname}
-                      size="sm"
-                    />
-                    {member.nickname}
-                  </div>
-                </button>
-              </li>
-            ))}
-        </ul>
+        <div className="relative">
+          {isOpen && (
+            <ul
+              ref={dropdownRef}
+              className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr"
+            >
+              {filteredMembers.map((member) => (
+                <li key={member.id}>
+                  <button
+                    className="w-full text-left px-10pxr py-5pxr rounded-md hover:bg-violet8 tablet:text-16pxr mobile:text-14pxr"
+                    onClick={() => handleMemberClick(member)}
+                    tabIndex={0}
+                  >
+                    <div className="flex items-center gap-6pxr pl-10pxr p-5pxr ">
+                      <ProfileImage
+                        src={member.profileImageUrl}
+                        name={member.nickname}
+                        size="sm"
+                      />
+                      {member.nickname}
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     );
   }
