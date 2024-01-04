@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import ColorChips from '../common/ColorChips';
-import { Button, Input } from '..';
+import { Button, EditColorChips, Input } from '..';
 import usePutDashboard from './data/usePutDashboard';
 import { Dashboards } from '@/types/dashboards';
 import { useDashboardList } from '@/store/memos';
@@ -57,7 +56,7 @@ function NameEditForm({
     <div className="space-y-24pxr p-30pxr">
       <div className="flex justify-between">
         <h1 className="font-bold text-20pxr">{dashboardTitle}</h1>
-        <ColorChips onSelect={onSelect} />
+        <EditColorChips onSelect={onSelect} />
       </div>
       <form className="flex flex-col">
         <Input
