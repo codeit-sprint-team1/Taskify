@@ -57,7 +57,7 @@ const DropdownState = forwardRef<HTMLInputElement, DropdownStateProps>(
           </div>
           <div className="relative">
             {isOpen && (
-              <ul className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr">
+              <ul className="absolute right-0pxr mt-10pxr w-217pxr border border-2pxr border-gray30 rounded-lg p-8pxr bg-white tablet:text-16pxr mobile:text-14pxr z-10">
                 {states?.map((state) => (
                   <li key={state.id}>
                     <button
