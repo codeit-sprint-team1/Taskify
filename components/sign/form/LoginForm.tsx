@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { Button, PasswordInput, Input } from '@/components';
 import { useLogin, useTokenRedirect } from '../data';
 import { useUserInfo } from '@/store/memos';
+import { axiosAuthInstance } from '@/utils';
 
 export default function LoginForm() {
   const { setUserInfo } = useUserInfo();
@@ -39,6 +40,12 @@ export default function LoginForm() {
       setUserInfo(data?.user);
     }
   }, [data?.user, setUserInfo]);
+
+  useEffect(() => {
+    if (data?.accessToken) {
+      axiosAuthInstance.defaults.headers.Authorization = `Bearer ${data.accessToken}`;
+    }
+  }, [data?.accessToken]);
 
   useEffect(() => {
     if (error) {
