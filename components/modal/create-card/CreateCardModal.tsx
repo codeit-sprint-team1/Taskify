@@ -5,7 +5,7 @@ import { ModalButton } from '@/components';
 import DropdownManager from '../DropdownManager';
 import AddTag from '../edit-card/AddTag';
 import { DevTool } from '@hookform/devtools';
-import usePostCard from './data/usePostCard';
+import usePostCard from '../data/usePostCard';
 
 export interface ModalProps {
   isOpen: boolean;

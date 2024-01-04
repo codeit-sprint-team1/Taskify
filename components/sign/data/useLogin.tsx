@@ -18,12 +18,6 @@ function useLogin({ email, password }: UseLoginParams) {
   );
   const { execute, loading, error, data } = useAsync(Login, true);
 
-  useEffect(() => {
-    if (data?.accessToken) {
-      localStorage.setItem('accessToken', data.accessToken);
-    }
-  }, [data?.accessToken]);
-
   return {
     execute,
     loading,

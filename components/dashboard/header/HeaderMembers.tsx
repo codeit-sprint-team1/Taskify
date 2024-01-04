@@ -3,6 +3,7 @@ import useGetMembers from '@/components/boardEdit/data/useGetMembers';
 import { useEffect, useState } from 'react';
 import { Members } from '@/types/members';
 import MemberInfoItem from './MemberInfoItem';
+import { useStoreAccessToken } from '@/store/memos';
 interface HeaderMembersProps {
   dashboardId: number;
 }
@@ -34,20 +35,22 @@ export default function HeaderMembers({ dashboardId }: HeaderMembersProps) {
   const [profileMembers, setProfileMembers] = useState<Members[] | null>(null);
   const [restMembers, setRestMembers] = useState<Members[] | null>(null);
   const [numberToMap, setNumberToMap] = useState(5);
+  const { accessToken } = useStoreAccessToken();
 
   const {
     execute: getMembers,
     totalCount,
-    data: members,
+    members,
   } = useGetMembers({
     boardid: dashboardId,
     page: 1,
     size: 1000,
+    token: accessToken,
   });
 
   useEffect(() => {
     getMembers();
-  }, [dashboardId]);
+  }, [accessToken, dashboardId]);
 
   useEffect(() => {
     if (window.innerWidth < 1023) {

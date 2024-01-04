@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import useToggle from '@/hooks/useToggle';
 import { Modal, ModalButton, DeleteColumnConfirmModal } from '@/components';
-import usePutColumns from '@/components/dashboard/data/usePutColumns';
+import usePutColumns from '@/components/modal/data/usePutColumns';
 import { notify } from '@/components/common/Toast';
 import { ModalProps } from '../create-dashboard/CreateDashboardModal';
 
