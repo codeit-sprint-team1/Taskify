@@ -12,17 +12,14 @@ import BoardEditLayout from '@/page-layout/BoardEditLayout';
 import useGetDashboard from './data/useGetDashboard';
 import useToggle from '@/hooks/useToggle';
 import { useRouter } from 'next/router';
-import { useStoreAccessToken } from '@/store/memos';
 
 interface BoardEditMainProps {
   boardid: number;
 }
 
 function BoardEditMain({ boardid }: BoardEditMainProps) {
-  const { accessToken: token } = useStoreAccessToken();
   const { execute: getDashboard, data: dashboard } = useGetDashboard({
     boardid,
-    token,
   });
   const { isOn, toggle } = useToggle();
   const dashboardTitle = dashboard?.title;

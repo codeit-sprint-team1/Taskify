@@ -1,22 +1,15 @@
 import { useAsync } from '@/hooks/useAsync';
 import { DashboardsInvitation } from '@/types/dashboards';
 import { InvitationsRawData } from '@/types/invitations';
-import { axiosInstance } from '@/utils';
-import { useCallback } from 'react';
+import { axiosAuthInstance } from '@/utils';
 
 interface useGetInvitationsProps {
   boardid: number;
   page: number;
   size: number;
-  token: string | null;
 }
 
-function useGetDashboardInvitaions({
-  boardid,
-  page,
-  size,
-  token,
-}: useGetInvitationsProps) {
+function useGetInvitaions({ boardid, page, size }: useGetInvitationsProps) {
   const mapInvitationsData = (invitations?: InvitationsRawData) => {
     if (!invitations) return;
 
@@ -33,20 +26,10 @@ function useGetDashboardInvitaions({
     });
   };
 
-  const getInvitaions = useCallback(
-    () =>
-      axiosInstance.get<DashboardsInvitation>(
-        `dashboards/${boardid}/invitations?page=${page}&size=${size}`,
-        {
-          baseURL: 'https://sp-taskify-api.vercel.app/1-1/',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      ),
-    [token]
-  );
+  const getInvitaions = () =>
+    axiosAuthInstance.get<DashboardsInvitation>(
+      `dashboards/${boardid}/invitations?page=${page}&size=${size}`
+    );
 
   const { execute, error, loading, data, setData } = useAsync(
     getInvitaions,
@@ -62,4 +45,4 @@ function useGetDashboardInvitaions({
   };
 }
 
-export default useGetDashboardInvitaions;
+export default useGetInvitaions;

@@ -11,12 +11,11 @@ export interface userInfoType {
 }
 
 interface UserInfoState {
-  userInfo: userInfoType | null;
+  userInfo: userInfoType;
 }
 
 interface UserInfoActions {
   setUserInfo: (userinfo: userInfoType) => void;
-  clearUserInfo: () => void;
 }
 
 const defaultState = {
@@ -31,15 +30,10 @@ const defaultState = {
 const useUserInfo = create(
   persist<UserInfoState & UserInfoActions>(
     (set) => ({
-      userInfo: null,
+      userInfo: defaultState,
       setUserInfo: (newUserInfo: userInfoType) => {
         set({
           userInfo: newUserInfo,
-        });
-      },
-      clearUserInfo: () => {
-        set({
-          userInfo: null,
         });
       },
     }),

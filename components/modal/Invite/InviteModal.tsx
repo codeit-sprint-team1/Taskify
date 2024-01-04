@@ -5,6 +5,7 @@ import { ERROR_MESSAGE, VALID_EMAIL_REG } from '@/components/sign/constants';
 import usePostInvitations from '../data/usePostInvitations';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { Invitations } from '@/types/invitations';
 import { notify } from '@/components/common/Toast';
 
 export interface InviteModalForm {
