@@ -9,10 +9,11 @@ interface FormValues {
 
 interface AddTagProps {
   onTagListChange: (tags: string[]) => void;
+  addedTags?: string[];
 }
 
-const AddTag = ({ onTagListChange }: AddTagProps) => {
-  const [tagList, setTagList] = useState<string[]>([]);
+const AddTag = ({ onTagListChange, addedTags }: AddTagProps) => {
+  const [tagList, setTagList] = useState(addedTags ? addedTags : []);
 
   const {
     control,

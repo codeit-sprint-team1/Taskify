@@ -179,13 +179,16 @@ export default function EditCardModal({
                 onSelectImage={handleImageSelect}
                 label="이미지"
                 columnId={state?.id}
+                selectedImageUrl={card.imageUrl}
               />
             )}
           />
           <Controller
             control={control}
             name="tags"
-            render={() => <AddTag onTagListChange={onTagListChange} />}
+            render={() => (
+              <AddTag onTagListChange={onTagListChange} addedTags={card.tags} />
+            )}
           />
         </div>
         <ModalButton disabled={!isValid || loading} onCancel={handleCancel}>

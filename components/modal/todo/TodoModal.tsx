@@ -76,6 +76,11 @@ function TodoModal({
     }
   };
 
+  const handleCloseTodoModal = () => {
+    toggle();
+    onCancel();
+  };
+
   const handleOpenEditCardModal = () => {
     toggle();
     onCancel();
@@ -108,7 +113,7 @@ function TodoModal({
                   />
                 )}
               </div>
-              <button type="button" onClick={onCancel}>
+              <button type="button" onClick={handleCloseTodoModal}>
                 <Image
                   src={closeIcon}
                   alt="취소 아이콘"
