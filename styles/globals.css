@@ -8,6 +8,31 @@
     font-size: 16px;
     font-weight: 400;
     color: #000000;
+    height: 100%;
+    min-height: 100%;
+  }
+}
+
+body {
+  -ms-overflow-style: none; /* IE and 엣지 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+@layer components {
+  .flex-center {
+    @apply flex flex-row justify-center items-center;
+  }
+  .flex-col-center {
+    @apply flex flex-col justify-center items-center;
+  }
+  .lending-middle-card {
+    @apply flex flex-col justify-between rounded-lg bg-violet8 pt-60pxr desktop:pt-100pxr w-1200pxr h-600pxr tablet:w-664pxr tablet:h-972pxr mobile:w-343pxr mobile:h-686pxr;
+  }
+  .react-datepicker {
+    @apply flex;
   }
 }
 
